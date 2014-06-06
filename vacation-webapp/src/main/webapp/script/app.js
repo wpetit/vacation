@@ -1,7 +1,7 @@
 var app = angular.module('vacations', [ 'ngGrid', 'ui.bootstrap' ]);
 
-// Create a controller with name vacationsController to bind to the html page.
-app.controller('vacationsController', function($scope, vacationsService) {
+// Create a controller with name VacationsCtrl to bind to the html page.
+app.controller('VacationsCtrl', function($scope, vacationsService) {
 	// Refresh the grid, calling the appropriate service method.
 	$scope.refreshGrid = function(page) {
 		vacationsService
@@ -40,7 +40,7 @@ app.service('vacationsService', function($http) {
 });
 
 // Create a controller with name vacationsController to bind to the html page.
-app.controller('authenticationController', function($scope,
+app.controller('AuthenticationCtrl', function($scope, $log,
 		authenticationService) {
 
 	$scope.hasNotification = false;
@@ -50,6 +50,7 @@ app.controller('authenticationController', function($scope,
 		authenticationService.authenticate($scope.username, $scope.password)
 				.success(function(authenticationResult) {
 					$scope.hasNotification = true;
+					$log.log("Authentication result: " + authenticationResult);
 					if (authenticationResult == "true") {
 						$scope.notification = "Authentication succeed.";
 					} else {
