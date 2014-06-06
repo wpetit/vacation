@@ -42,36 +42,41 @@ app.service('vacationsService', function($http) {
 // Create a controller with name vacationsController to bind to the html page.
 app.controller('authenticationController', function($scope,
 		authenticationService) {
-	// Refresh the grid, calling the appropriate service method.
+
+	$scope.hasNotification = false;
+	$scope.notification = "";
+	// Call the authentication service.
 	$scope.login = function() {
-		authenticationService.authenticate($scope.username, $scope.password).success(function() {
-			$scope.username = "success";
-		}).error(function() {
-		});
+		authenticationService.authenticate($scope.username, $scope.password)
+				.success(function(authenticationResult) {
+					$scope.hasNotification = true;
+					if (authenticationResult == "true") {
+						$scope.notification = "Authentication succeed.";
+					} else {
+						$scope.notification = "Authentication failed.";
+					}
+				});
 	};
 
 });
 
 // Service that provides authentication operations
-app
-		.service(
-				'authenticationService',
-				function($http) {
-					this.authenticate = function(login, password) {
-//						var xsrf = $.param({username: login, password : password});
-//						return $http({
-//						    method: 'POST',
-//						    url: 'rest/authentication',
-//						    data: xsrf,
-//						    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-//						});
-						return $http
-								.post(
-										'rest/authentication',  $.param({username: login, password : password}),
-										{
-											headers : {
-												'Content-Type' : 'application/x-www-form-urlencoded'
-											}
-										});
-					}
-				});
+app.service('authenticationService', function($http) {
+	this.authenticate = function(login, password) {
+		// var xsrf = $.param({username: login, password : password});
+		// return $http({
+		// method: 'POST',
+		// url: 'rest/authentication',
+		// data: xsrf,
+		// headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		// });
+		return $http.post('rest/authentication', $.param({
+			username : login,
+			password : password
+		}), {
+			headers : {
+				'Content-Type' : 'application/x-www-form-urlencoded'
+			}
+		});
+	}
+});
