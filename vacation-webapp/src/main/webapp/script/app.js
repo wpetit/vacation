@@ -40,26 +40,30 @@ app.service('vacationsService', function($http) {
 });
 
 // Create a controller with name vacationsController to bind to the html page.
-app.controller('AuthenticationCtrl', function($scope, $log,
-		authenticationService) {
+app
+		.controller(
+				'AuthenticationCtrl',
+				function($scope, $log, authenticationService) {
 
-	$scope.hasNotification = false;
-	$scope.notification = "";
-	// Call the authentication service.
-	$scope.login = function() {
-		authenticationService.authenticate($scope.username, $scope.password)
-				.success(function(authenticationResult) {
-					$scope.hasNotification = true;
-					$log.log("Authentication result: " + authenticationResult);
-					if (authenticationResult == "true") {
-						$scope.notification = "Authentication succeed.";
-					} else {
-						$scope.notification = "Authentication failed.";
-					}
+					$scope.authenticationFailed = false;
+					$scope.notification = "";
+					// Call the authentication service.
+					$scope.login = function() {
+						authenticationService
+								.authenticate($scope.username, $scope.password)
+								.success(
+										function(authenticationResult) {
+											$scope.authenticationFailed = (authenticationResult == "false");
+											$log
+													.log("Authentication result: "
+															+ $scope.authenticationFailed);
+											if ($scope.authenticationFailed) {
+												$scope.notification = "Authentication failed.";
+											}
+										});
+					};
+
 				});
-	};
-
-});
 
 // Service that provides authentication operations
 app.service('authenticationService', function($http) {
