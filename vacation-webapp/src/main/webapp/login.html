@@ -22,8 +22,8 @@
 
 	<div class="row">
 
-		<div class="col-md-7">
-			<form class="form-horizontal"  ng-controller="authenticationController">
+		<div class="col-md-10">
+			<form class="form-horizontal"  ng-controller="authenticationController" ui-keypress="{13:'login()'}">
 				<div class="form-group">
 					<label for="username" class="col-sm-4 control-label">User
 						Name:</label>
@@ -41,26 +41,12 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-8 col-sm-offset-3">
-						<div class="checkbox">
-							<label> <input type="checkbox" ng-model="rememberMe">
-								Remember me
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-8 col-sm-offset-3">
 						<input type="submit" value="Log In" class="btn btn-primary"
 							ng-click="login()" />
 					</div>
 				</div>
 			</form>
 		</div>
-
-<!-- 		<div class="col-md-6"> -->
-<!-- 			<p class="alert alert-info">Login with either user:user to read -->
-<!-- 				entries or with admin:admin to read and edit entries.</p> -->
-<!-- 		</div> -->
 
 	</div>
 
