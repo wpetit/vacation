@@ -13,7 +13,8 @@
 		    default-target-url="/index.html" 
 			authentication-failure-url="/login.html?error" 
 			username-parameter="username"
-			password-parameter="password" />
+			password-parameter="password" 
+			/>
 		<logout logout-success-url="/login.html?logout" />
 	</http>
  
