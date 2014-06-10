@@ -1,6 +1,6 @@
 package com.min.vacation.webapp.service;
 
-import com.min.vacation.webapp.model.SortType;
+import com.min.vacation.business.model.SortType;
 
 /**
  * The {@link ServiceUtils} class.

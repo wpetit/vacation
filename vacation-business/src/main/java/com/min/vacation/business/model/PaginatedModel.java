@@ -1,4 +1,4 @@
-package com.min.vacation.webapp.model;
+package com.min.vacation.business.model;
 
 import java.util.List;
 

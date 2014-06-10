@@ -1,21 +1,20 @@
-package com.min.vacation.webapp.dao;
+package com.min.vacation.business.dao;
 
 import java.util.Arrays;
 import java.util.Date;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import com.min.vacation.webapp.model.PaginatedModel;
-import com.min.vacation.webapp.model.SortType;
-import com.min.vacation.webapp.model.Vacation;
+import com.min.vacation.business.model.PaginatedModel;
+import com.min.vacation.business.model.SortType;
+import com.min.vacation.business.model.Vacation;
 
 /**
  * The {@link VacationDao} class.
  * 
  * @author WPETIT
- * 
  */
-@Component
+@Repository
 public class VacationDao {
     /**
      * Return <pageSize> vacation from the startIndex.
@@ -26,8 +25,9 @@ public class VacationDao {
      *            the pageSize.
      * @return vacations found
      */
-    public PaginatedModel<Vacation> findAll(final int startIndex, final int pageSize,
-            final String sortAttribute, final SortType sortType) {
+    public PaginatedModel<Vacation> findAll(final int startIndex,
+            final int pageSize, final String sortAttribute,
+            final SortType sortType) {
         Vacation vacation = new Vacation();
         vacation.setFrom(new Date());
         vacation.setTo(new Date());
@@ -36,8 +36,8 @@ public class VacationDao {
         PaginatedModel<Vacation> paginatedModel = new PaginatedModel<Vacation>();
         paginatedModel.setStartIndex(startIndex);
         paginatedModel.setTotal(10);
-        paginatedModel
-                .setModelList(Arrays.asList(vacation, vacation, vacation, vacation, vacation));
+        paginatedModel.setModelList(Arrays.asList(vacation, vacation, vacation,
+                vacation, vacation));
 
         return paginatedModel;
     }
