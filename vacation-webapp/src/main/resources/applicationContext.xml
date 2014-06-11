@@ -28,11 +28,17 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="true" />
-				<property name="generateDdl" value="true" />
+				<property name="showSql" value="${hibernate.show_sql}" />
+<!-- 				<property name="generateDdl" value="true" /> -->
 				<property name="databasePlatform" value="${hibernate.dialect}" />
 			</bean>
 		</property>
+		<property name="jpaProperties">
+        <props>
+            <prop key="hibernate.hbm2ddl.auto">create</prop>
+            <prop key="hibernate.hbm2ddl.import_files">import.sql</prop>
+        </props>
+    </property>
 	</bean>
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">

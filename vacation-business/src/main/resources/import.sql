@@ -1,0 +1,1 @@
+insert into USER values(0, 'wpetit');
