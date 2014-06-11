@@ -1,1 +1,1 @@
-var app = angular.module('vacations', [ 'ngGrid', 'ui.bootstrap' ]);
+var app = angular.module('vacationApp', [ ]);

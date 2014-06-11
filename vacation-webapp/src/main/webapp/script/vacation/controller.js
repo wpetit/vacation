@@ -1,9 +1,8 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
-app.controller('VacationsCtrl', function($scope, vacationsService) {
+app.controller('VacationsCtrl', function($scope, vacationService) {
 	// Refresh the grid, calling the appropriate service method.
 	$scope.refreshGrid = function(page) {
-		vacationsService
-				.getAll(($scope.pagingOptions.pageSize * (page - 1)), 5)
+		vacationService.getAll(($scope.pagingOptions.pageSize * (page - 1)), 5)
 				.success(function(data) {
 					$scope.modelList = data.modelList;
 					$scope.nbResults = data.total;
@@ -23,3 +22,4 @@ app.controller('VacationsCtrl', function($scope, vacationsService) {
 
 	$scope.refreshGrid(1);
 });
+
