@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * The User class.
@@ -14,6 +15,7 @@ import javax.persistence.Id;
  * @author wpetit
  */
 @Entity
+@Table(name = "USER")
 public class User implements Model {
     /** The serialVersionUID. */
     private static final long serialVersionUID = 3001805545630803737L;

@@ -63,7 +63,7 @@ public class VacationService {
     public void createVacationType(final VacationType vacationType) {
         LOG.debug("Creating vacation type : {}", vacationType);
         User user = userDao
-                .getUser(((org.springframework.security.core.userdetails.User) SecurityContextHolder
+                .getUserByUsername(((org.springframework.security.core.userdetails.User) SecurityContextHolder
                         .getContext().getAuthentication().getPrincipal())
                         .getUsername());
         vacationType.setUser(user);

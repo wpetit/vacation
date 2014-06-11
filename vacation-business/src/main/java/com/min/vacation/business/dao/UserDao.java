@@ -40,7 +40,7 @@ public class UserDao {
      *            the username
      * @return the user
      */
-    public User getUser(final String username) {
+    public User getUserByUsername(final String username) {
         TypedQuery<User> query = entityManager.createQuery(
                 "select u from User u where username=:username", User.class);
         query.setParameter("username", username);
