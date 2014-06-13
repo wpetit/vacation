@@ -6,10 +6,21 @@ import com.min.vacation.business.model.VacationType;
 
 public interface VacationTypeDao {
 
-    /** {@inheritDoc} */
-    public abstract void save(VacationType vacationType);
+    /**
+     * Save the given {@link VacationType}
+     * 
+     * @param vacationType
+     *            the vacationType to save
+     */
+    public void save(VacationType vacationType);
 
-    /** {@inheritDoc} */
-    public abstract List<VacationType> getUserVacationType(String username);
+    /**
+     * Retrive the user with the given username.
+     * 
+     * @param username
+     *            the user username
+     * @return the user found
+     */
+    public List<VacationType> getUserVacationType(String username);
 
 }
