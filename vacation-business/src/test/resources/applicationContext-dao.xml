@@ -28,6 +28,12 @@
 				<property name="databasePlatform" value="${hibernate.dialect}" />
 			</bean>
 		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.import_files">importUser.sql</prop>
+			</props>
+		</property>
 	</bean>
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">

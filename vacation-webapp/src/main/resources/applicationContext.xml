@@ -13,29 +13,29 @@
 
 	<context:component-scan base-package="com.min.vacation" />
 	<context:property-placeholder location="classpath:db.properties" />
-	
+
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	
+
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="${hibernate.show_sql}" />
-<!-- 				<property name="generateDdl" value="true" /> -->
+				<!-- <property name="generateDdl" value="true" /> -->
 				<property name="databasePlatform" value="${hibernate.dialect}" />
 			</bean>
 		</property>
 		<property name="jpaProperties">
-        <props>
-            <prop key="hibernate.hbm2ddl.auto">create</prop>
-            <prop key="hibernate.hbm2ddl.import_files">import.sql</prop>
-        </props>
-    </property>
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.import_files">import.sql</prop>
+			</props>
+		</property>
 	</bean>
-	
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${datasource.driverClassName}" />
 		<property name="url" value="${datasource.url}" />

@@ -4,6 +4,7 @@
 package com.min.vacation.business.dao.impl;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -33,9 +34,15 @@ public class UserDaoImpl implements UserDao {
     /** {@inheritDoc} */
     @Override
     public User getUserByUsername(final String username) {
-        TypedQuery<User> query = entityManager.createQuery(
-                "select u from User u where username=:username", User.class);
-        query.setParameter("username", username);
-        return query.getSingleResult();
+        User result = null;
+        try {
+            TypedQuery<User> query = entityManager.createQuery(
+                    "select u from User u where username=:username", User.class);
+            query.setParameter("username", username);
+            result = query.getSingleResult();
+        } catch (NoResultException e) {
+            result = null;
+        }
+        return result;
     }
 }
