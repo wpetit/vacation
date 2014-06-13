@@ -2,6 +2,7 @@ package com.min.vacation.business.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,6 @@ import javax.persistence.Table;
  * The {@link Vacation} class.
  * 
  * @author WPETIT
- * 
  */
 @Entity
 @Table(name = "VACATION")
@@ -27,8 +27,10 @@ public class Vacation implements Model {
     /** The type. */
     private String type;
     /** The from. */
+    @Column(name = "\"from\"")
     private Date from;
     /** The to. */
+    @Column(name = "\"to\"")
     private Date to;
 
     /**

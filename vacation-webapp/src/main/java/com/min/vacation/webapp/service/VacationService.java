@@ -1,5 +1,7 @@
 package com.min.vacation.webapp.service;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -73,9 +75,11 @@ public class VacationService {
     @GET
     @Path("type")
     @Produces(MediaType.APPLICATION_JSON)
-    public VacationType getVacationType() {
-        VacationType t = new VacationType();
-        t.setType("congés");
-        return t;
+    public List<VacationType> getVacationTypes() {
+        LOG.debug("Getting vacation types");
+        String username = ((org.springframework.security.core.userdetails.User) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal()).getUsername();
+
+        return vacationTypeDao.getUserVacationType(username);
     }
 }
