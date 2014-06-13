@@ -35,6 +35,7 @@
 
 		<!-- Tests dependencies version -->
 		<junit.version>4.11</junit.version>
+		<jmockit.version>1.8</jmockit.version>
 	</properties>
 
 	<developers>
@@ -104,7 +105,7 @@
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>${hibernate.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-dbcp</groupId>
 				<artifactId>commons-dbcp</artifactId>
@@ -128,6 +129,12 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jmockit</groupId>
+				<artifactId>jmockit</artifactId>
+				<version>${jmockit.version}</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>

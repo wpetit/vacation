@@ -1,25 +1,16 @@
-/**
- * 
- */
 package com.min.vacation.business.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import com.min.vacation.business.model.VacationType;
 
 /**
- * The VacationTypeDao class.
+ * The {@link VacationTypeDao} interface.
  * 
- * @author wpetit
+ * @author WPETIT
+ * 
  */
-@Repository
-public class VacationTypeDao {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public interface VacationTypeDao {
 
     /**
      * Save the given vacationType.
@@ -27,8 +18,15 @@ public class VacationTypeDao {
      * @param vacationType
      *            the vacationType to save.
      */
-    public void save(final VacationType vacationType) {
-        entityManager.persist(vacationType);
-    }
+    public void save(VacationType vacationType);
+
+    /**
+     * Retrieve the user vacation types.
+     * 
+     * @param username
+     *            the user username.
+     * @return the vacation types.
+     */
+    public List<VacationType> getUserVacationType(final String username);
 
 }
