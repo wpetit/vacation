@@ -15,10 +15,23 @@ import com.min.vacation.business.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext-dao.xml" })
-public class UserDaoImplTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class UserDaoImplTest extends
+        AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
     private UserDao userDao;
+
+    @Test
+    public void testSaveUser() {
+        User user = new User();
+        user.setUsername("wpetit1");
+        userDao.save(user);
+
+        User userRetrieved = userDao.getUserByUsername("wpetit");
+        assertNotNull(userRetrieved);
+        assertNotNull(userRetrieved.getId());
+        assertEquals("wpetit", userRetrieved.getUsername());
+    }
 
     @Test
     public void testGetUserByUsernameWithValidUsername() {
