@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "applicationContext-dao.xml" })
+@ContextConfiguration(locations = { "/applicationContext-dao.xml" })
 public class UserDaoImplTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
