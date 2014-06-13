@@ -24,26 +24,26 @@ public class UserDaoImplTest extends
     @Test
     public void testSaveUser() {
         User user = new User();
-        user.setUsername("wpetit1");
+        user.setUsername("wpetit-save");
         userDao.save(user);
 
-        User userRetrieved = userDao.getUserByUsername("wpetit");
+        User userRetrieved = userDao.getUserByUsername("wpetit-save");
         assertNotNull(userRetrieved);
         assertNotNull(userRetrieved.getId());
-        assertEquals("wpetit", userRetrieved.getUsername());
+        assertEquals("wpetit-save", userRetrieved.getUsername());
     }
 
     @Test
     public void testGetUserByUsernameWithValidUsername() {
-        User user = userDao.getUserByUsername("wpetit");
+        User user = userDao.getUserByUsername("wpetit0");
         assertNotNull(user);
         assertEquals(0, user.getId());
-        assertEquals("wpetit", user.getUsername());
+        assertEquals("wpetit0", user.getUsername());
     }
 
     @Test
     public void testGetUserByUsernameWithInvalidUsername() {
-        User user = userDao.getUserByUsername("wpetit0");
+        User user = userDao.getUserByUsername("wpetit-invalid");
         assertNull(user);
     }
 
