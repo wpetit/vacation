@@ -51,8 +51,8 @@ public class VacationService {
     public PaginatedModel<Vacation> getVacation(
             @QueryParam("startIndex") final int startIndex,
             @QueryParam("pageSize") final int pageSize,
-            @QueryParam("sortAttribute") final String sortAttribute,
-            @DefaultValue("ASC") @QueryParam("sortType") final String sortType) {
+            @DefaultValue("from") @QueryParam("sortAttribute") final String sortAttribute,
+            @DefaultValue("asc") @QueryParam("sortType") final String sortType) {
         LOG.debug("Retrieving {} vacations from {} with sorting : {} {}",
                 pageSize, startIndex, sortAttribute, sortType);
         String username = ((org.springframework.security.core.userdetails.User) SecurityContextHolder
