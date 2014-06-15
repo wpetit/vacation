@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,14 +25,18 @@ public class Vacation implements Model {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    /** The type. */
-    private String type;
     /** The from. */
     @Column(name = "\"from\"")
     private Date from;
     /** The to. */
     @Column(name = "\"to\"")
     private Date to;
+    /** The type. */
+    @ManyToOne
+    private VacationType type;
+    /** The user. */
+    @ManyToOne
+    private User user;
 
     /**
      * Return the Vacation id.
@@ -50,25 +55,6 @@ public class Vacation implements Model {
      */
     public void setId(final int id) {
         this.id = id;
-    }
-
-    /**
-     * Return the Vacation type.
-     * 
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * Set the Vacation type.
-     * 
-     * @param type
-     *            the type to set
-     */
-    public void setType(final String type) {
-        this.type = type;
     }
 
     /**
@@ -109,4 +95,41 @@ public class Vacation implements Model {
         this.to = to;
     }
 
+    /**
+     * Return the Vacation user.
+     * 
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Set the Vacation user.
+     * 
+     * @param user
+     *            the user to set
+     */
+    public void setUser(final User user) {
+        this.user = user;
+    }
+
+    /**
+     * Return the Vacation type.
+     * 
+     * @return the type
+     */
+    public VacationType getType() {
+        return type;
+    }
+
+    /**
+     * Set the Vacation type.
+     * 
+     * @param type
+     *            the type to set
+     */
+    public void setType(final VacationType type) {
+        this.type = type;
+    }
 }

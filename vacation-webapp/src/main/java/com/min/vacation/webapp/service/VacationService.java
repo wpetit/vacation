@@ -55,8 +55,10 @@ public class VacationService {
             @DefaultValue("ASC") @QueryParam("sortType") final String sortType) {
         LOG.debug("Retrieving {} vacations from {} with sorting : {} {}",
                 pageSize, startIndex, sortAttribute, sortType);
-        return vacationDao.findAll(startIndex, pageSize, sortAttribute,
-                ServiceUtils.convertSortType(sortType));
+        String username = ((org.springframework.security.core.userdetails.User) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal()).getUsername();
+        return vacationDao.findUserVacations(username, startIndex, pageSize,
+                sortAttribute, ServiceUtils.convertSortType(sortType));
     }
 
     @POST

@@ -18,7 +18,19 @@ app.controller('VacationsCtrl', function($scope, vacationService) {
 	$scope.gridOptions = {
 		data : 'modelList',
 		enablePaging : true,
-		pagingOptions : $scope.pagingOptions
+		pagingOptions : $scope.pagingOptions,
+		columnDefs : [ {
+			field : 'type.type',
+			displayName : 'Type'
+		}, {
+			field : 'from',
+			displayName : 'From',
+			cellFilter : 'date:"dd-MM-yyyy HH:mm"'
+		}, {
+			field : 'to',
+			displayName : 'To',
+			cellFilter : 'date:"dd-MM-yyyy HH:mm"'
+		} ]
 	};
 
 	$scope.pageChanged();
