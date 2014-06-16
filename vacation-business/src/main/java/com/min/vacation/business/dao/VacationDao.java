@@ -20,11 +20,14 @@ public interface VacationDao {
      *            the startIndex.
      * @param pageSize
      *            the pageSize.
+     * @param sortAttribute
+     *            the sortAttribute.
+     * @param sortType
+     *            the sortType.
      * @return vacations found
      */
-    public PaginatedModel<Vacation> findUserVacations(String username,
-            int startIndex, int pageSize, String sortAttribute,
-            SortType sortType);
+    PaginatedModel<Vacation> findUserVacations(String username, int startIndex,
+            int pageSize, String sortAttribute, SortType sortType);
 
     /**
      * Retrieve the number of user vacations.
@@ -33,5 +36,5 @@ public interface VacationDao {
      *            user the vacations belongs to.
      * @return the number of user vacations.
      */
-    public int getUserVacationsCount(String username);
+    int getUserVacationsCount(String username);
 }

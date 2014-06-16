@@ -25,9 +25,11 @@ import com.min.vacation.business.model.VacationType;
 public class VacationTypeDaoImplTest extends
         AbstractTransactionalJUnit4SpringContextTests {
 
+    /** The vacationTypeDao. */
     @Autowired
     private VacationTypeDao vacationTypeDao;
 
+    /** The userDao. */
     @Autowired
     private UserDao userDao;
 

@@ -4,15 +4,20 @@ import java.util.List;
 
 import com.min.vacation.business.model.VacationType;
 
+/**
+ * The {@link VacationTypeDao} interface.
+ * 
+ * @author wpetit
+ */
 public interface VacationTypeDao {
 
     /**
-     * Save the given {@link VacationType}
+     * Save the given {@link VacationType}.
      * 
      * @param vacationType
      *            the vacationType to save
      */
-    public void save(VacationType vacationType);
+    void save(VacationType vacationType);
 
     /**
      * Retrive the user with the given username.
@@ -21,6 +26,6 @@ public interface VacationTypeDao {
      *            the user username
      * @return the user found
      */
-    public List<VacationType> getUserVacationType(String username);
+    List<VacationType> getUserVacationType(String username);
 
 }

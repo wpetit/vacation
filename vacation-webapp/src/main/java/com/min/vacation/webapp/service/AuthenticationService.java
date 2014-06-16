@@ -8,12 +8,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * The {@link AuthenticationService} class.
+ * 
+ * @author wpetit
+ */
 @Component
 @Path("authentication")
 public class AuthenticationService {
 
     /** The LOG. */
-    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationService.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(AuthenticationService.class);
 
     /**
      * Authenticate the given user.

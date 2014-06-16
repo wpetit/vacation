@@ -20,6 +20,7 @@ import com.min.vacation.business.model.Vacation;
 @Repository
 public class VacationDaoImpl implements VacationDao {
 
+    /** The entityManager. */
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -39,6 +40,7 @@ public class VacationDaoImpl implements VacationDao {
                 sort = "asc";
                 break;
             case DESC:
+            default:
                 sort = "desc";
                 break;
             }

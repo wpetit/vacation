@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.min.vacation.business.dao;
 
 import static org.junit.Assert.assertEquals;

@@ -25,6 +25,11 @@ import com.min.vacation.business.model.User;
 import com.min.vacation.business.model.Vacation;
 import com.min.vacation.business.model.VacationType;
 
+/**
+ * The {@link VacationService} class.
+ * 
+ * @author wpetit
+ */
 @Component
 @Path("vacation")
 public class VacationService {
@@ -45,6 +50,19 @@ public class VacationService {
     @Autowired
     private VacationTypeDao vacationTypeDao;
 
+    /**
+     * Return user connected vacations.
+     * 
+     * @param startIndex
+     *            the first vacation index to retrieve.
+     * @param pageSize
+     *            the number of vacation per page.
+     * @param sortAttribute
+     *            the attribute to sort on.
+     * @param sortType
+     *            the sort type to apply.
+     * @return user vacations
+     */
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,6 +79,12 @@ public class VacationService {
                 sortAttribute, ServiceUtils.convertSortType(sortType));
     }
 
+    /**
+     * Create a vacation type for the user connected.
+     * 
+     * @param vacationType
+     *            the vacation type
+     */
     @POST
     @Path("type")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -74,6 +98,11 @@ public class VacationService {
         vacationTypeDao.save(vacationType);
     }
 
+    /**
+     * Return users vacation types.
+     * 
+     * @return vacation types.
+     */
     @GET
     @Path("type")
     @Produces(MediaType.APPLICATION_JSON)

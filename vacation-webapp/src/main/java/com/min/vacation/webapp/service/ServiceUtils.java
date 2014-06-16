@@ -9,7 +9,7 @@ import com.min.vacation.business.model.SortType;
  * 
  * @author WPETIT
  */
-public class ServiceUtils {
+public final class ServiceUtils {
 
     /**
      * Constructor.

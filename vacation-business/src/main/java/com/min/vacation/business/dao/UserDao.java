@@ -6,7 +6,6 @@ import com.min.vacation.business.model.User;
  * The {@link UserDao} interface.
  * 
  * @author WPETIT
- * 
  */
 public interface UserDao {
 
@@ -16,7 +15,7 @@ public interface UserDao {
      * @param user
      *            the user to save.
      */
-    public void save(User user);
+    void save(User user);
 
     /**
      * Retrieve the user with the given username.
@@ -25,6 +24,6 @@ public interface UserDao {
      *            the username
      * @return the user
      */
-    public User getUserByUsername(String username);
+    User getUserByUsername(String username);
 
 }
