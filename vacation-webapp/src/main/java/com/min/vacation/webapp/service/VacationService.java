@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.min.vacation.business.dao.UserDao;
@@ -32,11 +31,11 @@ import com.min.vacation.business.model.VacationType;
  */
 @Component
 @Path("vacation")
-public class VacationService {
+public class VacationService extends AbstractService {
 
     /** The LOG. */
     private static final Logger LOG = LoggerFactory
-            .getLogger(AuthenticationService.class);
+            .getLogger(VacationService.class);
 
     /** The userDao. */
     @Autowired
@@ -73,8 +72,7 @@ public class VacationService {
             @DefaultValue("asc") @QueryParam("sortType") final String sortType) {
         LOG.debug("Retrieving {} vacations from {} with sorting : {} {}",
                 pageSize, startIndex, sortAttribute, sortType);
-        String username = ((org.springframework.security.core.userdetails.User) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal()).getUsername();
+        String username = getAuthenticatedUsername();
         return vacationDao.findUserVacations(username, startIndex, pageSize,
                 sortAttribute, ServiceUtils.convertSortType(sortType));
     }
@@ -90,10 +88,7 @@ public class VacationService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void createVacationType(final VacationType vacationType) {
         LOG.debug("Creating vacation type : {}", vacationType);
-        User user = userDao
-                .getUserByUsername(((org.springframework.security.core.userdetails.User) SecurityContextHolder
-                        .getContext().getAuthentication().getPrincipal())
-                        .getUsername());
+        User user = userDao.getUserByUsername(getAuthenticatedUsername());
         vacationType.setUser(user);
         vacationTypeDao.save(vacationType);
     }
@@ -108,9 +103,6 @@ public class VacationService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<VacationType> getVacationTypes() {
         LOG.debug("Getting vacation types");
-        String username = ((org.springframework.security.core.userdetails.User) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal()).getUsername();
-
-        return vacationTypeDao.getUserVacationType(username);
+        return vacationTypeDao.getUserVacationType(getAuthenticatedUsername());
     }
 }
