@@ -14,6 +14,8 @@
 <script src="script/app.js"></script>
 <script src="script/vacation/service.js"></script>
 <script src="script/vacation/controller.js"></script>
+<script src="script/vacation-type/service.js"></script>
+<script src="script/vacation-type/controller.js"></script>
 
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.min.css">
@@ -23,19 +25,8 @@
 <body>
 
 	<br>
-
-	<div class="grid">
-		<!-- Specify a JavaScript controller script that binds Javascript variables to the HTML.-->
-		<div ng-controller="VacationsCtrl">
-			<!-- Binds the grid component to be displayed. -->
-			<div class="gridStyle" ng-grid="gridOptions"></div>
-
-			<!--  Bind the pagination component to be displayed. -->
-			<pagination direction-links="true" boundary-links="true"
-				total-items="nbResults" ng-model="pagingOptions.currentPage" items-per-page="pagingOptions.pageSize"
-				ng-change="refresh"> </pagination>
-		</div>
-	</div>
-
+	
+	<div ng-view></div>
+	
 </body>
 </html>

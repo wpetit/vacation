@@ -1,0 +1,17 @@
+<div class="page-header">
+	<h2>Vacations</h2>
+</div>
+
+<div class="grid">
+	<!-- Specify a JavaScript controller script that binds Javascript variables to the HTML.-->
+	<div>
+		<!-- Binds the grid component to be displayed. -->
+		<div class="gridStyle" ng-grid="gridOptions"></div>
+
+		<!--  Bind the pagination component to be displayed. -->
+		<pagination direction-links="true" boundary-links="true"
+			total-items="nbResults" ng-model="pagingOptions.currentPage"
+			items-per-page="pagingOptions.pageSize" ng-change="refresh">
+		</pagination>
+	</div>
+</div>

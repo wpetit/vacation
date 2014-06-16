@@ -1,5 +1,5 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
-app.controller('VacationTypeCtrl', function($scope, vacationsService) {
+vacationAppControllers.controller('VacationTypeCtrl', ['$scope', '$http', function($scope, vacationsService) {
 	// Refresh the grid, calling the appropriate service method.
 	$scope.save = function() {
 		vacationTypeService
@@ -9,5 +9,5 @@ app.controller('VacationTypeCtrl', function($scope, vacationsService) {
 				});
 	};
 
-});
+}]);
 

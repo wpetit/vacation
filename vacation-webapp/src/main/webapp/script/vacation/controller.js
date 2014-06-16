@@ -1,5 +1,5 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
-app.controller('VacationsCtrl', function($scope, vacationService) {
+vacationAppControllers.controller('VacationsCtrl', function($scope, vacationService) {
 	// Refresh the grid, calling the appropriate service method.
 	$scope.refresh = function() {
 		var page = $scope.pagingOptions.currentPage;

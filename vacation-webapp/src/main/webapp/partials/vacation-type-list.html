@@ -1,0 +1,56 @@
+<div class="page-header">
+	<h2>Vacation types</h2>
+</div>
+
+<div>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="name" class="col-lg-3 control-label">Name:</label>
+			<div class="col-lg-3">
+				<input id="name" ng-model="name" type="text" class="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-inline">
+				<label for="from" class="col-lg-3 control-label">From:</label>
+				<div class="col-lg-2">
+					<input id="beginDay" ng-model="beginDay" type="number" min="1" max="31"
+						class="form-control" />
+				</div>
+				<label for="/" class="col-lg-1 control-label">/</label>
+				<div class="col-lg-2">
+					<input id="beginMonth" ng-model="beginMonth" type="number" min="1" max="12"
+						class="form-control" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-inline">
+				<label for="from" class="col-lg-3 control-label">To:</label>
+				<div class="col-lg-2">
+					<input id="endDay" ng-model="endDay" type="number" min="1" max="31"
+						class="form-control" />
+				</div>
+				<label for="/" class="col-lg-1 control-label">/</label>
+				<div class="col-lg-2">
+					<input id="endMonth" ng-model="endMonth" type="number" min="1" max="12"
+						class="form-control" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="from" class="col-lg-3 control-label">Number of
+				days:</label>
+			<div class="col-lg-3">
+				<input id="numberOfDays" ng-model="numberOfDays" type="number" min="1" max="366"
+					class="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-3 col-lg-offset-3">
+				<input type="submit" value="Create" class="btn btn-primary"
+					ng-click="save()" />
+			</div>
+		</div>
+	</form>
+</div>
