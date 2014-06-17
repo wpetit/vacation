@@ -50,7 +50,6 @@ public class UserDaoImpl implements UserDao {
             result = query.getSingleResult();
         } catch (NoResultException e) {
             LOG.info("No user found for username : " + username, e);
-            result = null;
         }
         return result;
     }

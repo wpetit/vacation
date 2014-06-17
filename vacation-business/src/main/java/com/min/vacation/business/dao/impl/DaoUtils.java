@@ -21,6 +21,9 @@ public final class DaoUtils {
      * 
      * @param sortType
      *            the sortType to convert.
+     * @param defaultSortType
+     *            the defaultSortType to apply if sortType is null. If
+     *            defaultSortType is null too then desc sort type is applied.
      * @return the sql string
      */
     public static String getStringSort(final SortType sortType,

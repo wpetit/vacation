@@ -19,10 +19,13 @@ public class CharsetResponseFilter implements ContainerResponseFilter {
             final ContainerResponseContext response) {
         MediaType type = response.getMediaType();
         if (type != null) {
-            String contentType = type.toString();
-            if (!contentType.contains("charset")) {
-                contentType = contentType + ";charset=utf-8";
-                response.getHeaders().putSingle("Content-Type", contentType);
+            StringBuilder stringBuilder = new StringBuilder(type.toString());
+            // if charset is not specified
+            if (!type.toString().contains("charset")) {
+                // set charset to utf-8
+                stringBuilder.append(";charset=utf-8");
+                response.getHeaders().putSingle("Content-Type",
+                        stringBuilder.toString());
             }
         }
     }
