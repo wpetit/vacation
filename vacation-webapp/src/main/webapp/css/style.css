@@ -4,11 +4,6 @@ body {
 	margin-right: auto;
 }
 
-.grid {
-	text-align: center;
-}
-
-.gridStyle {
-	border: 1px solid rgb(212, 212, 212);
-	height: 185px;
+.pagination-centered {
+	width: 50%;
 }

@@ -1,0 +1,51 @@
+<div class="page-header">
+	<h3>Create vacation</h3>
+</div>
+
+<div>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<div class="form-inline">
+				<label for="from" class="col-lg-1 control-label">From:</label>
+				<p class="col-lg-3 input-group">
+					<input type="text" class="form-control"
+						datepicker-popup="{{format}}" ng-model="from"
+						is-open="fromDatePickerOpened" min-date="minDate"
+						datepicker-options="dateOptions"
+						date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="openFromDatePicker($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-inline">
+				<label for="to" class="col-lg-1 control-label">To:</label>
+				<p class="col-lg-3 input-group">
+					<input type="text" class="form-control"
+						datepicker-popup="{{format}}" ng-model="to"
+						is-open="toDatePickerOpened" min-date="minDate"
+						datepicker-options="dateOptions"
+						date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="openToDatePicker($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-3 col-lg-offset-1">
+				<input type="submit" value="Create" class="btn btn-primary"
+					ng-click="save()" /> <input type="submit" value="Cancel"
+					class="btn btn-default" ng-click="cancel()" />
+			</div>
+		</div>
+	</form>
+</div>

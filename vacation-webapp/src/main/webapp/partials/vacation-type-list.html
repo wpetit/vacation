@@ -1,56 +1,30 @@
 <div class="page-header">
-	<h2>Vacation types</h2>
+	<h3>Vacation types</h3>
 </div>
 
 <div>
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label for="name" class="col-lg-3 control-label">Name:</label>
-			<div class="col-lg-3">
-				<input id="name" ng-model="name" type="text" class="form-control" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="form-inline">
-				<label for="from" class="col-lg-3 control-label">From:</label>
-				<div class="col-lg-2">
-					<input id="beginDay" ng-model="beginDay" type="number" min="1" max="31"
-						class="form-control" />
-				</div>
-				<label for="/" class="col-lg-1 control-label">/</label>
-				<div class="col-lg-2">
-					<input id="beginMonth" ng-model="beginMonth" type="number" min="1" max="12"
-						class="form-control" />
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="form-inline">
-				<label for="from" class="col-lg-3 control-label">To:</label>
-				<div class="col-lg-2">
-					<input id="endDay" ng-model="endDay" type="number" min="1" max="31"
-						class="form-control" />
-				</div>
-				<label for="/" class="col-lg-1 control-label">/</label>
-				<div class="col-lg-2">
-					<input id="endMonth" ng-model="endMonth" type="number" min="1" max="12"
-						class="form-control" />
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="from" class="col-lg-3 control-label">Number of
-				days:</label>
-			<div class="col-lg-3">
-				<input id="numberOfDays" ng-model="numberOfDays" type="number" min="1" max="366"
-					class="form-control" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-lg-3 col-lg-offset-3">
-				<input type="submit" value="Create" class="btn btn-primary"
-					ng-click="save()" />
-			</div>
-		</div>
-	</form>
+	<!-- Specify a JavaScript controller script that binds Javascript variables to the HTML.-->
+	<div>
+		<table class="table table-striped table-condensed table-hover">
+			<thead>
+				<tr>
+					<th ng-click="sortBy('type')">Type<span>{{'type' | sortIconFilter:sortOptions }}</span></th>
+					<th ng-click="sortBy('begin')">Begin<span>{{'begin' | sortIconFilter:sortOptions }}</span></th>
+					<th ng-click="sortBy('end')">End<span>{{'end' | sortIconFilter:sortOptions }}</span></th>
+					<th ng-click="sortBy('numberOfDays')">Number of days<span>{{'numberOfDays' | sortIconFilter:sortOptions }}</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="model in vacationTypes">
+					<td>{{model.type}}</td>
+					<td>{{model.beginDay}}&nbsp;/&nbsp;{{model.beginMonth}}</td>
+					<td>{{model.endDay}}&nbsp;/&nbsp;{{model.endMonth}}</td>
+					<td>{{model.numberOfDays}}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<button class="btn btn-primary" ng-click="goToCreateVacationType()">Create new type</button>
+		
+	</div>
 </div>
