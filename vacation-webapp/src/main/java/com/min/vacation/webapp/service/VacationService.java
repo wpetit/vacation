@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -34,8 +34,7 @@ import com.min.vacation.business.model.VacationType;
 public class VacationService extends AbstractService {
 
     /** The LOG. */
-    private static final Logger LOG = LoggerFactory
-            .getLogger(VacationService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(VacationService.class);
 
     /** The userDao. */
     @Autowired
@@ -65,16 +64,15 @@ public class VacationService extends AbstractService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public PaginatedModel<Vacation> getVacation(
-            @QueryParam("startIndex") final int startIndex,
+    public PaginatedModel<Vacation> getVacation(@QueryParam("startIndex") final int startIndex,
             @QueryParam("pageSize") final int pageSize,
             @DefaultValue("from") @QueryParam("sortAttribute") final String sortAttribute,
             @DefaultValue("asc") @QueryParam("sortType") final String sortType) {
-        LOG.debug("Retrieving {} vacations from {} with sorting : {} {}",
-                pageSize, startIndex, sortAttribute, sortType);
+        LOG.debug("Retrieving {} vacations from {} with sorting : {} {}", pageSize, startIndex,
+                sortAttribute, sortType);
         String username = getAuthenticatedUsername();
-        return vacationDao.findUserVacations(username, startIndex, pageSize,
-                sortAttribute, ServiceUtils.convertSortType(sortType));
+        return vacationDao.findUserVacations(username, startIndex, pageSize, sortAttribute,
+                ServiceUtils.convertSortType(sortType));
     }
 
     /**
@@ -83,7 +81,7 @@ public class VacationService extends AbstractService {
      * @param vacationType
      *            the vacation type
      */
-    @POST
+    @PUT
     @Path("type")
     @Consumes(MediaType.APPLICATION_JSON)
     public void createVacationType(final VacationType vacationType) {
