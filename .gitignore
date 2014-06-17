@@ -6,3 +6,4 @@ release.properties
 .settings
 .project
 .classpath
+.tern-project
