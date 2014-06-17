@@ -5,7 +5,12 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope, vacationT
 		vacationTypeService
 				.saveVacationType($scope.name, $scope.beginDay, $scope.beginMonth, $scope.endDay,$scope.endMonth, $scope.numberOfDays)
 				.success(function(data) {
-					//nothing to do for the moment
+					$scope.name = null;
+					$scope.beginDay = null;
+					$scope.beginMonth = null;
+					$scope.endDay = null;
+					$scope.endMonth = null;
+					$scope.numberOfDays = null;
 				});
 	};
 
