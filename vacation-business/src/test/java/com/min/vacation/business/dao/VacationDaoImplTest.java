@@ -45,4 +45,14 @@ public class VacationDaoImplTest {
         List<Vacation> vacations = paginatedVacation.getModelList();
         assertEquals(1, vacations.size());
     }
+
+    @Test
+    public void testFindUserVacationsWithEmptySort() {
+        PaginatedModel<Vacation> paginatedVacation = vacationDao
+                .findUserVacations("wpetit1", 0, 1, null, null);
+        assertEquals(1, paginatedVacation.getTotal());
+        assertEquals(0, paginatedVacation.getStartIndex());
+        List<Vacation> vacations = paginatedVacation.getModelList();
+        assertEquals(1, vacations.size());
+    }
 }

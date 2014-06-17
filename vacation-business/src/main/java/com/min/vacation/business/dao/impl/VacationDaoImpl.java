@@ -33,18 +33,7 @@ public class VacationDaoImpl implements VacationDao {
         if (StringUtils.isEmpty(sortAttribute)) {
             sortField = "from";
         }
-        String sort = "desc";
-        if (sortType != null) {
-            switch (sortType) {
-            case ASC:
-                sort = "asc";
-                break;
-            case DESC:
-            default:
-                sort = "desc";
-                break;
-            }
-        }
+        String sort = DaoUtils.getStringSort(sortType, SortType.DESC);
         TypedQuery<Vacation> query = entityManager.createQuery(
                 "select v from Vacation v join v.user u where u.username=:username order by v."
                         + sortField + " " + sort, Vacation.class);
