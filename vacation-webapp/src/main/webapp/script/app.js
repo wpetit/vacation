@@ -1,7 +1,9 @@
-var app = angular.module('vacationApp', [ 'ngRoute', 'ngGrid', 'ui.bootstrap',
-		'vacationAppControllers' ]);
+var app = angular.module('vacationApp', [ 'ngRoute', 'ui.bootstrap',
+		'vacationAppControllers', 'vacationAppFilters' ]);
 
 var vacationAppControllers = angular.module('vacationAppControllers', []);
+
+var vacationAppFilters = angular.module('vacationAppFilters', []);
 
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/list', {

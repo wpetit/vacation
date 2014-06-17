@@ -4,7 +4,7 @@ vacationAppControllers.controller('VacationsCtrl', function($scope, vacationServ
 	$scope.refresh = function() {
 		var page = $scope.pagingOptions.currentPage;
 		vacationService.getAll(($scope.pagingOptions.pageSize * (page - 1)), 5,
-				$scope.sortOptions.fields[0], $scope.sortOptions.directions[0])
+				$scope.sortOptions.field, $scope.sortOptions.direction)
 				.success(function(data) {
 					$scope.modelList = data.modelList;
 					$scope.nbResults = data.total;
@@ -18,29 +18,21 @@ vacationAppControllers.controller('VacationsCtrl', function($scope, vacationServ
 
 	// sort
 	$scope.sortOptions = {
-		fields : [ "from" ],
-		directions : [ "desc" ]
+		field : "from" ,
+		direction : "desc" 
 	};
-
-	$scope.gridOptions = {
-		data : 'modelList',
-		enablePaging : true,
-		pagingOptions : $scope.pagingOptions,
-		sortInfo : $scope.sortOptions,
-		useExternalSorting : true,
-		columnDefs : [ {
-			field : 'type.type',
-			displayName : 'Type'
-		}, {
-			field : 'from',
-			displayName : 'From',
-			cellFilter : 'date:"dd-MM-yyyy HH:mm"'
-		}, {
-			field : 'to',
-			displayName : 'To',
-			cellFilter : 'date:"dd-MM-yyyy HH:mm"'
-		} ]
-	};
+	
+	$scope.sortBy = function(attribute) {
+		if($scope.sortOptions.field != attribute) {
+			$scope.sortOptions = {field : attribute, direction : "desc"};
+		} else {
+			if($scope.sortOptions.direction == "desc") {
+				$scope.sortOptions.direction = "asc";
+			} else {
+				$scope.sortOptions.direction = "desc";
+			}
+		}
+	}
 
 	$scope.$watch('sortOptions', function(newVal, oldVal) {
 		if (newVal !== oldVal) {

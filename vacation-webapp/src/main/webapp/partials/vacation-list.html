@@ -5,8 +5,22 @@
 <div class="grid">
 	<!-- Specify a JavaScript controller script that binds Javascript variables to the HTML.-->
 	<div>
-		<!-- Binds the grid component to be displayed. -->
-		<div class="gridStyle" ng-grid="gridOptions"></div>
+		<table class="table table-striped table-condensed table-hover">
+			<thead>
+				<tr>
+					<th ng-click="sortBy('type')">Type<span>{{'type' | sortIconFilter:sortOptions }}</span></th>
+					<th ng-click="sortBy('from')">From<span>{{'from' | sortIconFilter:sortOptions }}</span></th>
+					<th ng-click="sortBy('to')">To<span>{{'to' | sortIconFilter:sortOptions }}</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="model in modelList">
+					<td>{{model.type.type}}</td>
+					<td>{{model.from}}</td>
+					<td>{{model.to}}</td>
+				</tr>
+			</tbody>
+		</table>
 
 		<!--  Bind the pagination component to be displayed. -->
 		<pagination direction-links="true" boundary-links="true"
