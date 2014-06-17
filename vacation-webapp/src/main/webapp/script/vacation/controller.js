@@ -50,6 +50,15 @@ vacationAppControllers
 					$scope.goToCreateVacation = function() {
 						$location.path('/vacation/create');
 					};
+					
+					$scope.save = function() {
+						$scope.from = null;
+						$scope.to = null;
+					}
+					
+					$scope.cancel = function() {
+						$location.path('/vacation/list');
+					}
 
 					$scope.minDate = new Date();
 					$scope.from = new Date();
@@ -74,14 +83,11 @@ vacationAppControllers
 					};
 
 					$scope.dateOptions = {
-						formatYear : 'yy',
+						formatYear : 'yyyy',
 						startingDay : 1
 					};
 
-					$scope.initDate = new Date('2016-15-20');
-					$scope.formats = [ 'dd-MMMM-yyyy', 'yyyy/MM/dd',
-							'dd.MM.yyyy', 'shortDate' ];
-					$scope.format = $scope.formats[0];
+					$scope.dateFormat = 'dd-MM-yyyy';
 
 					$scope.refresh();
 				});
