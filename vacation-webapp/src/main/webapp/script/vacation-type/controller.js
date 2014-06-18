@@ -1,15 +1,31 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
 vacationAppControllers.controller('VacationTypeCtrl', function($scope, $location, vacationTypeService) {
+	
+	//initialization
+	$scope.beginDate = new Date();
+	$scope.endDate = new Date();
+	$scope.dateFormat = 'dd/MM';
+	
+	$scope.openEndDatePicker = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.endDatePickerOpened = true;
+	};
+	
+	$scope.openBeginDatePicker = function($event) {
+		$event.preventDefault();
+		$event.stopPropagation();
+		$scope.beginDatePickerOpened = true;
+	};
+	
 	// Refresh the grid, calling the appropriate service method.
 	$scope.save = function() {
 		vacationTypeService
-				.saveVacationType($scope.name, $scope.beginDay, $scope.beginMonth, $scope.endDay,$scope.endMonth, $scope.numberOfDays)
+				.saveVacationType($scope.name, $scope.beginDate.getDate(), $scope.beginDate.getMonth(),$scope.endDate.getDate(), $scope.endDate.getMonth(), $scope.numberOfDays)
 				.success(function(data) {
 					$scope.name = null;
-					$scope.beginDay = null;
-					$scope.beginMonth = null;
-					$scope.endDay = null;
-					$scope.endMonth = null;
+					$scope.beginDate = new Date();
+					$scope.endDate = new Date();
 					$scope.numberOfDays = null;
 				});
 	};
