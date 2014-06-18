@@ -67,4 +67,18 @@ public class VacationDaoImpl implements VacationDao {
     public void save(final Vacation vacation) {
         entityManager.persist(vacation);
     }
+
+    /** {@inheritDoc} **/
+    @Override
+    public int getNumberOfVacationByType(final String username,
+            final int vacationTypeId) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "select count(v.id) from Vacation v " + "join v.user u"
+                        + " where u.username=:username "
+                        + "and v.type.id=:vacationTypeId", Long.class);
+        query.setParameter("username", username);
+        query.setParameter("vacationTypeId", vacationTypeId);
+        return query.getSingleResult().intValue();
+    }
+
 }

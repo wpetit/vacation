@@ -25,12 +25,19 @@
 		</table>
 
 		<!--  Bind the pagination component to be displayed. -->
-		<div class="center-block pagination-centered" >
+		<div class="center-block pagination-centered">
 			<pagination direction-links="true" boundary-links="true"
 				total-items="nbResults" ng-model="pagingOptions.currentPage"
 				items-per-page="pagingOptions.pageSize" ng-change="refresh()">
 			</pagination>
 		</div>
 	</div>
-	<button class="btn btn-primary" ng-click="goToCreateVacation()">Create new vacation</button>
+	<button class="btn btn-primary" ng-click="goToCreateVacation()">Create
+		new vacation</button>
+
+    <br/>
+    <br/>
+	<div class="col-md-4" ng-repeat="numberOfVacation in numberOfVacations">
+		<progressbar class="progress active" value="numberOfVacation.count" max="numberOfVacation.max"><span style="color:black; white-space:nowrap;">{{numberOfVacation.vacationTypeName}}</span></progressbar>
+	</div>
 </div>

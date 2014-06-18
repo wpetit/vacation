@@ -96,9 +96,30 @@ vacationAppControllers
 						vacationTypeService.getVacationTypeList().success(
 								function(data) {
 									$scope.vacationTypes = data;
+									$scope.numberOfVacations = new Array();
+									data.forEach(function(vacationType) {
+										$scope.retrieveVacationCount(
+												vacationType.id,
+												vacationType.type,
+												vacationType.numberOfDays);
+									});
+								});
+					};
+
+					$scope.retrieveVacationCount = function(vacationTypeId,
+							vacationTypeName, max) {
+						vacationService.getNumberOfVacations(vacationTypeId)
+								.success(function(data) {
+									$scope.numberOfVacations.push({
+										vacationTypeId : vacationTypeId,
+										vacationTypeName : vacationTypeName,
+										max : max,
+										count : data
+									});
 								});
 					};
 
 					$scope.refresh();
 					$scope.retrieveVacationTypes();
+
 				});

@@ -130,4 +130,20 @@ public class VacationService extends AuthenticatedService {
         LOG.debug("Getting vacation types");
         return vacationTypeDao.getUserVacationType(getAuthenticatedUsername());
     }
+
+    /**
+     * Returns the number of vacations for the given type.
+     * 
+     * @param typeId
+     *            the type id
+     * @return the number of vacations
+     */
+    @GET
+    @Path("count")
+    @Produces(MediaType.APPLICATION_JSON)
+    public int getNumberOfVacationsByType(@QueryParam("typeId") final int typeId) {
+        LOG.debug("Getting number of vacations for type id : {}", typeId);
+        return vacationDao.getNumberOfVacationByType(
+                getAuthenticatedUsername(), typeId);
+    }
 }

@@ -45,4 +45,16 @@ public interface VacationDao {
      *            the vacation to save
      */
     void save(Vacation vacation);
+
+    /**
+     * Return the number of vacation for the given user and the given vacation
+     * type.
+     * 
+     * @param username
+     *            the username
+     * @param vacationTypeId
+     *            the vacation type id
+     * @return the number of vacation
+     */
+    int getNumberOfVacationByType(String username, int vacationTypeId);
 }

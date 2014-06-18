@@ -11,9 +11,13 @@ app.service('vacationService', function($http) {
 		});
 	};
 	this.save = function(from, to, vacationTypeId) {
-		return $http.post('rest/vacation/'+vacationTypeId, {
+		return $http.post('rest/vacation/' + vacationTypeId, {
 			from : from,
 			to : to
 		});
+	};
+
+	this.getNumberOfVacations = function(vacationTypeId) {
+		return $http.get('rest/vacation/count?typeId=' + vacationTypeId, null);
 	};
 });
