@@ -31,7 +31,7 @@ import com.min.vacation.business.model.VacationType;
  */
 @Component
 @Path("vacation")
-public class VacationService extends AbstractService {
+public class VacationService extends AuthenticatedService {
 
     /** The LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(VacationService.class);
