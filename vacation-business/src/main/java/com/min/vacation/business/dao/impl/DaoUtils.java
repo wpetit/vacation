@@ -35,13 +35,13 @@ public final class DaoUtils {
         }
         if (finalSortType != null) {
             switch (finalSortType) {
-            case ASC:
-                sort = "asc";
-                break;
-            case DESC:
-            default:
-                sort = "desc";
-                break;
+                case ASC:
+                    sort = "asc";
+                    break;
+                case DESC:
+                default:
+                    sort = "desc";
+                    break;
             }
         }
         return sort;
