@@ -5,7 +5,8 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 	// initialization
 	$scope.beginDate = new Date();
 	$scope.endDate = new Date();
-	$scope.dateFormat = 'dd/MM';
+	$scope.dateFormat = 'MMMM dd';
+	$scope.numberOfDays = 1;
 
 	$scope.openEndDatePicker = function($event) {
 		$event.preventDefault();
