@@ -5,8 +5,10 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -34,7 +36,8 @@ import com.min.vacation.business.model.VacationType;
 public class VacationService extends AuthenticatedService {
 
     /** The LOG. */
-    private static final Logger LOG = LoggerFactory.getLogger(VacationService.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(VacationService.class);
 
     /** The userDao. */
     @Autowired
@@ -64,15 +67,16 @@ public class VacationService extends AuthenticatedService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public PaginatedModel<Vacation> getVacation(@QueryParam("startIndex") final int startIndex,
+    public PaginatedModel<Vacation> getVacation(
+            @QueryParam("startIndex") final int startIndex,
             @QueryParam("pageSize") final int pageSize,
             @DefaultValue("from") @QueryParam("sortAttribute") final String sortAttribute,
             @DefaultValue("asc") @QueryParam("sortType") final String sortType) {
-        LOG.debug("Retrieving {} vacations from {} with sorting : {} {}", pageSize, startIndex,
-                sortAttribute, sortType);
+        LOG.debug("Retrieving {} vacations from {} with sorting : {} {}",
+                pageSize, startIndex, sortAttribute, sortType);
         String username = getAuthenticatedUsername();
-        return vacationDao.findUserVacations(username, startIndex, pageSize, sortAttribute,
-                ServiceUtils.convertSortType(sortType));
+        return vacationDao.findUserVacations(username, startIndex, pageSize,
+                sortAttribute, ServiceUtils.convertSortType(sortType));
     }
 
     /**
@@ -89,6 +93,29 @@ public class VacationService extends AuthenticatedService {
         User user = userDao.getUserByUsername(getAuthenticatedUsername());
         vacationType.setUser(user);
         vacationTypeDao.save(vacationType);
+    }
+
+    /**
+     * Create a vacation for the user connected.
+     * 
+     * @param vacation
+     *            the vacation
+     * @param vacationTypeId
+     *            the vacationType id
+     */
+    @POST
+    @Path("{typeId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createVacation(final Vacation vacation,
+            @PathParam("typeId") final int vacationTypeId) {
+        LOG.debug("Creating vacation : from {} to {} with type : {}",
+                vacation.getFrom(), vacation.getTo(), vacationTypeId);
+        User user = userDao.getUserByUsername(getAuthenticatedUsername());
+        VacationType vacationType = vacationTypeDao
+                .getVacationTypeById(vacationTypeId);
+        vacation.setType(vacationType);
+        vacation.setUser(user);
+        vacationDao.save(vacation);
     }
 
     /**

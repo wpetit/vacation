@@ -18,8 +18,8 @@
 			<tbody>
 				<tr ng-repeat="model in modelList">
 					<td>{{model.type.type}}</td>
-					<td>{{model.from}}</td>
-					<td>{{model.to}}</td>
+					<td>{{model.from | date}}</td>
+					<td>{{model.to | date}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -28,7 +28,7 @@
 		<div class="center-block pagination-centered" >
 			<pagination direction-links="true" boundary-links="true"
 				total-items="nbResults" ng-model="pagingOptions.currentPage"
-				items-per-page="pagingOptions.pageSize" ng-change="refresh">
+				items-per-page="pagingOptions.pageSize" ng-change="refresh()">
 			</pagination>
 		</div>
 	</div>

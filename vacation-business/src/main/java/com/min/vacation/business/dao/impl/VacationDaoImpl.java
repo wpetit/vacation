@@ -61,4 +61,10 @@ public class VacationDaoImpl implements VacationDao {
         query.setParameter("username", username);
         return query.getSingleResult().intValue();
     }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void save(final Vacation vacation) {
+        entityManager.persist(vacation);
+    }
 }

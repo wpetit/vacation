@@ -20,12 +20,21 @@ public interface VacationTypeDao {
     void save(VacationType vacationType);
 
     /**
-     * Retrive the user with the given username.
+     * Retrieve the user with the given username.
      * 
      * @param username
      *            the user username
      * @return the user found
      */
     List<VacationType> getUserVacationType(String username);
+
+    /**
+     * Retrieve a vacationType by its id.
+     * 
+     * @param id
+     *            the id
+     * @return the vacationType
+     */
+    VacationType getVacationTypeById(int id);
 
 }

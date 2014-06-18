@@ -58,8 +58,11 @@ vacationAppControllers
 					};
 
 					$scope.save = function() {
-						$scope.from = null;
-						$scope.to = null;
+						vacationService.save($scope.from, $scope.to,
+								$scope.typeId).success(function(data) {
+							$scope.from = null;
+							$scope.to = null;
+						});
 					};
 
 					$scope.cancel = function() {

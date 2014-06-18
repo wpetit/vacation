@@ -37,4 +37,12 @@ public interface VacationDao {
      * @return the number of user vacations.
      */
     int getUserVacationsCount(String username);
+
+    /**
+     * Save the given vacation.
+     * 
+     * @param vacation
+     *            the vacation to save
+     */
+    void save(Vacation vacation);
 }

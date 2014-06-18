@@ -43,4 +43,10 @@ public class VacationTypeDaoImpl implements VacationTypeDao {
         return query.getResultList();
     }
 
+    /** {@inheritDoc} **/
+    @Override
+    public VacationType getVacationTypeById(final int id) {
+        return entityManager.find(VacationType.class, id);
+    }
+
 }

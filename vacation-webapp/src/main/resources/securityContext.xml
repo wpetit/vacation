@@ -5,8 +5,10 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+  <http pattern="/login.html*" security="none" />
+
   <http auto-config="true">
-    <intercept-url pattern="/rest/vacation/**" access="ROLE_USER" />
+    <intercept-url pattern="/**" access="ROLE_USER" />
     <form-login login-page="/login.html" default-target-url="/index.html"
       authentication-failure-url="/login.html?error" username-parameter="username"
       password-parameter="password" />
