@@ -1,7 +1,13 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
 vacationAppControllers
 		.controller('VacationsCtrl',
-				function($scope, $location, vacationService) {
+				function($scope, $location, vacationService,
+						vacationTypeService) {
+					$scope.minDate = new Date();
+					$scope.from = new Date();
+					$scope.to = new Date();
+					$scope.dateFormat = 'dd-MM-yyyy';
+
 					// Refresh the grid, calling the appropriate service method.
 					$scope.refresh = function() {
 						var page = $scope.pagingOptions.currentPage;
@@ -39,7 +45,7 @@ vacationAppControllers
 								$scope.sortOptions.direction = "desc";
 							}
 						}
-					}
+					};
 
 					$scope.$watch('sortOptions', function(newVal, oldVal) {
 						if (newVal !== oldVal) {
@@ -50,19 +56,15 @@ vacationAppControllers
 					$scope.goToCreateVacation = function() {
 						$location.path('/vacation/create');
 					};
-					
+
 					$scope.save = function() {
 						$scope.from = null;
 						$scope.to = null;
-					}
-					
+					};
+
 					$scope.cancel = function() {
 						$location.path('/vacation/list');
-					}
-
-					$scope.minDate = new Date();
-					$scope.from = new Date();
-					$scope.to = new Date();
+					};
 
 					// Disable weekend selection
 					$scope.disabled = function(date, mode) {
@@ -75,7 +77,7 @@ vacationAppControllers
 						$event.stopPropagation();
 						$scope.fromDatePickerOpened = true;
 					};
-					
+
 					$scope.openToDatePicker = function($event) {
 						$event.preventDefault();
 						$event.stopPropagation();
@@ -87,7 +89,13 @@ vacationAppControllers
 						startingDay : 1
 					};
 
-					$scope.dateFormat = 'dd-MM-yyyy';
+					$scope.retrieveVacationTypes = function() {
+						vacationTypeService.getVacationTypeList().success(
+								function(data) {
+									$scope.vacationTypes = data;
+								});
+					};
 
 					$scope.refresh();
+					$scope.retrieveVacationTypes();
 				});

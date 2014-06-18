@@ -12,8 +12,8 @@ app.service('vacationTypeService', function($http) {
 			numberOfDays : numberOfDays
 		});
 	};
-	
+
 	this.getVacationTypeList = function() {
 		return $http.get('rest/vacation/type', {});
-	}
+	};
 });
