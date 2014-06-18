@@ -5,54 +5,63 @@
 <div>
 	<form class="form-horizontal">
 		<div class="form-group">
-			<label for="name" class="col-lg-4 control-label">Name:</label>
-			<div class="col-lg-3">
-				<input id="name" ng-model="name" type="text" class="form-control" />
+			<label class="col-md-4 control-label" for="name">Name:</label>
+			<div class="col-md-4">
+				<input id="name" ng-model="name" type="text"
+					class="form-control input-md">
+			</div>
+		</div>
+
+		<!-- Begin-->
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="begin">Begin:</label>
+			<div class="col-md-3">
+				<div class="input-group">
+					<input id="beginDate" name="beginDate" class="form-control"
+						type="text" datepicker-popup="{{dateFormat}}" ng-model="beginDate"
+						is-open="beginDatePickerOpened" datepicker-options="dateOptions"
+						date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="openBeginDatePicker($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- End -->
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="end">End:</label>
+			<div class="col-md-3">
+				<div class="input-group">
+					<input id="endDate" name="endDate" class="form-control" type="text"
+						datepicker-popup="{{dateFormat}}" ng-model="endDate"
+						is-open="endDatePickerOpened" datepicker-options="dateOptions"
+						date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
+						class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							ng-click="openEndDatePicker($event)">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</div>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="to" class="col-lg-4 control-label">Begin:</label>
-			<div class="col-lg-3 input-group">
-				<input type="text" class="form-control"
-					datepicker-popup="{{dateFormat}}" ng-model="to"
-					is-open="beginDatePickerOpened" datepicker-options="dateOptions"
-					date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
-					class="input-group-btn">
-					<button type="button" class="btn btn-default"
-						ng-click="openBeginDatePicker($event)">
-						<i class="glyphicon glyphicon-calendar"></i>
-					</button>
-				</span>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="to" class="col-lg-4 control-label">End:</label>
-			<p class="col-lg-3 input-group">
-				<input type="text" class="form-control"
-					datepicker-popup="{{dateFormat}}" ng-model="to"
-					is-open="endDatePickerOpened" datepicker-options="dateOptions"
-					date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
-					class="input-group-btn">
-					<button type="button" class="btn btn-default"
-						ng-click="openEndDatePicker($event)">
-						<i class="glyphicon glyphicon-calendar"></i>
-					</button>
-				</span>
-			</p>
-		</div>
-		<div class="form-group">
-			<label for="from" class="col-lg-4 control-label">Number of
-				days:</label>
-			<div class="col-lg-3">
+			<label class="col-md-4 control-label" for="numberOfDays">Number
+				of days:</label>
+			<div class="col-md-4">
 				<input id="numberOfDays" ng-model="numberOfDays" type="number"
-					min="1" max="366" class="form-control" />
+					class="form-control input-md" min="1" max="366">
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-3 col-lg-offset-4">
-				<input type="submit" value="Create" class="btn btn-primary"
-					ng-click="save()" /> <input type="submit" value="Cancel"
-					class="btn btn-default" ng-click="cancel()" />
+			<div class="col-md-4 col-lg-offset-4">
+				<button id="create" name="create" class="btn btn-primary"
+					ng-click="save()">Create</button>
+				<button id="cancel" name="cancel" class="btn btn-default"
+					ng-click="cancel()">Cancel</button>
 			</div>
 		</div>
 	</form>
