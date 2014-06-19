@@ -26,10 +26,10 @@ public class Vacation implements Model {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     /** The from. */
-    @Column(name = "\"from\"")
+    @Column(name = "START")
     private Date from;
     /** The to. */
-    @Column(name = "\"to\"")
+    @Column(name = "END")
     private Date to;
     /** The type. */
     @ManyToOne

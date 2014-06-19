@@ -1,7 +1,10 @@
 package com.min.vacation.business.dao.impl;
 
+import java.math.BigInteger;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -26,18 +29,16 @@ public class VacationDaoImpl implements VacationDao {
 
     /** {@inheritDoc} */
     @Override
-    public PaginatedModel<Vacation> findUserVacations(final String username,
-            final int startIndex, final int pageSize,
-            final String sortAttribute, final SortType sortType) {
+    public PaginatedModel<Vacation> findUserVacations(final String username, final int startIndex,
+            final int pageSize, final String sortAttribute, final SortType sortType) {
         String sortField = sortAttribute;
         if (StringUtils.isEmpty(sortAttribute)) {
             sortField = "from";
         }
         String sort = DaoUtils.getStringSort(sortType, SortType.DESC);
-        TypedQuery<Vacation> query = entityManager.createQuery(
-                "select v from Vacation v " + "join v.user u "
-                        + "where u.username=:username order by v." + sortField
-                        + " " + sort, Vacation.class);
+        TypedQuery<Vacation> query = entityManager.createQuery("select v from Vacation v "
+                + "join v.user u " + "where u.username=:username order by v." + sortField + " "
+                + sort, Vacation.class);
         query.setFirstResult(startIndex);
         query.setMaxResults(pageSize);
         query.setParameter("username", username);
@@ -54,10 +55,8 @@ public class VacationDaoImpl implements VacationDao {
     /** {@inheritDoc} **/
     @Override
     public int getUserVacationsCount(final String username) {
-        TypedQuery<Long> query = entityManager.createQuery(
-                "select count(v.id) from Vacation v "
-                        + "join v.user u where u.username=:username",
-                Long.class);
+        TypedQuery<Long> query = entityManager.createQuery("select count(v.id) from Vacation v "
+                + "join v.user u where u.username=:username", Long.class);
         query.setParameter("username", username);
         return query.getSingleResult().intValue();
     }
@@ -70,15 +69,20 @@ public class VacationDaoImpl implements VacationDao {
 
     /** {@inheritDoc} **/
     @Override
-    public int getNumberOfVacationByType(final String username,
-            final int vacationTypeId) {
-        TypedQuery<Long> query = entityManager.createQuery(
-                "select count(v.id) from Vacation v " + "join v.user u"
-                        + " where u.username=:username "
-                        + "and v.type.id=:vacationTypeId", Long.class);
+    public int getNumberOfVacationByType(final String username, final int vacationTypeId) {
+
+        Query query = entityManager
+                .createNativeQuery("select timestampdiff('DAY', v.start, v.end) from VACATION v, VACATION_TYPE vt, USER u where v.type_id=vt.id and v.user_id = u.id and vt.id=:vacationTypeId and u.username=:username");
         query.setParameter("username", username);
         query.setParameter("vacationTypeId", vacationTypeId);
-        return query.getSingleResult().intValue();
+
+        // TypedQuery<Long> query = entityManager.createQuery(
+        // "select sum(datediff('DAY',v.'to', v.'from')) from Vacation v " + "join v.user u"
+        // + " where u.username=:username " + "and v.type.id=:vacationTypeId",
+        // Long.class);
+        // query.setParameter("username", username);
+        // query.setParameter("vacationTypeId", vacationTypeId);
+        return ((BigInteger) query.getSingleResult()).intValue();
     }
 
 }
