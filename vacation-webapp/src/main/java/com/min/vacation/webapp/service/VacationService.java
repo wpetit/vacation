@@ -18,10 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.min.vacation.business.UserBusiness;
 import com.min.vacation.business.VacationBusiness;
-import com.min.vacation.dao.UserDao;
-import com.min.vacation.dao.VacationDao;
-import com.min.vacation.dao.VacationTypeDao;
 import com.min.vacation.model.PaginatedModel;
 import com.min.vacation.model.User;
 import com.min.vacation.model.Vacation;
@@ -37,24 +35,15 @@ import com.min.vacation.model.VacationType;
 public class VacationService extends AuthenticatedService {
 
     /** The LOG. */
-    private static final Logger LOG = LoggerFactory
-            .getLogger(VacationService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(VacationService.class);
 
-    /** The userDao. */
+    /** The userBusiness. */
     @Autowired
-    private UserDao userDao;
+    private UserBusiness userBusiness;
 
     /** The vacationBusiness. */
     @Autowired
     private VacationBusiness vacationBusiness;
-
-    /** The vacationDao. */
-    @Autowired
-    private VacationDao vacationDao;
-
-    /** The vacationTypeDao. */
-    @Autowired
-    private VacationTypeDao vacationTypeDao;
 
     /**
      * Return user connected vacations.
@@ -72,16 +61,15 @@ public class VacationService extends AuthenticatedService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public PaginatedModel<Vacation> getVacation(
-            @QueryParam("startIndex") final int startIndex,
+    public PaginatedModel<Vacation> getVacation(@QueryParam("startIndex") final int startIndex,
             @QueryParam("pageSize") final int pageSize,
             @DefaultValue("from") @QueryParam("sortAttribute") final String sortAttribute,
             @DefaultValue("asc") @QueryParam("sortType") final String sortType) {
-        LOG.debug("Retrieving {} vacations from {} with sorting : {} {}",
-                pageSize, startIndex, sortAttribute, sortType);
+        LOG.debug("Retrieving {} vacations from {} with sorting : {} {}", pageSize, startIndex,
+                sortAttribute, sortType);
         String username = getAuthenticatedUsername();
-        return vacationDao.findUserVacations(username, startIndex, pageSize,
-                sortAttribute, ServiceUtils.convertSortType(sortType));
+        return vacationBusiness.findUserVacations(username, startIndex, pageSize, sortAttribute,
+                ServiceUtils.convertSortType(sortType));
     }
 
     /**
@@ -95,9 +83,9 @@ public class VacationService extends AuthenticatedService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void createVacationType(final VacationType vacationType) {
         LOG.debug("Creating vacation type : {}", vacationType);
-        User user = userDao.getUserByUsername(getAuthenticatedUsername());
+        User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
         vacationType.setUser(user);
-        vacationTypeDao.save(vacationType);
+        vacationBusiness.save(vacationType);
     }
 
     /**
@@ -113,14 +101,13 @@ public class VacationService extends AuthenticatedService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void createVacation(final Vacation vacation,
             @PathParam("typeId") final int vacationTypeId) {
-        LOG.debug("Creating vacation : from {} to {} with type : {}",
-                vacation.getFrom(), vacation.getTo(), vacationTypeId);
-        User user = userDao.getUserByUsername(getAuthenticatedUsername());
-        VacationType vacationType = vacationTypeDao
-                .getVacationTypeById(vacationTypeId);
+        LOG.debug("Creating vacation : from {} to {} with type : {}", vacation.getFrom(),
+                vacation.getTo(), vacationTypeId);
+        User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
+        VacationType vacationType = vacationBusiness.getVacationTypeById(vacationTypeId);
         vacation.setType(vacationType);
         vacation.setUser(user);
-        vacationDao.save(vacation);
+        vacationBusiness.save(vacation);
     }
 
     /**
@@ -133,7 +120,7 @@ public class VacationService extends AuthenticatedService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<VacationType> getVacationTypes() {
         LOG.debug("Getting vacation types");
-        return vacationTypeDao.getUserVacationType(getAuthenticatedUsername());
+        return vacationBusiness.getUserVacationType(getAuthenticatedUsername());
     }
 
     /**
@@ -148,7 +135,6 @@ public class VacationService extends AuthenticatedService {
     @Produces(MediaType.APPLICATION_JSON)
     public int getNumberOfVacationsByType(@QueryParam("typeId") final int typeId) {
         LOG.debug("Getting number of vacations for type id : {}", typeId);
-        return vacationBusiness.getVacationWorkingDaysCount(
-                getAuthenticatedUsername(), typeId);
+        return vacationBusiness.getVacationWorkingDaysCount(getAuthenticatedUsername(), typeId);
     }
 }
