@@ -1,6 +1,6 @@
-package com.min.vacation.business.dao;
+package com.min.vacation.dao;
 
-import com.min.vacation.business.model.User;
+import com.min.vacation.model.User;
 
 /**
  * The {@link UserDao} interface.

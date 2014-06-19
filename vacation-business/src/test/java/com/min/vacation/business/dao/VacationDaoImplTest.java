@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.min.vacation.business.model.PaginatedModel;
-import com.min.vacation.business.model.SortType;
-import com.min.vacation.business.model.Vacation;
+import com.min.vacation.dao.VacationDao;
+import com.min.vacation.model.PaginatedModel;
+import com.min.vacation.model.SortType;
+import com.min.vacation.model.Vacation;
 
 /**
  * The {@link VacationDaoImplTest} class.

@@ -1,160 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.min.vacation</groupId>
-	<artifactId>vacation</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>VACATION</name>
-	<modules>
-		<module>vacation-webapp</module>
-		<module>vacation-business</module>
-	</modules>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.min.vacation</groupId>
+  <artifactId>vacation</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>VACATION</name>
+  <modules>
+    <module>vacation-webapp</module>
+    <module>vacation-business</module>
+  </modules>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.7</java.version>
-		<sonar.language>java</sonar.language>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.7</java.version>
+    <sonar.language>java</sonar.language>
 
 
-		<!-- Plugins version -->
-		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
-		<maven.war.plugin.version>2.4</maven.war.plugin.version>
-		<jetty-maven-plugin.version>8.1.14.v20131031</jetty-maven-plugin.version>
+    <!-- Plugins version -->
+    <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+    <maven.war.plugin.version>2.4</maven.war.plugin.version>
+    <jetty-maven-plugin.version>8.1.14.v20131031</jetty-maven-plugin.version>
 
-		<!-- Dependencies version -->
-		<jersey.version>2.9</jersey.version>
-		<spring.version>4.0.5.RELEASE</spring.version>
-		<logback.version>1.0.13</logback.version>
-		<spring.security.version>3.2.3.RELEASE</spring.security.version>
-		<javax.servlet-api.version>3.0.1</javax.servlet-api.version>
-		<hibernate.version>4.3.5.Final</hibernate.version>
-		<h2.version>1.4.178</h2.version>
-		<aspectj.version>1.7.0</aspectj.version>
-		<commons-dbcp.version>1.4</commons-dbcp.version>
+    <!-- Dependencies version -->
+    <jersey.version>2.9</jersey.version>
+    <spring.version>4.0.5.RELEASE</spring.version>
+    <logback.version>1.0.13</logback.version>
+    <spring.security.version>3.2.3.RELEASE</spring.security.version>
+    <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
+    <hibernate.version>4.3.5.Final</hibernate.version>
+    <h2.version>1.4.178</h2.version>
+    <aspectj.version>1.7.0</aspectj.version>
+    <commons-dbcp.version>1.4</commons-dbcp.version>
+    <joda-time.version>2.3</joda-time.version>
 
-		<!-- Tests dependencies version -->
-		<junit.version>4.11</junit.version>
-		<jmockit.version>1.8</jmockit.version>
-	</properties>
+    <!-- Tests dependencies version -->
+    <junit.version>4.11</junit.version>
+    <jmockit.version>1.8</jmockit.version>
+  </properties>
 
-	<developers>
-		<developer>
-			<name>Wilfried Petit</name>
-		</developer>
-	</developers>
+  <developers>
+    <developer>
+      <name>Wilfried Petit</name>
+    </developer>
+  </developers>
 
-	<dependencyManagement>
-		<dependencies>
+  <dependencyManagement>
+    <dependencies>
 
-			<!-- Dependencies -->
-			<dependency>
-				<groupId>com.min.vacation</groupId>
-				<artifactId>vacation-business</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+      <!-- Dependencies -->
+      <dependency>
+        <groupId>com.min.vacation</groupId>
+        <artifactId>vacation-business</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logback.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>${javax.servlet-api.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${javax.servlet-api.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>org.glassfish.jersey</groupId>
-				<artifactId>jersey-bom</artifactId>
-				<version>${jersey.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+      <dependency>
+        <groupId>org.glassfish.jersey</groupId>
+        <artifactId>jersey-bom</artifactId>
+        <version>${jersey.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-framework-bom</artifactId>
-				<version>${spring.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${spring.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
-			<dependency>
-				<groupId>org.glassfish.jersey.ext</groupId>
-				<artifactId>jersey-spring3</artifactId>
-				<version>${jersey.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>org.glassfish.jersey.ext</groupId>
+        <artifactId>jersey-spring3</artifactId>
+        <version>${jersey.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>${spring.security.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-config</artifactId>
-				<version>${spring.security.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-entitymanager</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>commons-dbcp</groupId>
-				<artifactId>commons-dbcp</artifactId>
-				<version>${commons-dbcp.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>commons-dbcp</groupId>
+        <artifactId>commons-dbcp</artifactId>
+        <version>${commons-dbcp.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>${aspectj.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>${h2.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <version>${h2.version}</version>
+      </dependency>
 
-			<!-- Test dependencies -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.jmockit</groupId>
-				<artifactId>jmockit</artifactId>
-				<version>${jmockit.version}</version>
-				<scope>test</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>${joda-time.version}</version>
+      </dependency>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven.compiler.plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>${maven.war.plugin.version}</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+      <!-- Test dependencies -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jmockit</groupId>
+        <artifactId>jmockit</artifactId>
+        <version>${jmockit.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven.compiler.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>${maven.war.plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>

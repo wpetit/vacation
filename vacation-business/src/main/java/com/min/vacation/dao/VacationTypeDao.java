@@ -1,8 +1,8 @@
-package com.min.vacation.business.dao;
+package com.min.vacation.dao;
 
 import java.util.List;
 
-import com.min.vacation.business.model.VacationType;
+import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationTypeDao} interface.

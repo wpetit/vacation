@@ -1,8 +1,10 @@
-package com.min.vacation.business.dao;
+package com.min.vacation.dao;
 
-import com.min.vacation.business.model.PaginatedModel;
-import com.min.vacation.business.model.SortType;
-import com.min.vacation.business.model.Vacation;
+import java.util.List;
+
+import com.min.vacation.model.PaginatedModel;
+import com.min.vacation.model.SortType;
+import com.min.vacation.model.Vacation;
 
 /**
  * The {@link VacationDao} interface.
@@ -47,14 +49,14 @@ public interface VacationDao {
     void save(Vacation vacation);
 
     /**
-     * Return the number of vacation for the given user and the given vacation
-     * type.
+     * Return the vacations with the given user and the given vacation type.
      * 
      * @param username
      *            the username
      * @param vacationTypeId
      *            the vacation type id
-     * @return the number of vacation
+     * @return the vacations
      */
-    int getNumberOfVacationByType(String username, int vacationTypeId);
+    List<Vacation> getVacationByUsernameAndType(final String username,
+            final int vacationTypeId);
 }

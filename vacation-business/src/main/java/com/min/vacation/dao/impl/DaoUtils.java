@@ -1,6 +1,6 @@
-package com.min.vacation.business.dao.impl;
+package com.min.vacation.dao.impl;
 
-import com.min.vacation.business.model.SortType;
+import com.min.vacation.model.SortType;
 
 /**
  * The {@link DaoUtils} class.

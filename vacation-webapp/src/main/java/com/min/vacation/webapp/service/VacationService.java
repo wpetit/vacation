@@ -18,13 +18,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.min.vacation.business.dao.UserDao;
-import com.min.vacation.business.dao.VacationDao;
-import com.min.vacation.business.dao.VacationTypeDao;
-import com.min.vacation.business.model.PaginatedModel;
-import com.min.vacation.business.model.User;
-import com.min.vacation.business.model.Vacation;
-import com.min.vacation.business.model.VacationType;
+import com.min.vacation.business.VacationBusiness;
+import com.min.vacation.dao.UserDao;
+import com.min.vacation.dao.VacationDao;
+import com.min.vacation.dao.VacationTypeDao;
+import com.min.vacation.model.PaginatedModel;
+import com.min.vacation.model.User;
+import com.min.vacation.model.Vacation;
+import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationService} class.
@@ -42,6 +43,10 @@ public class VacationService extends AuthenticatedService {
     /** The userDao. */
     @Autowired
     private UserDao userDao;
+
+    /** The vacationBusiness. */
+    @Autowired
+    private VacationBusiness vacationBusiness;
 
     /** The vacationDao. */
     @Autowired
@@ -143,7 +148,7 @@ public class VacationService extends AuthenticatedService {
     @Produces(MediaType.APPLICATION_JSON)
     public int getNumberOfVacationsByType(@QueryParam("typeId") final int typeId) {
         LOG.debug("Getting number of vacations for type id : {}", typeId);
-        return vacationDao.getNumberOfVacationByType(
+        return vacationBusiness.getVacationWorkingDaysCount(
                 getAuthenticatedUsername(), typeId);
     }
 }

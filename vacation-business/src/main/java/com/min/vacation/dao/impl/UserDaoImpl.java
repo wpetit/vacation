@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.min.vacation.business.dao.impl;
+package com.min.vacation.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.min.vacation.business.dao.UserDao;
-import com.min.vacation.business.model.User;
+import com.min.vacation.dao.UserDao;
+import com.min.vacation.model.User;
 
 /**
  * The UserDaoImpl class.

@@ -2,7 +2,7 @@ package com.min.vacation.webapp.service;
 
 import org.h2.util.StringUtils;
 
-import com.min.vacation.business.model.SortType;
+import com.min.vacation.model.SortType;
 
 /**
  * The {@link ServiceUtils} class.

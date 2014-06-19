@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.min.vacation.business.dao.impl;
+package com.min.vacation.dao.impl;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.min.vacation.business.dao.VacationTypeDao;
-import com.min.vacation.business.model.VacationType;
+import com.min.vacation.dao.VacationTypeDao;
+import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationTypeDaoImpl} class.

@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import com.min.vacation.business.dao.impl.DaoUtils;
-import com.min.vacation.business.model.SortType;
+import com.min.vacation.dao.impl.DaoUtils;
+import com.min.vacation.model.SortType;
 
 /**
  * The {@link DaoUtilsTest} class.

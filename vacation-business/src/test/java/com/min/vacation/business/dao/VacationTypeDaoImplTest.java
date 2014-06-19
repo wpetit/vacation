@@ -12,8 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.min.vacation.business.model.User;
-import com.min.vacation.business.model.VacationType;
+import com.min.vacation.dao.UserDao;
+import com.min.vacation.dao.VacationTypeDao;
+import com.min.vacation.model.User;
+import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationTypeDaoImplTest} class.
