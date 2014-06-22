@@ -8,6 +8,7 @@
   <http pattern="/login.html*" security="none" />
   <http pattern="/css/**" security="none" />
   <http pattern="/script/**" security="none" />
+  <http pattern="/images/**" security="none" />
 
   <http auto-config="true">
     <intercept-url pattern="/**" access="ROLE_USER" />

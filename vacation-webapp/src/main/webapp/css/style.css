@@ -7,3 +7,13 @@ body {
 .pagination-centered {
 	width: 75%;
 }
+
+.content {
+	box-shadow: 1px 1px 20px #9DB4FF;
+	margin: 10px;
+	border-radius: 10px;
+}
+
+.content>div>h2 {
+	padding: 10px 0px 0px 10px;
+}

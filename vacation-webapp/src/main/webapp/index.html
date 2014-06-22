@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Vacation webapp</title>
+<link rel="icon" href="images/favicon.ico" />
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.min.js"></script>
@@ -33,6 +34,8 @@
 			<div class="container">
 				<nav>
 					<ul class="nav navbar-nav navbar-inner">
+						<li><a class="img-responsive" href="index.html"> <img
+								style="max-height: 18px;" src="images/vacation_resized.png"></a></li>
 						<li><a href="#/list" role="button" class="navbar-brand">Vacations</a></li>
 						<li><a href="#/vacationTypes/list" role="button"
 							class="navbar-brand">Configuration</a></li>
@@ -51,7 +54,7 @@
 
 	<br>
 
-	<div ng-view ></div>
+	<div ng-view></div>
 
 </body>
 </html>
