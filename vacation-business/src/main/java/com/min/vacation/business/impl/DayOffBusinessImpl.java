@@ -15,6 +15,23 @@ import com.min.vacation.business.DayOffBusiness;
 @Component
 public class DayOffBusinessImpl implements DayOffBusiness {
 
+    /** The NOVEMBER_11TH_DAY. */
+    private static final int NOVEMBER_11TH_DAY = 11;
+    /** The JANUARY_1ST_DAY. */
+    private static final int JANUARY_1ST_DAY = 1;
+    /** The NOVEMBER_1ST_DAY. */
+    private static final int NOVEMBER_1ST_DAY = 1;
+    /** The AUGUST_15TH_DAY. */
+    private static final int AUGUST_15TH_DAY = 15;
+    /** The JULY_14TH_DAY. */
+    private static final int JULY_14TH_DAY = 14;
+    /** The MAY_8TH_DAY. */
+    private static final int MAY_8TH_DAY = 8;
+    /** The MAY_1ST_DAY. */
+    private static final int MAY_1ST_DAY = 1;
+    /** The CHRISTMAS_DAY. */
+    private static final int CHRISTMAS_DAY = 25;
+
     /** {@inheritDoc} **/
     @Override
     public boolean isDayOff(final Date date) {
@@ -48,7 +65,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isChristmasDay(final Calendar date) {
-        return 25 == date.get(Calendar.DAY_OF_MONTH)
+        return CHRISTMAS_DAY == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.DECEMBER == date.get(Calendar.MONTH);
     }
 
@@ -60,7 +77,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isMayFirst(final Calendar date) {
-        return 1 == date.get(Calendar.DAY_OF_MONTH)
+        return MAY_1ST_DAY == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.MAY == date.get(Calendar.MONTH);
     }
 
@@ -72,7 +89,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isMayEighth(final Calendar date) {
-        return 8 == date.get(Calendar.DAY_OF_MONTH)
+        return MAY_8TH_DAY == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.MAY == date.get(Calendar.MONTH);
     }
 
@@ -84,7 +101,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isJulyFourteenth(final Calendar date) {
-        return 14 == date.get(Calendar.DAY_OF_MONTH)
+        return JULY_14TH_DAY == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.JULY == date.get(Calendar.MONTH);
     }
 
@@ -96,7 +113,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isAugustFifteenth(final Calendar date) {
-        return 15 == date.get(Calendar.DAY_OF_MONTH)
+        return AUGUST_15TH_DAY == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.AUGUST == date.get(Calendar.MONTH);
     }
 
@@ -108,7 +125,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isNovemberFirst(final Calendar date) {
-        return 1 == date.get(Calendar.DAY_OF_MONTH)
+        return NOVEMBER_1ST_DAY == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.NOVEMBER == date.get(Calendar.MONTH);
     }
 
@@ -120,7 +137,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isNovemberEleventh(final Calendar date) {
-        return 11 == date.get(Calendar.DAY_OF_MONTH)
+        return NOVEMBER_11TH_DAY == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.NOVEMBER == date.get(Calendar.MONTH);
     }
 
@@ -132,7 +149,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isJanuaryFirst(final Calendar date) {
-        return 1 == date.get(Calendar.DAY_OF_MONTH)
+        return JANUARY_1ST_DAY == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.JANUARY == date.get(Calendar.MONTH);
     }
 
@@ -163,7 +180,9 @@ public class DayOffBusinessImpl implements DayOffBusiness {
 
         int monthNumber = 4;
         int dayNumber = r - 31;
-        if (r <= 31) {
+        boolean negativeDayNumber = dayNumber <= 0;
+
+        if (negativeDayNumber) {
             monthNumber = 3;
             dayNumber = r;
         }

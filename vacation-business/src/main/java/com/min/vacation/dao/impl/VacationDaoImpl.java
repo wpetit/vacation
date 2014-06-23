@@ -74,10 +74,10 @@ public class VacationDaoImpl implements VacationDao {
     @Override
     public List<Vacation> getVacationByUsernameAndType(final String username,
             final int vacationTypeId) {
-        TypedQuery<Vacation> query = entityManager
-                .createQuery(
-                        "select v from Vacation v where v.type.id=:vacationTypeId and v.user.username=:username",
-                        Vacation.class);
+        TypedQuery<Vacation> query = entityManager.createQuery(
+                "select v from Vacation v "
+                        + "where v.type.id=:vacationTypeId "
+                        + "and v.user.username=:username", Vacation.class);
         return query.getResultList();
     }
 

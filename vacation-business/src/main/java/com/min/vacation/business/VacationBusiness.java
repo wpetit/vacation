@@ -14,7 +14,7 @@ import com.min.vacation.model.VacationType;
  */
 public interface VacationBusiness {
     /**
-     * Return the number of vacation days not worked
+     * Return the number of vacation days not worked.
      * 
      * @param username
      *            the username
@@ -25,7 +25,8 @@ public interface VacationBusiness {
     int getVacationWorkingDaysCount(String username, int vacationTypeId);
 
     /**
-     * Return <pageSize> vacation from the startIndex.
+     * Return <pageSize> vacation from the startIndex with the number of results
+     * and sort specified for the given user.
      * 
      * @param username
      *            user the vacations belongs to.
@@ -39,8 +40,8 @@ public interface VacationBusiness {
      *            the sortType.
      * @return vacations found
      */
-    PaginatedModel<Vacation> findUserVacations(String username, int startIndex, int pageSize,
-            String sortAttribute, SortType sortType);
+    PaginatedModel<Vacation> findUserVacations(String username, int startIndex,
+            int pageSize, String sortAttribute, SortType sortType);
 
     /**
      * Save the given vacation.
@@ -59,7 +60,8 @@ public interface VacationBusiness {
      *            the vacation type id
      * @return the vacations
      */
-    List<Vacation> getVacationByUsernameAndType(final String username, final int vacationTypeId);
+    List<Vacation> getVacationByUsernameAndType(final String username,
+            final int vacationTypeId);
 
     /**
      * Save the given {@link VacationType}.

@@ -11,7 +11,6 @@ import com.min.vacation.model.User;
  * The {@link UserBusinessImpl} class.
  * 
  * @author WPETIT
- * 
  */
 @Component
 public class UserBusinessImpl implements UserBusiness {
@@ -20,6 +19,7 @@ public class UserBusinessImpl implements UserBusiness {
     @Autowired
     private UserDao userDao;
 
+    /** {@inheritDoc} **/
     @Override
     public User getUserByUsername(final String username) {
         return userDao.getUserByUsername(username);
