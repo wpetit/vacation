@@ -16,4 +16,5 @@ public interface DayOffBusiness {
      * @return is a day off
      */
     boolean isDayOff(Date date);
+
 }

@@ -1,4 +1,4 @@
-package com.min.vacation.business.dao;
+package com.min.vacation.dao;
 
 import static org.junit.Assert.assertEquals;
 

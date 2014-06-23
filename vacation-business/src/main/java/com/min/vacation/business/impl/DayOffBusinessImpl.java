@@ -3,6 +3,8 @@ package com.min.vacation.business.impl;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import com.min.vacation.business.DayOffBusiness;
 
 /**
@@ -10,6 +12,7 @@ import com.min.vacation.business.DayOffBusiness;
  * 
  * @author wpetit
  */
+@Component
 public class DayOffBusinessImpl implements DayOffBusiness {
 
     /** {@inheritDoc} **/
@@ -18,11 +21,18 @@ public class DayOffBusinessImpl implements DayOffBusiness {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return isFixedDayOff(calendar) || isWeekend(calendar)
-                || isAscension(calendar) || isPaquesMonday(calendar)
-                || isPentecote(calendar);
+                || isAscension(calendar) || isEasterMonday(calendar)
+                || isPentecost(calendar);
     }
 
-    public boolean isFixedDayOff(final Calendar date) {
+    /**
+     * Check if the date is a fixed day off (e.g 14/07).
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isFixedDayOff(final Calendar date) {
         return isChristmasDay(date) || isAugustFifteenth(date)
                 || isJanuaryFirst(date) || isJulyFourteenth(date)
                 || isMayFirst(date) || isMayEighth(date)
@@ -30,47 +40,110 @@ public class DayOffBusinessImpl implements DayOffBusiness {
 
     }
 
-    public boolean isChristmasDay(final Calendar date) {
+    /**
+     * Check if the date is the Christmas day.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isChristmasDay(final Calendar date) {
         return 25 == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.DECEMBER == date.get(Calendar.MONTH);
     }
 
-    public boolean isMayFirst(final Calendar date) {
+    /**
+     * Check if the date is 01/05.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isMayFirst(final Calendar date) {
         return 1 == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.MAY == date.get(Calendar.MONTH);
     }
 
-    public boolean isMayEighth(final Calendar date) {
+    /**
+     * Check if the date is 08/05.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isMayEighth(final Calendar date) {
         return 8 == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.MAY == date.get(Calendar.MONTH);
     }
 
-    public boolean isJulyFourteenth(final Calendar date) {
+    /**
+     * Check if the date is 14/07.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isJulyFourteenth(final Calendar date) {
         return 14 == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.JULY == date.get(Calendar.MONTH);
     }
 
-    public boolean isAugustFifteenth(final Calendar date) {
+    /**
+     * Check if the date is 15/08.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isAugustFifteenth(final Calendar date) {
         return 15 == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.AUGUST == date.get(Calendar.MONTH);
     }
 
-    public boolean isNovemberFirst(final Calendar date) {
+    /**
+     * Check if the date is 1/11.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isNovemberFirst(final Calendar date) {
         return 1 == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.NOVEMBER == date.get(Calendar.MONTH);
     }
 
-    public boolean isNovemberEleventh(final Calendar date) {
+    /**
+     * Check if the date is 11/11.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isNovemberEleventh(final Calendar date) {
         return 11 == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.NOVEMBER == date.get(Calendar.MONTH);
     }
 
-    public boolean isJanuaryFirst(final Calendar date) {
+    /**
+     * Check if the date is 01/01.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isJanuaryFirst(final Calendar date) {
         return 1 == date.get(Calendar.DAY_OF_MONTH)
                 && Calendar.JANUARY == date.get(Calendar.MONTH);
     }
 
-    private Calendar getPaquesDate(final int year) {
+    /**
+     * Get the easter date fot the given year.
+     * 
+     * @param year
+     *            the year.
+     * @return if is easter day.
+     */
+    private Calendar getEasterDate(final int year) {
 
         double g = year % 19;
 
@@ -96,33 +169,61 @@ public class DayOffBusinessImpl implements DayOffBusiness {
         }
 
         Calendar paques = Calendar.getInstance();
-        paques.set(year, monthNumber, dayNumber);
+        paques.set(year, monthNumber - 1, dayNumber);
         return paques;
     }
 
-    public boolean isWeekend(final Calendar date) {
+    /**
+     * Check if the date is in week-end.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isWeekend(final Calendar date) {
         return Calendar.SATURDAY == date.get(Calendar.DAY_OF_WEEK)
                 || Calendar.SUNDAY == date.get(Calendar.DAY_OF_WEEK);
     }
 
-    public boolean isPaquesMonday(final Calendar date) {
-        Calendar paquesMonday = getPaquesDate(date.get(Calendar.YEAR));
+    /**
+     * Check if the date is Easter Monday.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isEasterMonday(final Calendar date) {
+        Calendar paquesMonday = getEasterDate(date.get(Calendar.YEAR));
         paquesMonday.add(Calendar.DAY_OF_YEAR, 1);
         return date.get(Calendar.DAY_OF_YEAR) == paquesMonday
                 .get(Calendar.DAY_OF_YEAR)
                 && date.get(Calendar.MONTH) == paquesMonday.get(Calendar.MONTH);
     }
 
-    public boolean isPentecote(final Calendar date) {
-        Calendar paquesMonday = getPaquesDate(date.get(Calendar.YEAR));
+    /**
+     * Check if the date is Pentecost.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isPentecost(final Calendar date) {
+        Calendar paquesMonday = getEasterDate(date.get(Calendar.YEAR));
         paquesMonday.add(Calendar.DAY_OF_YEAR, 50);
         return date.get(Calendar.DAY_OF_YEAR) == paquesMonday
                 .get(Calendar.DAY_OF_YEAR)
                 && date.get(Calendar.MONTH) == paquesMonday.get(Calendar.MONTH);
     }
 
-    public boolean isAscension(final Calendar date) {
-        Calendar paquesMonday = getPaquesDate(date.get(Calendar.YEAR));
+    /**
+     * Check if the date is Ascension.
+     * 
+     * @param date
+     *            the date to check
+     * @return if is day off
+     */
+    private boolean isAscension(final Calendar date) {
+        Calendar paquesMonday = getEasterDate(date.get(Calendar.YEAR));
         paquesMonday.add(Calendar.DAY_OF_YEAR, 39);
         return date.get(Calendar.DAY_OF_YEAR) == paquesMonday
                 .get(Calendar.DAY_OF_YEAR)
