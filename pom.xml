@@ -189,6 +189,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${checkstyle.version}</version>
         <configuration>
+          <goal>checkstyle</goal>
           <consoleOutput>true</consoleOutput>
           <configLocation>${main.basedir}/coding-rules/checkstyle.xml</configLocation>
           <propertyExpansion>basedir=${project.basedir}</propertyExpansion>
