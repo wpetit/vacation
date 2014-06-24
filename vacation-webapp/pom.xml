@@ -11,6 +11,7 @@
   <artifactId>vacation-webapp</artifactId>
   <packaging>war</packaging>
   <name>VACATION :: WEBAPP</name>
+  <description>vacation-webapp is the front-end of the vacation project.</description>
   
   <properties>
     <main.basedir>${project.parent.basedir}</main.basedir>

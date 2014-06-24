@@ -8,6 +8,7 @@
   </parent>
   <artifactId>vacation-business</artifactId>
   <name>VACATION :: BUSINESS</name>
+  <description>vacation-business is the business part of the vacation project.</description>
 
   <properties>
     <main.basedir>${project.parent.basedir}</main.basedir>

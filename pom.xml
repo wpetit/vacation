@@ -7,6 +7,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>VACATION</name>
+  <description>Vacation is a webapp to manage vacation.</description>
   <modules>
     <module>vacation-webapp</module>
     <module>vacation-business</module>
