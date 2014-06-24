@@ -183,17 +183,33 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
         <version>${jxr.version}</version>
+        <reportSets>
+          <reportSet>
+            <inherited>false</inherited><!-- don't run aggregate in child 
+              modules -->
+            <reports>
+              <report>aggregate</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${checkstyle.version}</version>
         <configuration>
-          <goal>checkstyle</goal>
-          <consoleOutput>true</consoleOutput>
           <configLocation>${main.basedir}/coding-rules/checkstyle.xml</configLocation>
           <propertyExpansion>basedir=${project.basedir}</propertyExpansion>
         </configuration>
+        <reportSets>
+          <reportSet>
+            <inherited>false</inherited><!-- don't run aggregate in child 
+              modules -->
+            <reports>
+              <report>aggregate</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
