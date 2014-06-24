@@ -1,10 +1,15 @@
 package com.min.vacation.business.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.min.vacation.business.DayOffBusiness;
 import com.min.vacation.business.VacationBusiness;
 import com.min.vacation.dao.VacationDao;
 import com.min.vacation.dao.VacationTypeDao;
@@ -28,10 +33,51 @@ public class VacationBusinessImpl implements VacationBusiness {
     @Autowired
     private VacationTypeDao vacationtypeDao;
 
+    /** The dayOffBusiness. */
+    @Autowired
+    private DayOffBusiness dayOffBusiness;
+
     /** {@inheritDoc} **/
     @Override
     public int getVacationWorkingDaysCount(final String username, final int vacationTypeId) {
-        return 0;
+        List<Vacation> vacationList = vacationDao.getVacationByUsernameAndType(username,
+                vacationTypeId);
+        int numberOfWorkingDays = 0;
+        for (Vacation vacation : vacationList) {
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTime(vacation.getFrom());
+            Calendar endCalendar = Calendar.getInstance();
+            endCalendar.setTime(vacation.getTo());
+            endCalendar.add(Calendar.DATE, 1);
+            Calendar lastDay = Calendar.getInstance();
+            lastDay.setTime(vacation.getTo());
+            DateTime start = new DateTime(vacation.getFrom());
+            DateTime end = new DateTime(endCalendar.getTime());
+            Days daysWithDayOff = Days.daysBetween(start, end);
+            numberOfWorkingDays += daysWithDayOff.getDays();
+            numberOfWorkingDays -= getNumberOfDayOff(startCalendar, lastDay);
+        }
+        return numberOfWorkingDays;
+    }
+
+    /**
+     * Return the number of day off in the given period.
+     * 
+     * @param start
+     *            the period start
+     * @param end
+     *            the period end
+     * @return the number of day
+     */
+    private int getNumberOfDayOff(final Calendar start, final Calendar end) {
+        int nbOfDayOff = 0;
+        for (Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start
+                .getTime()) {
+            if (dayOffBusiness.isDayOff(date)) {
+                nbOfDayOff++;
+            }
+        }
+        return nbOfDayOff;
     }
 
     /** {@inheritDoc} */
