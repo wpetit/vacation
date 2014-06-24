@@ -8,6 +8,31 @@
   <packaging>pom</packaging>
   <name>VACATION</name>
   <description>Vacation is a webapp to manage vacation.</description>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Wilfried Petit</name>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/wpetit/vacation</url>
+    <connection>scm:git:https://github.com/wpetit/vacation.git</connection>
+  </scm>
+
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://wpetit.ci.cloudbees.com</url>
+  </ciManagement>
+
   <modules>
     <module>vacation-webapp</module>
     <module>vacation-business</module>
@@ -46,17 +71,6 @@
     <findbugs.version>2.5.4</findbugs.version>
     <jxr.version>2.3</jxr.version>
   </properties>
-
-  <developers>
-    <developer>
-      <name>Wilfried Petit</name>
-    </developer>
-  </developers>
-
-  <scm>
-    <url>https://github.com/wpetit/vacation</url>
-    <connection>scm:git:https://github.com/wpetit/vacation.git</connection>
-  </scm>
 
   <dependencyManagement>
     <dependencies>
