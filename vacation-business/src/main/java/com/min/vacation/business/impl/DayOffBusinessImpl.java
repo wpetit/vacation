@@ -37,8 +37,9 @@ public class DayOffBusinessImpl implements DayOffBusiness {
     public boolean isDayOff(final Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        return isFixedDayOff(calendar) || isWeekend(calendar) || isAscension(calendar)
-                || isEasterMonday(calendar) || isPentecost(calendar);
+        return isFixedDayOff(calendar) || isWeekend(calendar)
+                || isAscension(calendar) || isEasterMonday(calendar)
+                || isPentecost(calendar);
     }
 
     /**
@@ -49,8 +50,9 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      * @return if is day off
      */
     private boolean isFixedDayOff(final Calendar date) {
-        return isChristmasDay(date) || isAugustFifteenth(date) || isJanuaryFirst(date)
-                || isJulyFourteenth(date) || isMayFirst(date) || isMayEighth(date)
+        return isChristmasDay(date) || isAugustFifteenth(date)
+                || isJanuaryFirst(date) || isJulyFourteenth(date)
+                || isMayFirst(date) || isMayEighth(date)
                 || isNovemberFirst(date) || isNovemberEleventh(date);
 
     }
@@ -211,8 +213,9 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      */
     private boolean isEasterMonday(final Calendar date) {
         Calendar paquesMonday = getEasterDate(date.get(Calendar.YEAR));
-        paquesMonday.add(Calendar.DAY_OF_YEAR, 1);
-        return date.get(Calendar.DAY_OF_YEAR) == paquesMonday.get(Calendar.DAY_OF_YEAR)
+        paquesMonday.add(Calendar.DATE, 1);
+        return date.get(Calendar.DAY_OF_YEAR) == paquesMonday
+                .get(Calendar.DAY_OF_YEAR)
                 && date.get(Calendar.MONTH) == paquesMonday.get(Calendar.MONTH);
     }
 
@@ -226,7 +229,8 @@ public class DayOffBusinessImpl implements DayOffBusiness {
     private boolean isPentecost(final Calendar date) {
         Calendar paquesMonday = getEasterDate(date.get(Calendar.YEAR));
         paquesMonday.add(Calendar.DAY_OF_YEAR, 50);
-        return date.get(Calendar.DAY_OF_YEAR) == paquesMonday.get(Calendar.DAY_OF_YEAR)
+        return date.get(Calendar.DAY_OF_YEAR) == paquesMonday
+                .get(Calendar.DAY_OF_YEAR)
                 && date.get(Calendar.MONTH) == paquesMonday.get(Calendar.MONTH);
     }
 
@@ -239,8 +243,9 @@ public class DayOffBusinessImpl implements DayOffBusiness {
      */
     private boolean isAscension(final Calendar date) {
         Calendar paquesMonday = getEasterDate(date.get(Calendar.YEAR));
-        paquesMonday.add(Calendar.DAY_OF_YEAR, 39);
-        return date.get(Calendar.DAY_OF_YEAR) == paquesMonday.get(Calendar.DAY_OF_YEAR)
+        paquesMonday.add(Calendar.DATE, 39);
+        return date.get(Calendar.DAY_OF_YEAR) == paquesMonday
+                .get(Calendar.DAY_OF_YEAR)
                 && date.get(Calendar.MONTH) == paquesMonday.get(Calendar.MONTH);
     }
 }

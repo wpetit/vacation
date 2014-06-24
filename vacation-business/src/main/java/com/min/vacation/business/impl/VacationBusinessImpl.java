@@ -39,25 +39,41 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /** {@inheritDoc} **/
     @Override
-    public int getVacationWorkingDaysCount(final String username, final int vacationTypeId) {
-        List<Vacation> vacationList = vacationDao.getVacationByUsernameAndType(username,
-                vacationTypeId);
-        int numberOfWorkingDays = 0;
+    public int getVacationWorkingDaysCount(final String username,
+            final int vacationTypeId) {
+        List<Vacation> vacationList = vacationDao.getVacationByUsernameAndType(
+                username, vacationTypeId);
+        int nbWorkingDays = 0;
         for (Vacation vacation : vacationList) {
-            Calendar startCalendar = Calendar.getInstance();
-            startCalendar.setTime(vacation.getFrom());
-            Calendar endCalendar = Calendar.getInstance();
-            endCalendar.setTime(vacation.getTo());
-            endCalendar.add(Calendar.DATE, 1);
+            nbWorkingDays += getNumberOfWorkingDays(vacation);
+        }
+        return nbWorkingDays;
+    }
+
+    /**
+     * Return the number of working days during vacation.
+     * 
+     * @param vacation
+     *            the vacation
+     * @return the number of working days
+     */
+    private int getNumberOfWorkingDays(final Vacation vacation) {
+        int nbWorkingDays = 0;
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTime(vacation.getFrom());
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTime(vacation.getTo());
+        endCalendar.add(Calendar.DATE, 1);
+        DateTime start = new DateTime(vacation.getFrom());
+        DateTime end = new DateTime(endCalendar.getTime());
+        if (endCalendar.after(startCalendar)) {
             Calendar lastDay = Calendar.getInstance();
             lastDay.setTime(vacation.getTo());
-            DateTime start = new DateTime(vacation.getFrom());
-            DateTime end = new DateTime(endCalendar.getTime());
             Days daysWithDayOff = Days.daysBetween(start, end);
-            numberOfWorkingDays += daysWithDayOff.getDays();
-            numberOfWorkingDays -= getNumberOfDayOff(startCalendar, lastDay);
+            nbWorkingDays += daysWithDayOff.getDays();
+            nbWorkingDays -= getNumberOfDayOff(startCalendar, lastDay);
         }
-        return numberOfWorkingDays;
+        return nbWorkingDays;
     }
 
     /**
@@ -71,8 +87,8 @@ public class VacationBusinessImpl implements VacationBusiness {
      */
     private int getNumberOfDayOff(final Calendar start, final Calendar end) {
         int nbOfDayOff = 0;
-        for (Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start
-                .getTime()) {
+        for (Date date = start.getTime(); !start.after(end); start.add(
+                Calendar.DATE, 1), date = start.getTime()) {
             if (dayOffBusiness.isDayOff(date)) {
                 nbOfDayOff++;
             }
@@ -82,10 +98,11 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /** {@inheritDoc} */
     @Override
-    public PaginatedModel<Vacation> findUserVacations(final String username, final int startIndex,
-            final int pageSize, final String sortAttribute, final SortType sortType) {
-        return vacationDao.findUserVacations(username, startIndex, pageSize, sortAttribute,
-                sortType);
+    public PaginatedModel<Vacation> findUserVacations(final String username,
+            final int startIndex, final int pageSize,
+            final String sortAttribute, final SortType sortType) {
+        return vacationDao.findUserVacations(username, startIndex, pageSize,
+                sortAttribute, sortType);
     }
 
     /** {@inheritDoc} */
@@ -98,7 +115,8 @@ public class VacationBusinessImpl implements VacationBusiness {
     @Override
     public List<Vacation> getVacationByUsernameAndType(final String username,
             final int vacationTypeId) {
-        return vacationDao.getVacationByUsernameAndType(username, vacationTypeId);
+        return vacationDao.getVacationByUsernameAndType(username,
+                vacationTypeId);
     }
 
     /** {@inheritDoc} */
