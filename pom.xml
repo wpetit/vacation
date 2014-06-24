@@ -206,7 +206,7 @@
             <inherited>false</inherited><!-- don't run aggregate in child 
               modules -->
             <reports>
-              <report>checkstyle-aggregate</report>
+              <report>checkstyle</report>
             </reports>
           </reportSet>
         </reportSets>
