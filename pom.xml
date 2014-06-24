@@ -16,7 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.7</java.version>
     <sonar.language>java</sonar.language>
-
+    <main.basedir>${project.basedir}</main.basedir>
 
     <!-- Plugins version -->
     <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
@@ -38,6 +38,12 @@
     <!-- Tests dependencies version -->
     <junit.version>4.11</junit.version>
     <jmockit.version>1.8</jmockit.version>
+
+    <!-- Reporting plugins version -->
+    <checkstyle.version>2.12.1</checkstyle.version>
+    <pmd.version>3.1</pmd.version>
+    <findbugs.version>2.5.4</findbugs.version>
+    <jxr.version>2.3</jxr.version>
   </properties>
 
   <developers>
@@ -45,6 +51,11 @@
       <name>Wilfried Petit</name>
     </developer>
   </developers>
+
+  <scm>
+    <url>https://github.com/wpetit/vacation</url>
+    <connection>scm:git:https://github.com/wpetit/vacation.git</connection>
+  </scm>
 
   <dependencyManagement>
     <dependencies>
@@ -164,4 +175,47 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>${jxr.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle.version}</version>
+        <configuration>
+          <consoleOutput>true</consoleOutput>
+          <configLocation>${main.basedir}/coding-rules/checkstyle.xml</configLocation>
+          <propertyExpansion>basedir=${project.basedir}</propertyExpansion>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>${pmd.version}</version>
+        <configuration>
+          <targetJdk>${java.version}</targetJdk>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <skipEmptyReport>false</skipEmptyReport>
+          <rulesets>
+            <ruleset>${main.basedir}/coding-rules/pmd.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>${findbugs.version}</version>
+        <configuration>
+          <includeFilterFile>${main.basedir}/coding-rules/findbugs.xml</includeFilterFile>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </reporting>
 </project>

@@ -11,8 +11,9 @@
   <artifactId>vacation-webapp</artifactId>
   <packaging>war</packaging>
   <name>VACATION :: WEBAPP</name>
-
+  
   <properties>
+    <main.basedir>${project.parent.basedir}</main.basedir>
     <jetty.port>8080</jetty.port>
     <maven.build.timestamp.format>dd-MM-yyyy HH:mm</maven.build.timestamp.format>
     <buildNumber>${maven.build.timestamp}</buildNumber>
