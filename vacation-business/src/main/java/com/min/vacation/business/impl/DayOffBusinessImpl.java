@@ -173,7 +173,7 @@ public class DayOffBusinessImpl implements DayOffBusiness {
         int p = 29 / (h + 1);
         int q = (int) (21 - g) / 11;
         int i = (k * p * q - 1) * k + h;
-        int b = (year / 4) + year;
+        int b = year / 4 + year;
         int j1 = b + i + 2 + c4 - c;
         int j2 = j1 % 7;
         int r = 28 + i - j2;
