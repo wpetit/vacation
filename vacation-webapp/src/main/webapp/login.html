@@ -16,45 +16,43 @@
 </head>
 
 <body>
-	<div class="content">
-		<div>
-			<h2>Login</h2>
-			<hr />
-		</div>
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<form class="form-horizontal" action="j_spring_security_check"
-					method="post">
-					<div class="form-group">
-						<label for="username" class="col-sm-5 control-label">User
-							Name:</label>
-						<div class="col-sm-5">
-							<input id="username" name="username" type="text"
-								class="form-control" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="password" class="col-sm-5 control-label">Password:</label>
-						<div class="col-sm-5">
-							<input id="password" name="password" type="password"
-								class="form-control" />
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-5 col-sm-9">
-							<div class="checkbox">
-								<label><input id="rememberMe" type="checkbox"
-									name="_spring_security_remember_me">Remember me</label>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-8 col-sm-offset-5">
-							<input type="submit" value="Log In" class="btn btn-primary" />
-						</div>
-					</div>
-				</form>
+	<div class="container col-sm-offset-4">
+		<div class="content col-sm-5">
+			<div>
+				<h2>Login</h2>
+				<hr />
 			</div>
+			<form class="form-horizontal" action="j_spring_security_check"
+				method="post">
+				<div class="form-group">
+					<label for="username" class="col-sm-5 control-label">User
+						Name:</label>
+					<div class="col-sm-5">
+						<input id="username" name="username" type="text"
+							class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password" class="col-sm-5 control-label">Password:</label>
+					<div class="col-sm-5">
+						<input id="password" name="password" type="password"
+							class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-5 col-sm-5">
+						<div class="checkbox">
+							<label><input id="rememberMe" type="checkbox"
+								name="_spring_security_remember_me">Remember me</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-5 col-sm-2">
+						<input type="submit" value="Log In" class="btn btn-primary" />
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>

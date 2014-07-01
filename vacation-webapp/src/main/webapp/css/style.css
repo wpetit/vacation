@@ -1,7 +1,7 @@
 .content {
 	box-shadow: 1px 1px 20px #9DB4FF;
 	margin: 10px;
-	border-radius: 10px;
+	border-radius: 10px 0px;
 }
 
 .content>div>h2 {
