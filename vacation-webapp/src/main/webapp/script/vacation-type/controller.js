@@ -1,6 +1,6 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
 vacationAppControllers.controller('VacationTypeCtrl', function($scope,
-		$location, vacationTypeService) {
+		$location, vacationService, vacationTypeService) {
 
 	// initialization
 	$scope.beginDate = new Date();
@@ -57,6 +57,32 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 		$location.path('/vacationTypes/create');
 	};
 
+	$scope.retrieveVacationTypes = function() {
+		vacationTypeService.getVacationTypeList().success(
+				function(data) {
+					$scope.vacationTypes = data;
+					$scope.numberOfVacations = new Array();
+					data.forEach(function(vacationType) {
+						$scope.retrieveVacationCount(vacationType.id,
+								vacationType.type, vacationType.numberOfDays);
+					});
+				});
+	};
+
+	$scope.retrieveVacationCount = function(vacationTypeId, vacationTypeName,
+			max) {
+		vacationService.getNumberOfVacations(vacationTypeId).success(
+				function(data) {
+					$scope.numberOfVacations.push({
+						vacationTypeId : vacationTypeId,
+						vacationTypeName : vacationTypeName,
+						max : max,
+						count : data
+					});
+				});
+	};
+
 	$scope.getAll();
+	$scope.retrieveVacationTypes();
 
 });

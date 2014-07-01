@@ -1,8 +1,8 @@
 <div>
-	<fieldset>
-		<legend class="text-center">Vacation types</legend>
-		<!-- Specify a JavaScript controller script that binds Javascript variables to the HTML.-->
-		<div class="container">
+	<div class="col-md-9">
+		<fieldset>
+			<legend class="text-center">Vacation types</legend>
+			<!-- Specify a JavaScript controller script that binds Javascript variables to the HTML.-->
 			<table class="table table-striped table-condensed table-hover">
 				<thead>
 					<tr>
@@ -29,6 +29,18 @@
 				<button class="btn btn-primary" ng-click="goToCreateVacationType()">Create
 					new type</button>
 			</div>
-		</div>
-	</fieldset>
+		</fieldset>
+	</div>
+	<div class="col-md-3">
+		<fieldset>
+			<legend>Stocks</legend>
+			<div ng-repeat="numberOfVacation in numberOfVacations">
+				{{numberOfVacation.vacationTypeName}}:
+				<progressbar class="progress active" value="numberOfVacation.count"
+					max="numberOfVacation.max"> <span
+					style="color: black; white-space: nowrap;">{{numberOfVacation.count}}
+					/ {{numberOfVacation.max}}</span></progressbar>
+			</div>
+		</fieldset>
+	</div>
 </div>
