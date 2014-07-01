@@ -22,14 +22,14 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 
 	// Refresh the grid, calling the appropriate service method.
 	$scope.save = function() {
-		vacationTypeService.saveVacationType($scope.name,
+		vacationTypeService.saveVacationType($scope.typeName,
 				$scope.beginDate.getDate(), $scope.beginDate.getMonth() + 1,
 				$scope.endDate.getDate(), $scope.endDate.getMonth() + 1,
 				$scope.numberOfDays).success(function(data) {
-			$scope.name = null;
+			$scope.typeName = null;
 			$scope.beginDate = new Date();
 			$scope.endDate = new Date();
-			$scope.numberOfDays = null;
+			$scope.numberOfDays = 1;
 		});
 	};
 

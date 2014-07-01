@@ -3,10 +3,11 @@
 		<legend class="text-center">Create vacation type</legend>
 		<form name="createVacationTypeForm" class="form-horizontal">
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="name">Name:</label>
-				<div class="col-md-4">
-					<input id="name" ng-model="name" type="text"
-						class="form-control input-md" required
+				<label class="col-md-5 control-label" for="name">Name:</label>
+				<div class="col-md-3">
+					<!-- use $parent because popover create a child scope  -->
+					<input id="name" ng-model="$parent.typeName" type="text"
+						class="form-control" required
 						popover="Enter a name for the vacation type."
 						popover-placement="right" popover-trigger="focus">
 				</div>
@@ -14,8 +15,8 @@
 
 			<!-- Begin-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="begin">Begin:</label>
-				<div class="col-md-4">
+				<label class="col-md-5 control-label" for="begin">Begin:</label>
+				<div class="col-md-3">
 					<div class="input-group">
 						<input id="beginDate" name="beginDate" class="form-control"
 							type="text" datepicker-popup="{{dateFormat}}"
@@ -33,8 +34,8 @@
 			</div>
 			<!-- End -->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="end">End:</label>
-				<div class="col-md-4">
+				<label class="col-md-5 control-label" for="end">End:</label>
+				<div class="col-md-3">
 					<div class="input-group">
 						<input id="endDate" name="endDate" class="form-control"
 							type="text" datepicker-popup="{{dateFormat}}" ng-model="endDate"
@@ -50,12 +51,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="numberOfDays">Number
+				<label class="col-md-5 control-label" for="numberOfDays">Number
 					of days:</label>
-				<div class="col-md-4">
-					<input id="numberOfDays" ng-model="numberOfDays" type="number"
-						class="form-control input-md" min="1" max="366" required
-						popover="Enter the number of days for the vacation type."
+				<div class="col-md-3">
+					<!-- use $parent because popover create a child scope -->
+					<input id="numberOfDays" ng-model="$parent.numberOfDays"
+						type="number" class="form-control input-md" min="1" max="366"
+						required popover="Enter the number of days for the vacation type."
 						popover-placement="right" popover-trigger="focus">
 				</div>
 			</div>
