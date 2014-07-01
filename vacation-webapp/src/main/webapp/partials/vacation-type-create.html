@@ -1,68 +1,72 @@
-<div class="page-header">
-	<h3>Create vacation type</h3>
-</div>
-
 <div>
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="name">Name:</label>
-			<div class="col-md-4">
-				<input id="name" ng-model="name" type="text"
-					class="form-control input-md">
+	<fieldset>
+		<legend class="text-center">Create vacation type</legend>
+		<form name="createVacationTypeForm" class="form-horizontal">
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="name">Name:</label>
+				<div class="col-md-4">
+					<input id="name" ng-model="name" type="text"
+						class="form-control input-md" required
+						popover="Enter a name for the vacation type."
+						popover-placement="right" popover-trigger="focus">
+				</div>
 			</div>
-		</div>
 
-		<!-- Begin-->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="begin">Begin:</label>
-			<div class="col-md-3">
-				<div class="input-group">
-					<input id="beginDate" name="beginDate" class="form-control"
-						type="text" datepicker-popup="{{dateFormat}}" ng-model="beginDate"
-						is-open="beginDatePickerOpened" datepicker-options="dateOptions"
-						date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
-						class="input-group-btn">
-						<button type="button" class="btn btn-default"
-							ng-click="openBeginDatePicker($event)">
-							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
-					</span>
+			<!-- Begin-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="begin">Begin:</label>
+				<div class="col-md-4">
+					<div class="input-group">
+						<input id="beginDate" name="beginDate" class="form-control"
+							type="text" datepicker-popup="{{dateFormat}}"
+							ng-model="beginDate" is-open="beginDatePickerOpened"
+							datepicker-options="dateOptions"
+							date-disabled="disabled(date, mode)" show-button-bar="false"
+							required /> <span class="input-group-btn">
+							<button type="button" class="btn btn-default"
+								ng-click="openBeginDatePicker($event)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- End -->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="end">End:</label>
-			<div class="col-md-3">
-				<div class="input-group">
-					<input id="endDate" name="endDate" class="form-control" type="text"
-						datepicker-popup="{{dateFormat}}" ng-model="endDate"
-						is-open="endDatePickerOpened" datepicker-options="dateOptions"
-						date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
-						class="input-group-btn">
-						<button type="button" class="btn btn-default"
-							ng-click="openEndDatePicker($event)">
-							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
-					</span>
+			<!-- End -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="end">End:</label>
+				<div class="col-md-4">
+					<div class="input-group">
+						<input id="endDate" name="endDate" class="form-control"
+							type="text" datepicker-popup="{{dateFormat}}" ng-model="endDate"
+							is-open="endDatePickerOpened" datepicker-options="dateOptions"
+							date-disabled="disabled(date, mode)" show-button-bar="false"
+							required /> <span class="input-group-btn">
+							<button type="button" class="btn btn-default"
+								ng-click="openEndDatePicker($event)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="numberOfDays">Number
-				of days:</label>
-			<div class="col-md-4">
-				<input id="numberOfDays" ng-model="numberOfDays" type="number"
-					class="form-control input-md" min="1" max="366">
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="numberOfDays">Number
+					of days:</label>
+				<div class="col-md-4">
+					<input id="numberOfDays" ng-model="numberOfDays" type="number"
+						class="form-control input-md" min="1" max="366" required
+						popover="Enter the number of days for the vacation type."
+						popover-placement="right" popover-trigger="focus">
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-md-4 col-lg-offset-4">
-				<button id="create" name="create" class="btn btn-primary"
-					ng-click="save()">Create</button>
-				<button id="cancel" name="cancel" class="btn btn-default"
-					ng-click="cancel()">Cancel</button>
+			<div class="form-group">
+				<div class="text-center">
+					<button id="create" name="create" class="btn btn-primary"
+						ng-click="save()" ng-disabled="createVacationTypeForm.$invalid">Create</button>
+					<button id="cancel" name="cancel" class="btn btn-default"
+						ng-click="cancel()">Cancel</button>
+				</div>
 			</div>
-		</div>
-	</form>
+		</form>
+	</fieldset>
 </div>

@@ -1,10 +1,7 @@
-<div class="page-header">
-</div>
-
 <div>
 	<div class="col-md-9">
 		<fieldset>
-			<legend>Vacations confirmed</legend>
+			<legend class="text-center">Vacations confirmed</legend>
 			<div>
 				<table class="table table-striped table-condensed table-hover">
 					<thead>
@@ -27,15 +24,17 @@
 				</table>
 
 				<!--  Bind the pagination component to be displayed. -->
-				<div class="center-block pagination-centered">
+				<div class="text-center">
 					<pagination direction-links="true" boundary-links="true"
 						total-items="nbResults" ng-model="pagingOptions.currentPage"
 						items-per-page="pagingOptions.pageSize" ng-change="refresh()">
 					</pagination>
 				</div>
 			</div>
-			<button class="btn btn-primary" ng-click="goToCreateVacation()">Create
-				new vacation</button>
+			<div class="text-center col-md-12">
+				<button class="btn btn-primary" ng-click="goToCreateVacation()">Create
+					new vacation</button>
+			</div>
 		</fieldset>
 	</div>
 	<div class="col-md-3">
@@ -49,6 +48,5 @@
 					/ {{numberOfVacation.max}}</span></progressbar>
 			</div>
 		</fieldset>
-
 	</div>
 </div>

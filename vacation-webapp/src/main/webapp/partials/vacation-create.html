@@ -1,59 +1,61 @@
-<div class="page-header">
-	<h3>Create vacation</h3>
-</div>
-
-<div>
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="from">From:</label>
-			<div class="col-md-3">
-				<div class="input-group">
-					<input type="text" class="form-control"
-						datepicker-popup="{{dateFormat}}" ng-model="from"
-						is-open="fromDatePickerOpened" min-date="minDate"
-						datepicker-options="dateOptions"
-						date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
-						class="input-group-btn">
-						<button type="button" class="btn btn-default"
-							ng-click="openFromDatePicker($event)">
-							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
-					</span>
+<div class="col-md-12 text-center">
+	<fieldset>
+		<legend>Create vacation</legend>
+		<form name="createVacationForm" class="form-horizontal">
+			<div class="form-group">
+				<label class="col-md-5 control-label" for="from">From:</label>
+				<div class="col-md-2">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							datepicker-popup="{{dateFormat}}" ng-model="from"
+							is-open="fromDatePickerOpened" min-date="minDate"
+							datepicker-options="dateOptions"
+							date-disabled="disabled(date, mode)" show-button-bar="false" />
+						<span class="input-group-btn" required>
+							<button type="button" class="btn btn-default"
+								ng-click="openFromDatePicker($event)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="to">To:</label>
-			<div class="col-md-3">
-				<div class="input-group">
-					<input type="text" class="form-control"
-						datepicker-popup="{{dateFormat}}" ng-model="to"
-						is-open="toDatePickerOpened" min-date="from"
-						datepicker-options="dateOptions"
-						date-disabled="disabled(date, mode)" show-button-bar="false" /> <span
-						class="input-group-btn">
-						<button type="button" class="btn btn-default"
-							ng-click="openToDatePicker($event)">
-							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
-					</span>
+			<div class="form-group">
+				<label class="col-md-5 control-label" for="to">To:</label>
+				<div class="col-md-2">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							datepicker-popup="{{dateFormat}}" ng-model="to"
+							is-open="toDatePickerOpened" min-date="from"
+							datepicker-options="dateOptions"
+							date-disabled="disabled(date, mode)" show-button-bar="false" />
+						<span class="input-group-btn" required>
+							<button type="button" class="btn btn-default"
+								ng-click="openToDatePicker($event)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="type">Type:</label>
-			<div class="col-md-3">
-				<select id="type" name="type" class="form-control" ng-model="typeId"
-					ng-options="vacationType.id as vacationType.type for vacationType in vacationTypes">
-				</select>
+			<div class="form-group">
+				<label class="col-md-5 control-label" for="type">Type:</label>
+				<div class="col-md-2">
+					<select id="type" name="type" class="form-control"
+						ng-model="typeId"
+						ng-options="vacationType.id as vacationType.type for vacationType in vacationTypes"
+						required>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-md-offset-4">
-				<input type="submit" value="Create" class="btn btn-primary"
-					ng-click="save()" /> <input type="submit" value="Cancel"
-					class="btn btn-default" ng-click="cancel()" />
+			<div class="form-group">
+				<div>
+					<input type="submit" value="Create" class="btn btn-primary"
+						ng-click="save()" ng-disabled="createVacationForm.$invalid" /> <input
+						type="submit" value="Cancel" class="btn btn-default"
+						ng-click="cancel()" />
+				</div>
 			</div>
-		</div>
-	</form>
+		</form>
+	</fieldset>
 </div>
