@@ -10,7 +10,12 @@ app.service('vacationTypeService', function($http) {
 		});
 	};
 
-	this.getVacationTypeList = function() {
-		return $http.get('rest/vacation/type', {});
+	this.getVacationTypeList = function(sortAttribute, sortType) {
+		return $http.get('rest/vacation/type', {
+			params : {
+				sortAttribute : sortAttribute,
+				sortType : sortType
+			}
+		});
 	};
 });

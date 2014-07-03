@@ -35,7 +35,8 @@ import com.min.vacation.model.VacationType;
 public class VacationService extends AuthenticatedService {
 
     /** The LOG. */
-    private static final Logger LOG = LoggerFactory.getLogger(VacationService.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(VacationService.class);
 
     /** The userBusiness. */
     @Autowired
@@ -61,15 +62,17 @@ public class VacationService extends AuthenticatedService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public PaginatedModel<Vacation> getVacation(@QueryParam("startIndex") final int startIndex,
+    public PaginatedModel<Vacation> getVacation(
+            @QueryParam("startIndex") final int startIndex,
             @QueryParam("pageSize") final int pageSize,
             @DefaultValue("from") @QueryParam("sortAttribute") final String sortAttribute,
-            @DefaultValue("asc") @QueryParam("sortType") final String sortType) {
-        LOG.debug("Retrieving {} vacations from {} with sorting : {} {}", pageSize, startIndex,
-                sortAttribute, sortType);
+            @DefaultValue("desc") @QueryParam("sortType") final String sortType) {
+        LOG.debug("Retrieving {} vacations from {} with sorting : {} {}",
+                pageSize, startIndex, sortAttribute, sortType);
         String username = getAuthenticatedUsername();
-        return vacationBusiness.findUserVacations(username, startIndex, pageSize, sortAttribute,
-                ServiceUtils.convertSortType(sortType));
+        return vacationBusiness
+                .findUserVacations(username, startIndex, pageSize,
+                        sortAttribute, ServiceUtils.convertSortType(sortType));
     }
 
     /**
@@ -101,10 +104,11 @@ public class VacationService extends AuthenticatedService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void createVacation(final Vacation vacation,
             @PathParam("typeId") final int vacationTypeId) {
-        LOG.debug("Creating vacation : from {} to {} with type : {}", vacation.getFrom(),
-                vacation.getTo(), vacationTypeId);
+        LOG.debug("Creating vacation : from {} to {} with type : {}",
+                vacation.getFrom(), vacation.getTo(), vacationTypeId);
         User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
-        VacationType vacationType = vacationBusiness.getVacationTypeById(vacationTypeId);
+        VacationType vacationType = vacationBusiness
+                .getVacationTypeById(vacationTypeId);
         vacation.setType(vacationType);
         vacation.setUser(user);
         vacationBusiness.save(vacation);
@@ -118,9 +122,12 @@ public class VacationService extends AuthenticatedService {
     @GET
     @Path("type")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<VacationType> getVacationTypes() {
+    public List<VacationType> getVacationTypes(
+            @DefaultValue("type") @QueryParam("sortAttribute") final String sortAttribute,
+            @DefaultValue("asc") @QueryParam("sortType") final String sortType) {
         LOG.debug("Getting vacation types");
-        return vacationBusiness.getUserVacationType(getAuthenticatedUsername());
+        return vacationBusiness.getUserVacationType(getAuthenticatedUsername(),
+                sortAttribute, ServiceUtils.convertSortType(sortType));
     }
 
     /**
@@ -135,6 +142,7 @@ public class VacationService extends AuthenticatedService {
     @Produces(MediaType.APPLICATION_JSON)
     public int getNumberOfVacationsByType(@QueryParam("typeId") final int typeId) {
         LOG.debug("Getting number of vacations for type id : {}", typeId);
-        return vacationBusiness.getVacationWorkingDaysCount(getAuthenticatedUsername(), typeId);
+        return vacationBusiness.getVacationWorkingDaysCount(
+                getAuthenticatedUsername(), typeId);
     }
 }

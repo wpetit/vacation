@@ -7,6 +7,11 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 	$scope.endDate = new Date();
 	$scope.dateFormat = 'dd/MM/yyyy';
 	$scope.numberOfDays = 1;
+	// sort
+	$scope.sortOptions = {
+		field : "type",
+		direction : "asc"
+	};
 
 	$scope.openEndDatePicker = function($event) {
 		$event.preventDefault();
@@ -22,10 +27,8 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 
 	// Refresh the grid, calling the appropriate service method.
 	$scope.save = function() {
-		vacationTypeService.saveVacationType($scope.typeName,
-				$scope.beginDate, 
-				$scope.endDate, 
-				$scope.numberOfDays).success(function(data) {
+		vacationTypeService.saveVacationType($scope.typeName, $scope.beginDate,
+				$scope.endDate, $scope.numberOfDays).success(function(data) {
 			$scope.typeName = null;
 			$scope.beginDate = new Date();
 			$scope.endDate = new Date();
@@ -38,35 +41,49 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 	};
 
 	$scope.getAll = function() {
-		vacationTypeService.getVacationTypeList().success(function(data) {
+		vacationTypeService.getVacationTypeList($scope.sortOptions.field,
+				$scope.sortOptions.direction).success(function(data) {
 			$scope.vacationTypes = data;
 		});
 	};
 
 	$scope.sortBy = function(attribute) {
-
+		if ($scope.sortOptions.field != attribute) {
+			$scope.sortOptions = {
+				field : attribute,
+				direction : "asc"
+			};
+		} else {
+			if ($scope.sortOptions.direction == "desc") {
+				$scope.sortOptions.direction = "asc";
+			} else {
+				$scope.sortOptions.direction = "desc";
+			}
+		}
 	};
 
-	// sort
-	$scope.sortOptions = {
-		field : "type",
-		direction : "asc"
-	};
+	$scope.$watch('sortOptions', function(newVal, oldVal) {
+		if (newVal !== oldVal) {
+			$scope.getAll();
+		}
+	}, true);
+
+	$scope.$watch('vacationTypes', function(newVal, oldVal) {
+		if (newVal !== oldVal) {
+			$scope.getVacationTypesBalances();
+		}
+	}, true);
 
 	$scope.goToCreateVacationType = function() {
 		$location.path('/vacationTypes/create');
 	};
 
-	$scope.retrieveVacationTypes = function() {
-		vacationTypeService.getVacationTypeList().success(
-				function(data) {
-					$scope.vacationTypes = data;
-					$scope.numberOfVacations = new Array();
-					data.forEach(function(vacationType) {
-						$scope.retrieveVacationCount(vacationType.id,
-								vacationType.type, vacationType.numberOfDays);
-					});
-				});
+	$scope.getVacationTypesBalances = function() {
+		$scope.numberOfVacations = new Array();
+		$scope.vacationTypes.forEach(function(vacationType) {
+			$scope.retrieveVacationCount(vacationType.id, vacationType.type,
+					vacationType.numberOfDays);
+		});
 	};
 
 	$scope.retrieveVacationCount = function(vacationTypeId, vacationTypeName,
@@ -83,6 +100,4 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 	};
 
 	$scope.getAll();
-	$scope.retrieveVacationTypes();
-
 });

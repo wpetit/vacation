@@ -10,8 +10,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.min.vacation.dao.VacationTypeDao;
+import com.min.vacation.model.SortType;
 import com.min.vacation.model.VacationType;
 
 /**
@@ -34,11 +36,18 @@ public class VacationTypeDaoImpl implements VacationTypeDao {
 
     /** {@inheritDoc} */
     @Override
-    public List<VacationType> getUserVacationType(final String username) {
+    public List<VacationType> getUserVacationType(final String username,
+            final String sortAttribute, final SortType sortType) {
+        String sortField = sortAttribute;
+        if (StringUtils.isEmpty(sortAttribute)) {
+            sortField = "type";
+        }
+        String sort = DaoUtils.getStringSort(sortType, SortType.ASC);
+
         TypedQuery<VacationType> query = entityManager
                 .createQuery(
-                        "select vt from VacationType vt join vt.user u where u.username=:username",
-                        VacationType.class);
+                        "select vt from VacationType vt join vt.user u where u.username=:username order by vt."
+                                + sortField + " " + sort, VacationType.class);
         query.setParameter("username", username);
         return query.getResultList();
     }

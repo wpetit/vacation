@@ -127,8 +127,10 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /** {@inheritDoc} */
     @Override
-    public List<VacationType> getUserVacationType(final String username) {
-        return vacationtypeDao.getUserVacationType(username);
+    public List<VacationType> getUserVacationType(final String username,
+            final String sortAttribute, final SortType sortType) {
+        return vacationtypeDao.getUserVacationType(username, sortAttribute,
+                sortType);
     }
 
     /** {@inheritDoc} */

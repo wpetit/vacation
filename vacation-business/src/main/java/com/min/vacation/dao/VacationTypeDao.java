@@ -2,6 +2,7 @@ package com.min.vacation.dao;
 
 import java.util.List;
 
+import com.min.vacation.model.SortType;
 import com.min.vacation.model.VacationType;
 
 /**
@@ -24,9 +25,14 @@ public interface VacationTypeDao {
      * 
      * @param username
      *            the user username
+     * @param sortAttribute
+     *            the attribute to sort on (default to "type" attribute)
+     * @param sortType
+     *            the sort operator (default : asc)
      * @return the user found
      */
-    List<VacationType> getUserVacationType(String username);
+    List<VacationType> getUserVacationType(String username,
+            String sortAttribute, SortType sortType);
 
     /**
      * Retrieve a vacationType by its id.

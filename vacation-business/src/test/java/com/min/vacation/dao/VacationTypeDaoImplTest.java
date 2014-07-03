@@ -12,8 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.min.vacation.dao.UserDao;
-import com.min.vacation.dao.VacationTypeDao;
 import com.min.vacation.model.User;
 import com.min.vacation.model.VacationType;
 
@@ -44,7 +42,7 @@ public class VacationTypeDaoImplTest extends
         vacationTypeDao.save(vacationType);
 
         List<VacationType> vacationTypeList = vacationTypeDao
-                .getUserVacationType("wpetit0");
+                .getUserVacationType("wpetit0", null, null);
         assertEquals(1, vacationTypeList.size());
         VacationType vacationTypeResult = vacationTypeList.get(0);
         assertEquals("Congés payés", vacationTypeResult.getType());
@@ -55,7 +53,7 @@ public class VacationTypeDaoImplTest extends
     @Test
     public void testGetEmptyUserVacationType() {
         List<VacationType> vacationTypeList = vacationTypeDao
-                .getUserVacationType("wpetit-noVacation");
+                .getUserVacationType("wpetit-noVacation", null, null);
         assertEquals(0, vacationTypeList.size());
     }
 }

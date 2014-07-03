@@ -72,13 +72,18 @@ public interface VacationBusiness {
     void save(VacationType vacationType);
 
     /**
-     * Retrieve the user with the given username.
+     * Retrieve the user vacation types.
      * 
      * @param username
      *            the user username
-     * @return the user found
+     * @param sortAttribute
+     *            the attribute to sort on (default to "type" attribute)
+     * @param sortType
+     *            the sort operator (default : asc)
+     * @return vacation types found
      */
-    List<VacationType> getUserVacationType(String username);
+    List<VacationType> getUserVacationType(String username,
+            String sortAttribute, SortType sortType);
 
     /**
      * Retrieve a vacationType by its id.
