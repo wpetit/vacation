@@ -4,11 +4,13 @@ vacationAppFilters.filter('sortIconFilter', function() {
 		var icon = "";
 		if (sortOptions.field == input) {
 			if ("desc" == sortOptions.direction) {
-				icon = '\u25BC';
+				icon = 'glyphicon glyphicon-sort-by-attributes-alt';
 			} else {
-				icon = '\u25B2';
+				icon = 'glyphicon glyphicon-sort-by-attributes';
 			}
+		} else {
+			icon = 'glyphicon glyphicon-sort';
 		}
 		return icon;
-	}
+	};
 });
