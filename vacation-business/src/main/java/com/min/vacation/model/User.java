@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @author wpetit
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class User implements Model {
     /** The serialVersionUID. */
     private static final long serialVersionUID = 3001805545630803737L;

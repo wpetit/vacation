@@ -3,12 +3,31 @@ vacationAppControllers
 		.controller('VacationsCtrl',
 				function($scope, $location, vacationService,
 						vacationTypeService) {
+
+					// Initialization
 					$scope.minDate = new Date();
 					$scope.from = new Date();
 					$scope.to = new Date();
 					$scope.dateFormat = 'dd-MM-yyyy';
+					// paging
+					$scope.pagingOptions = {
+						pageSize : 5,
+						currentPage : 1
+					};
 
-					// Refresh the grid, calling the appropriate service method.
+					// sort
+					$scope.sortOptions = {
+						field : "from",
+						direction : "desc"
+					};
+
+					// dateOptions
+					$scope.dateOptions = {
+						formatYear : 'yyyy',
+						startingDay : 1
+					};
+
+					// Refresh vacations with paging and sort options.
 					$scope.refresh = function() {
 						var page = $scope.pagingOptions.currentPage;
 						vacationService.getAll(
@@ -21,17 +40,7 @@ vacationAppControllers
 								});
 					};
 
-					$scope.pagingOptions = {
-						pageSize : 5,
-						currentPage : 1
-					};
-
-					// sort
-					$scope.sortOptions = {
-						field : "from",
-						direction : "desc"
-					};
-
+					// Sort vacations
 					$scope.sortBy = function(attribute) {
 						if ($scope.sortOptions.field != attribute) {
 							$scope.sortOptions = {
@@ -47,16 +56,19 @@ vacationAppControllers
 						}
 					};
 
+					// Refresh vacations when sortOptions changes.
 					$scope.$watch('sortOptions', function(newVal, oldVal) {
 						if (newVal !== oldVal) {
 							$scope.refresh();
 						}
 					}, true);
 
+					// Go to create vacation screen.
 					$scope.goToCreateVacation = function() {
 						$location.path('/vacation/create');
 					};
 
+					// Save the vacation.
 					$scope.save = function() {
 						vacationService.save($scope.from, $scope.to,
 								$scope.typeId).success(function(data) {
@@ -65,6 +77,7 @@ vacationAppControllers
 						});
 					};
 
+					// Cancel. Go back to vacation list.
 					$scope.cancel = function() {
 						$location.path('/vacation/list');
 					};
@@ -75,23 +88,21 @@ vacationAppControllers
 								.getDay() === 6));
 					};
 
+					// Open from datePicker
 					$scope.openFromDatePicker = function($event) {
 						$event.preventDefault();
 						$event.stopPropagation();
 						$scope.fromDatePickerOpened = true;
 					};
 
+					// Open to datePicker
 					$scope.openToDatePicker = function($event) {
 						$event.preventDefault();
 						$event.stopPropagation();
 						$scope.toDatePickerOpened = true;
 					};
 
-					$scope.dateOptions = {
-						formatYear : 'yyyy',
-						startingDay : 1
-					};
-
+					// Get vacation types
 					$scope.retrieveVacationTypes = function() {
 						vacationTypeService.getVacationTypeList().success(
 								function(data) {
@@ -106,6 +117,7 @@ vacationAppControllers
 								});
 					};
 
+					// Get vacation balances.
 					$scope.retrieveVacationCount = function(vacationTypeId,
 							vacationTypeName, max) {
 						vacationService.getNumberOfVacations(vacationTypeId)
@@ -119,7 +131,10 @@ vacationAppControllers
 								});
 					};
 
+					// Initialization
+					// Get vacations
 					$scope.refresh();
+					// Get vacation types balances
 					$scope.retrieveVacationTypes();
 
 				});

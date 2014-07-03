@@ -1,5 +1,6 @@
-// Service that provides vacations operations
+// Service that provides vacations operations.
 app.service('vacationService', function($http) {
+	// Get all vacations with paging and sorting options.
 	this.getAll = function(startIndex, pageSize, sortAttribute, sortType) {
 		return $http.get('rest/vacation/list', {
 			params : {
@@ -10,6 +11,7 @@ app.service('vacationService', function($http) {
 			}
 		});
 	};
+	// Save the vacation given.
 	this.save = function(from, to, vacationTypeId) {
 		return $http.post('rest/vacation/' + vacationTypeId, {
 			from : from,
