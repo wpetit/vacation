@@ -19,8 +19,8 @@
 				<tbody>
 					<tr ng-repeat="model in vacationTypes">
 						<td>{{model.type}}</td>
-						<td>{{model.beginDay}}&nbsp;/&nbsp;{{model.beginMonth}}</td>
-						<td>{{model.endDay}}&nbsp;/&nbsp;{{model.endMonth}}</td>
+						<td>{{model.beginDate | date}}</td>
+						<td>{{model.endDate | date}}</td>
 						<td>{{model.numberOfDays}}</td>
 					</tr>
 				</tbody>

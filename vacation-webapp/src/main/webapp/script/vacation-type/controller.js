@@ -5,7 +5,7 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 	// initialization
 	$scope.beginDate = new Date();
 	$scope.endDate = new Date();
-	$scope.dateFormat = 'MMMM dd';
+	$scope.dateFormat = 'dd/MM/yyyy';
 	$scope.numberOfDays = 1;
 
 	$scope.openEndDatePicker = function($event) {
@@ -23,8 +23,8 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 	// Refresh the grid, calling the appropriate service method.
 	$scope.save = function() {
 		vacationTypeService.saveVacationType($scope.typeName,
-				$scope.beginDate.getDate(), $scope.beginDate.getMonth() + 1,
-				$scope.endDate.getDate(), $scope.endDate.getMonth() + 1,
+				$scope.beginDate, 
+				$scope.endDate, 
 				$scope.numberOfDays).success(function(data) {
 			$scope.typeName = null;
 			$scope.beginDate = new Date();

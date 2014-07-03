@@ -3,6 +3,8 @@
  */
 package com.min.vacation.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,14 +31,10 @@ public class VacationType implements Model {
     private User user;
     /** The type. */
     private String type;
-    /** The beginDay. */
-    private int beginDay;
-    /** The beginMonth. */
-    private int beginMonth;
-    /** The endDay. */
-    private int endDay;
-    /** The endMonth. */
-    private int endMonth;
+    /** The beginDate. */
+    private Date beginDate;
+    /** The endDate. */
+    private Date endDate;
     /** The numberOfDays. */
     private int numberOfDays;
 
@@ -98,79 +96,41 @@ public class VacationType implements Model {
     }
 
     /**
-     * Return the VacationType beginDay.
+     * Return the VacationType beginDate.
      * 
-     * @return the beginDay
+     * @return the beginDate
      */
-    public int getBeginDay() {
-        return beginDay;
+    public Date getBeginDate() {
+        return beginDate;
     }
 
     /**
-     * Set the VacationType beginDay.
+     * Set the VacationType beginDate.
      * 
-     * @param beginDay
-     *            the beginDay to set
+     * @param beginDate
+     *            the beginDate to set
      */
-    public void setBeginDay(final int beginDay) {
-        this.beginDay = beginDay;
+    public void setBeginDate(final Date beginDate) {
+        this.beginDate = beginDate;
     }
 
     /**
-     * Return the VacationType beginMonth.
+     * Return the VacationType endDate.
      * 
-     * @return the beginMonth
+     * @return the endDate
      */
-    public int getBeginMonth() {
-        return beginMonth;
+    public Date getEndDate() {
+        return endDate;
     }
 
     /**
-     * Set the VacationType beginMonth.
+     * Set the VacationType endDate.
      * 
-     * @param beginMonth
-     *            the beginMonth to set
+     * @param endDate
+     *            the endDate to set
      */
-    public void setBeginMonth(final int beginMonth) {
-        this.beginMonth = beginMonth;
-    }
-
-    /**
-     * Return the VacationType endDay.
-     * 
-     * @return the endDay
-     */
-    public int getEndDay() {
-        return endDay;
-    }
-
-    /**
-     * Set the VacationType endDay.
-     * 
-     * @param endDay
-     *            the endDay to set
-     */
-    public void setEndDay(final int endDay) {
-        this.endDay = endDay;
-    }
-
-    /**
-     * Return the VacationType endMonth.
-     * 
-     * @return the endMonth
-     */
-    public int getEndMonth() {
-        return endMonth;
-    }
-
-    /**
-     * Set the VacationType endMonth.
-     * 
-     * @param endMonth
-     *            the endMonth to set
-     */
-    public void setEndMonth(final int endMonth) {
-        this.endMonth = endMonth;
+    public void setEndDate(final Date endDate) {
+        this.endDate = endDate;
     }
 
     /**
