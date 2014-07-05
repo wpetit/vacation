@@ -101,4 +101,12 @@ public interface VacationBusiness {
      *            the vacationType to update
      */
     void updateVacationType(VacationType vacationType);
+
+    /**
+     * Delete the vacationType with the given id.
+     * 
+     * @param id
+     *            the id
+     */
+    void deleteVacationType(int id);
 }

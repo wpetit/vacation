@@ -3,6 +3,7 @@ package com.min.vacation.webapp.service;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -177,5 +178,18 @@ public class VacationService extends AuthenticatedService {
         User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
         vacationType.setUser(user);
         vacationBusiness.updateVacationType(vacationType);
+    }
+
+    /**
+     * Delete the vacationType with the given id.
+     * 
+     * @param id
+     *            the id
+     */
+    @DELETE
+    @Path("type/{id}")
+    public void deleteVacationType(@PathParam("id") final int id) {
+        LOG.debug("VacationType id to delete: {}", id);
+        vacationBusiness.deleteVacationType(id);
     }
 }

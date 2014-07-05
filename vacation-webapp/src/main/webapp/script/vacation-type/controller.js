@@ -58,6 +58,12 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 				});
 	};
 
+	$scope.deleteVacationType = function(id) {
+		vacationTypeService.deleteVacationType(id).success(function(data) {
+			$scope.getAll();
+		});
+	};
+
 	// Sort vacation types.
 	$scope.sortBy = function(attribute) {
 		if ($scope.sortOptions.field != attribute) {

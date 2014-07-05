@@ -144,4 +144,10 @@ public class VacationBusinessImpl implements VacationBusiness {
     public void updateVacationType(final VacationType vacationType) {
         vacationTypeDao.update(vacationType);
     }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void deleteVacationType(final int id) {
+        vacationTypeDao.remove(id);
+    }
 }

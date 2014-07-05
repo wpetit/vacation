@@ -27,6 +27,7 @@ import com.min.vacation.model.VacationType;
 @Repository
 public class VacationTypeDaoImpl implements VacationTypeDao {
 
+    /** The LOG. */
     private static final Logger LOG = LoggerFactory
             .getLogger(VacationTypeDaoImpl.class);
 
@@ -74,6 +75,12 @@ public class VacationTypeDaoImpl implements VacationTypeDao {
     @Override
     public void update(final VacationType vacationType) {
         entityManager.merge(vacationType);
+    }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void remove(final int id) {
+        entityManager.remove(getVacationTypeById(id));
     }
 
 }

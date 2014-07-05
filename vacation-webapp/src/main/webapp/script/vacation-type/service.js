@@ -35,4 +35,8 @@ app.service('vacationTypeService', function($http) {
 			numberOfDays : numberOfDays
 		});
 	};
+	
+	this.deleteVacationType = function(id) {
+		return $http.delete('rest/vacation/type/' + id);
+	};
 });
