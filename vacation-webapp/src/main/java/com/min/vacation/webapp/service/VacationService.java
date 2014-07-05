@@ -116,6 +116,10 @@ public class VacationService extends AuthenticatedService {
     /**
      * Return users vacation types.
      * 
+     * @param sortAttribute
+     *            the attribute to sort on.
+     * @param sortType
+     *            the sort operator.
      * @return vacation types.
      */
     @GET

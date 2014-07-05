@@ -44,10 +44,10 @@ public class VacationTypeDaoImpl implements VacationTypeDao {
         }
         String sort = DaoUtils.getStringSort(sortType, SortType.ASC);
 
-        TypedQuery<VacationType> query = entityManager
-                .createQuery(
-                        "select vt from VacationType vt join vt.user u where u.username=:username order by vt."
-                                + sortField + " " + sort, VacationType.class);
+        TypedQuery<VacationType> query = entityManager.createQuery(
+                "select vt from VacationType vt join vt.user u "
+                        + "where u.username=:username order by vt." + sortField
+                        + " " + sort, VacationType.class);
         query.setParameter("username", username);
         return query.getResultList();
     }
