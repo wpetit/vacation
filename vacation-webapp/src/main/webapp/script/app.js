@@ -15,6 +15,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/vacationTypes/create', {
 		templateUrl : 'partials/vacation-type-create.html',
 		controller : 'VacationTypeCtrl'
+	}).when('/vacationTypes/update/:vacationTypeId', {
+		templateUrl : 'partials/vacation-type-update.html',
+		controller : 'VacationTypeCtrl'
 	}).when('/vacationTypes/list', {
 		templateUrl : 'partials/vacation-type-list.html',
 		controller : 'VacationTypeCtrl'

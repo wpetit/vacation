@@ -148,4 +148,34 @@ public class VacationService extends AuthenticatedService {
         return vacationBusiness.getVacationWorkingDaysCount(
                 getAuthenticatedUsername(), typeId);
     }
+
+    /**
+     * Get the vacation type with the given id.
+     * 
+     * @param id
+     *            the vacation type id.
+     * @return the vacation type found or null if not found.
+     */
+    @GET
+    @Path("type/{id}")
+    public VacationType getVacationType(@PathParam("id") final int id) {
+        VacationType vacationType = vacationBusiness.getVacationTypeById(id);
+        LOG.debug("Vacation type found: {}", vacationType);
+        return vacationType;
+    }
+
+    /**
+     * Update the given vacationType.
+     * 
+     * @param vacationType
+     *            the vacation type to update
+     */
+    @POST
+    @Path("type/{id}")
+    public void updateVacationType(final VacationType vacationType) {
+        LOG.debug("VacationType to update: {}", vacationType);
+        User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
+        vacationType.setUser(user);
+        vacationBusiness.updateVacationType(vacationType);
+    }
 }

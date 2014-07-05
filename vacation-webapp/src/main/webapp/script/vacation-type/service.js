@@ -19,4 +19,20 @@ app.service('vacationTypeService', function($http) {
 			}
 		});
 	};
+
+	// Get vacation type with id given.
+	this.getVacationType = function(vacationTypeId) {
+		return $http.get('rest/vacation/type/' + vacationTypeId, {});
+	};
+
+	this.updateVacationType = function(id, name, beginDate, endDate,
+			numberOfDays) {
+		return $http.post('rest/vacation/type/' + id, {
+			id : id,
+			type : name,
+			beginDate : beginDate,
+			endDate : endDate,
+			numberOfDays : numberOfDays
+		});
+	};
 });

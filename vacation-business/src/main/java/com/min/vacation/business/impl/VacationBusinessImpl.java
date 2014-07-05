@@ -29,9 +29,9 @@ public class VacationBusinessImpl implements VacationBusiness {
     @Autowired
     private VacationDao vacationDao;
 
-    /** The vacationtypeDao. */
+    /** The vacationTypeDao. */
     @Autowired
-    private VacationTypeDao vacationtypeDao;
+    private VacationTypeDao vacationTypeDao;
 
     /** The dayOffBusiness. */
     @Autowired
@@ -122,20 +122,26 @@ public class VacationBusinessImpl implements VacationBusiness {
     /** {@inheritDoc} */
     @Override
     public void save(final VacationType vacationType) {
-        vacationtypeDao.save(vacationType);
+        vacationTypeDao.save(vacationType);
     }
 
     /** {@inheritDoc} */
     @Override
     public List<VacationType> getUserVacationType(final String username,
             final String sortAttribute, final SortType sortType) {
-        return vacationtypeDao.getUserVacationType(username, sortAttribute,
+        return vacationTypeDao.getUserVacationType(username, sortAttribute,
                 sortType);
     }
 
     /** {@inheritDoc} */
     @Override
     public VacationType getVacationTypeById(final int id) {
-        return vacationtypeDao.getVacationTypeById(id);
+        return vacationTypeDao.getVacationTypeById(id);
+    }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void updateVacationType(final VacationType vacationType) {
+        vacationTypeDao.update(vacationType);
     }
 }

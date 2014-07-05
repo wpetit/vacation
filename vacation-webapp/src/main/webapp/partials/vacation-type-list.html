@@ -6,22 +6,33 @@
 			<table class="table table-striped table-condensed table-hover">
 				<thead>
 					<tr>
-						<th ng-click="sortBy('type')"><span class="sortableTableHeader">Type&nbsp;<span class="{{'type' |
+						<th ng-click="sortBy('type')"><span
+							class="sortableTableHeader">Type&nbsp;<span
+								class="{{'type' |
                                 sortIconFilter:sortOptions }}"></span></span></th>
-						<th ng-click="sortBy('beginDate')"><span class="sortableTableHeader">Begin&nbsp;<span class="{{'beginDate' |
+						<th ng-click="sortBy('beginDate')"><span
+							class="sortableTableHeader">Begin&nbsp;<span
+								class="{{'beginDate' |
                                 sortIconFilter:sortOptions }}"></span></span></th>
-						<th ng-click="sortBy('endDate')"><span class="sortableTableHeader">End&nbsp;<span class="{{'endDate' |
+						<th ng-click="sortBy('endDate')"><span
+							class="sortableTableHeader">End&nbsp;<span
+								class="{{'endDate' |
                                 sortIconFilter:sortOptions }}"></span></span></th>
-						<th ng-click="sortBy('numberOfDays')"><span class="sortableTableHeader">Number of days&nbsp;<span class="{{'numberOfDays'
+						<th ng-click="sortBy('numberOfDays')"><span
+							class="sortableTableHeader">Number of days&nbsp;<span
+								class="{{'numberOfDays'
                                 | sortIconFilter:sortOptions }}"></span></span></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="model in vacationTypes">
-						<td>{{model.type}}</td>
+						<td>{{model.type}} {{model.id}}</td>
 						<td>{{model.beginDate | date}}</td>
 						<td>{{model.endDate | date}}</td>
 						<td>{{model.numberOfDays}}</td>
+						<td><button type="button" class="btn btn-default btn-xs">
+								<span ng-click="goToUpdateVacationType(model.id)" class="glyphicon glyphicon-pencil"></span>
+							</button></td>
 					</tr>
 				</tbody>
 			</table>

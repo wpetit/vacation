@@ -43,4 +43,12 @@ public interface VacationTypeDao {
      */
     VacationType getVacationTypeById(int id);
 
+    /**
+     * Update the given vacationType.
+     * 
+     * @param vacationType
+     *            the vacationType to update
+     */
+    void update(VacationType vacationType);
+
 }

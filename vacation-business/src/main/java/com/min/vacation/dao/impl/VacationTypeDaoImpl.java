@@ -6,9 +6,12 @@ package com.min.vacation.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +26,9 @@ import com.min.vacation.model.VacationType;
  */
 @Repository
 public class VacationTypeDaoImpl implements VacationTypeDao {
+
+    private static final Logger LOG = LoggerFactory
+            .getLogger(VacationTypeDaoImpl.class);
 
     /** The entityManager. */
     @PersistenceContext
@@ -55,7 +61,19 @@ public class VacationTypeDaoImpl implements VacationTypeDao {
     /** {@inheritDoc} **/
     @Override
     public VacationType getVacationTypeById(final int id) {
-        return entityManager.find(VacationType.class, id);
+        VacationType result = null;
+        try {
+            result = entityManager.find(VacationType.class, id);
+        } catch (NoResultException e) {
+            LOG.error("No vacation type found for id: " + id, e);
+        }
+        return result;
+    }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void update(final VacationType vacationType) {
+        entityManager.merge(vacationType);
     }
 
 }

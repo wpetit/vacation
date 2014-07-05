@@ -1,17 +1,6 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
 vacationAppControllers.controller('VacationTypeCtrl', function($scope,
-		$location, vacationService, vacationTypeService) {
-
-	// initialization
-	$scope.beginDate = new Date();
-	$scope.endDate = new Date();
-	$scope.dateFormat = 'dd/MM/yyyy';
-	$scope.numberOfDays = 1;
-	// sort
-	$scope.sortOptions = {
-		field : "type",
-		direction : "asc"
-	};
+		$location, $routeParams, vacationService, vacationTypeService) {
 
 	$scope.openBeginDatePicker = function($event) {
 		$event.preventDefault();
@@ -41,12 +30,32 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 		$location.path('/vacationTypes/list');
 	};
 
+	// Get the vacationType with oldTypeId
+	$scope.getVacationType = function() {
+		vacationTypeService.getVacationType($scope.typeId).success(
+				function(data) {
+					$scope.id = data.id;
+					$scope.typeName = data.type;
+					$scope.beginDate = data.beginDate;
+					$scope.endDate = data.endDate;
+					$scope.numberOfDays = data.numberOfDays;
+				});
+	};
+
 	// Get all vacation types with sort.
 	$scope.getAll = function() {
 		vacationTypeService.getVacationTypeList($scope.sortOptions.field,
 				$scope.sortOptions.direction).success(function(data) {
 			$scope.vacationTypes = data;
 		});
+	};
+
+	// Update vacation type.
+	$scope.update = function() {
+		vacationTypeService.updateVacationType($scope.id, $scope.typeName,
+				$scope.beginDate, $scope.endDate, $scope.numberOfDays).success(
+				function(data) {
+				});
 	};
 
 	// Sort vacation types.
@@ -84,6 +93,10 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 		$location.path('/vacationTypes/create');
 	};
 
+	$scope.goToUpdateVacationType = function(id) {
+		$location.path('vacationTypes/update/' + id);
+	};
+
 	// Get vacation types balances.
 	$scope.getVacationTypesBalances = function() {
 		$scope.numberOfVacations = new Array();
@@ -107,6 +120,21 @@ vacationAppControllers.controller('VacationTypeCtrl', function($scope,
 				});
 	};
 
-	// Initialization : get all vacation types.
-	$scope.getAll();
+	if ($routeParams.vacationTypeId == null) {
+		// initialization
+		$scope.beginDate = new Date();
+		$scope.endDate = new Date();
+		$scope.dateFormat = 'dd/MM/yyyy';
+		$scope.numberOfDays = 1;
+		// sort
+		$scope.sortOptions = {
+			field : "type",
+			direction : "asc"
+		};
+		// get all vacation types.
+		$scope.getAll();
+	} else {
+		$scope.typeId = $routeParams.vacationTypeId;
+		$scope.getVacationType();
+	}
 });

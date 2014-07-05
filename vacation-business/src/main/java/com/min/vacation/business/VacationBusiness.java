@@ -93,4 +93,12 @@ public interface VacationBusiness {
      * @return the vacationType
      */
     VacationType getVacationTypeById(int id);
+
+    /**
+     * Update the given vacationType.
+     * 
+     * @param vacationType
+     *            the vacationType to update
+     */
+    void updateVacationType(VacationType vacationType);
 }
