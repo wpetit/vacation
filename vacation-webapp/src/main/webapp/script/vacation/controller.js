@@ -71,10 +71,13 @@ vacationAppControllers
 					// Save the vacation.
 					$scope.save = function() {
 						vacationService.save($scope.from, $scope.to,
-								$scope.typeId).success(function(data) {
-							$scope.from = null;
-							$scope.to = null;
-						});
+								$scope.typeId).success(
+								function(data) {
+									$scope.from = null;
+									$scope.to = null;
+									toaster.pop('success',
+											"Vacation successfully saved.");
+								});
 					};
 
 					// Cancel. Go back to vacation list.
