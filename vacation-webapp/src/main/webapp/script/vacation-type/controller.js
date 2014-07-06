@@ -2,7 +2,7 @@
 vacationAppControllers
 		.controller(
 				'VacationTypeCtrl',
-				function($scope, $location, $routeParams, toaster,
+				function($scope, $location, $routeParams, $modal, toaster,
 						vacationService, vacationTypeService) {
 
 					$scope.openBeginDatePicker = function($event) {
@@ -77,14 +77,35 @@ vacationAppControllers
 					};
 
 					$scope.deleteVacationType = function(id) {
-						vacationTypeService
-								.deleteVacationType(id)
-								.success(
-										function(data) {
-											toaster
-													.pop('success',
-															"Vacation type successfully deleted.");
-											$scope.getAll();
+						var modalInstance = $modal
+								.open({
+									templateUrl : 'templates/confirmationDialog.html',
+									controller : DialogCtrl,
+									size : 'md',
+									resolve : {
+										title : function() {
+											return "Confirmation";
+										},
+										message : function() {
+											return "The vacation type and all vacations of this type will be deleted. Continue ?";
+										}
+									}
+								});
+
+						modalInstance.result
+								.then(
+										function() {
+											vacationTypeService
+													.deleteVacationType(id)
+													.success(
+															function(data) {
+																toaster
+																		.pop(
+																				'success',
+																				"Vacation type successfully deleted.");
+																$scope.getAll();
+															});
+										}, function() {
 										});
 					};
 
@@ -111,7 +132,8 @@ vacationAppControllers
 						}
 					}, true);
 
-					// Refresh vacation types balances when vacation types changes.
+					// Refresh vacation types balances when vacation types
+					// changes.
 					$scope.$watch('vacationTypes', function(newVal, oldVal) {
 						if (newVal !== oldVal) {
 							$scope.getVacationTypesBalances();
