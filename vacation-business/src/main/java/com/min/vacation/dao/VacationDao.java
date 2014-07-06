@@ -59,4 +59,12 @@ public interface VacationDao {
      */
     List<Vacation> getVacationByUsernameAndType(final String username,
             final int vacationTypeId);
+
+    /**
+     * Delete all vacation that belong to the given vacation type id.
+     * 
+     * @param id
+     *            the vacation type id
+     */
+    void deleteVacationByVacationType(int id);
 }

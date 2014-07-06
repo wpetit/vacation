@@ -148,6 +148,7 @@ public class VacationBusinessImpl implements VacationBusiness {
     /** {@inheritDoc} **/
     @Override
     public void deleteVacationType(final int id) {
-        vacationTypeDao.remove(id);
+        vacationDao.deleteVacationByVacationType(id);
+        vacationTypeDao.delete(getVacationTypeById(id));
     }
 }

@@ -52,11 +52,11 @@ public interface VacationTypeDao {
     void update(VacationType vacationType);
 
     /**
-     * Delete the vacation type with the given id.
+     * Delete the vacation type given.
      * 
-     * @param id
-     *            the id
+     * @param vacationType
+     *            the vacationType
      */
-    void remove(int id);
+    void delete(VacationType vacationType);
 
 }

@@ -103,10 +103,11 @@ public interface VacationBusiness {
     void updateVacationType(VacationType vacationType);
 
     /**
-     * Delete the vacationType with the given id.
+     * Delete the vacationType with the given id. Delete all vacation of the
+     * type.
      * 
      * @param id
-     *            the id
+     *            the vacation type id
      */
     void deleteVacationType(int id);
 }

@@ -79,8 +79,8 @@ public class VacationTypeDaoImpl implements VacationTypeDao {
 
     /** {@inheritDoc} **/
     @Override
-    public void remove(final int id) {
-        entityManager.remove(getVacationTypeById(id));
+    public void delete(final VacationType vacationType) {
+        entityManager.remove(vacationType);
     }
 
 }

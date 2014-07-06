@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -87,6 +88,15 @@ public class VacationDaoImpl implements VacationDao {
         query.setParameter(USERNAME_PARAM, username);
         query.setParameter(TYPE_ID_PARAM, vacationTypeId);
         return query.getResultList();
+    }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void deleteVacationByVacationType(final int id) {
+        Query q = entityManager
+                .createQuery("delete from Vacation v where v.type.id=:vacationTypeId");
+        q.setParameter(TYPE_ID_PARAM, id);
+        q.executeUpdate();
     }
 
 }
