@@ -151,4 +151,26 @@ public class VacationBusinessImpl implements VacationBusiness {
         vacationDao.deleteVacationByVacationType(id);
         vacationTypeDao.delete(getVacationTypeById(id));
     }
+
+    /** {@inheritDoc} **/
+    @Override
+    public Vacation getVacation(final int id) {
+        return vacationDao.getVacationById(id);
+    }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void updateVacation(final Vacation vacation) {
+        VacationType vacationType = vacationTypeDao
+                .getVacationTypeById(vacation.getType().getId());
+        vacation.setType(vacationType);
+        vacationDao.update(vacation);
+    }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void deleteVacation(final int id) {
+        Vacation vacation = getVacation(id);
+        vacationDao.delete(vacation);
+    }
 }

@@ -67,4 +67,29 @@ public interface VacationDao {
      *            the vacation type id
      */
     void deleteVacationByVacationType(int id);
+
+    /**
+     * Find a vacation by its id.
+     * 
+     * @param id
+     *            the vacation id
+     * @return the vacation found or null if not found
+     */
+    Vacation getVacationById(int id);
+
+    /**
+     * Update the given vacation.
+     * 
+     * @param vacation
+     *            the vacation to update
+     */
+    void update(Vacation vacation);
+
+    /**
+     * Delete the given vacation.
+     * 
+     * @param vacation
+     *            the vacation to delete
+     */
+    void delete(Vacation vacation);
 }

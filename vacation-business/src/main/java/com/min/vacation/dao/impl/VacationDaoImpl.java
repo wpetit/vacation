@@ -99,4 +99,22 @@ public class VacationDaoImpl implements VacationDao {
         q.executeUpdate();
     }
 
+    /** {@inheritDoc} **/
+    @Override
+    public Vacation getVacationById(final int id) {
+        return entityManager.find(Vacation.class, id);
+    }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void update(final Vacation vacation) {
+        entityManager.merge(vacation);
+    }
+
+    /** {@inheritDoc} **/
+    @Override
+    public void delete(final Vacation vacation) {
+        entityManager.remove(vacation);
+    }
+
 }

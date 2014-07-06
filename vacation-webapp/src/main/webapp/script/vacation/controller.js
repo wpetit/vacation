@@ -1,8 +1,9 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
 vacationAppControllers
-		.controller('VacationsCtrl',
-				function($scope, $location, toaster, vacationService,
-						vacationTypeService) {
+		.controller(
+				'VacationsCtrl',
+				function($scope, $location, $routeParams, $modal, toaster,
+						vacationService, vacationTypeService) {
 
 					// Initialization
 					$scope.minDate = new Date();
@@ -68,6 +69,21 @@ vacationAppControllers
 						$location.path('/vacation/create');
 					};
 
+					// Go to update vacation screen.
+					$scope.goToUpdateVacation = function(id) {
+						$location.path('vacation/update/' + id);
+					};
+
+					// Get the vacation given.
+					$scope.getVacation = function(id) {
+						vacationService.get(id).success(function(data) {
+							$scope.id = data.id;
+							$scope.from = data.from;
+							$scope.to = data.to;
+							$scope.typeId = data.type.id;
+						});
+					};
+
 					// Save the vacation.
 					$scope.save = function() {
 						vacationService.save($scope.from, $scope.to,
@@ -78,6 +94,60 @@ vacationAppControllers
 									toaster.pop('success',
 											"Vacation successfully saved.");
 								});
+					};
+
+					// Update the vacation.
+					$scope.update = function() {
+						vacationService.update($scope.id, $scope.from,
+								$scope.to, $scope.typeId).success(
+								function(data) {
+									$location.path('vacation/list');
+									toaster.pop('success',
+											"Vacation successfully updated.");
+								});
+					};
+
+					// Delete the vacation.
+					$scope.deleteVacation = function(id) {
+						var modalInstance = $modal
+								.open({
+									templateUrl : 'templates/confirmationDialog.html',
+									controller : DialogCtrl,
+									size : 'md',
+									resolve : {
+										title : function() {
+											return "Confirmation";
+										},
+										message : function() {
+											return "The vacation will be deleted. Continue ?";
+										}
+									}
+								});
+
+						modalInstance.result
+								.then(
+										function() {
+											vacationService
+													.deleteVacation(id)
+													.success(
+															function(data) {
+																$scope.from = null;
+																$scope.to = null;
+																toaster
+																		.pop(
+																				'success',
+																				"Vacation successfully deleted.");
+																// Get vacations
+																$scope
+																		.refresh();
+																// Get vacation
+																// types
+																// balances
+																$scope
+																		.retrieveVacationTypes();
+															});
+										}, function() {
+										});
 					};
 
 					// Cancel. Go back to vacation list.
@@ -135,9 +205,14 @@ vacationAppControllers
 					};
 
 					// Initialization
-					// Get vacations
-					$scope.refresh();
-					// Get vacation types balances
-					$scope.retrieveVacationTypes();
+					if ($routeParams.vacationId == null) {
+						// Get vacations
+						$scope.refresh();
+						// Get vacation types balances
+						$scope.retrieveVacationTypes();
+					} else {
+						$scope.getVacation($routeParams.vacationId);
+						$scope.retrieveVacationTypes();
+					}
 
 				});

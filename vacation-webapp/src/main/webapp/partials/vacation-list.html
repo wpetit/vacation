@@ -19,6 +19,12 @@
 							<td>{{model.type.type}}</td>
 							<td>{{model.from | date}}</td>
 							<td>{{model.to | date}}</td>
+							<td class="col-xs-1"><button type="button" class="btn btn-default btn-xs">
+                                <span ng-click="goToUpdateVacation(model.id)" class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs">
+                                <span ng-click="deleteVacation(model.id)" class="glyphicon glyphicon-trash"></span>
+                            </button></td>
 						</tr>
 					</tbody>
 				</table>

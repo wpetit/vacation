@@ -76,6 +76,45 @@ public class VacationService extends AuthenticatedService {
     }
 
     /**
+     * Find the vacation with the given id.
+     * 
+     * @param id
+     *            the vacation id
+     * @return the vacation found
+     */
+    @GET
+    @Path("{id}")
+    public Vacation getVacation(@PathParam("id") final int id) {
+        return vacationBusiness.getVacation(id);
+    }
+
+    /**
+     * Update the given vacation.
+     * 
+     * @param vacation
+     *            the vacation
+     */
+    @POST
+    @Path("{id}")
+    public void updateVacation(final Vacation vacation) {
+        User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
+        vacation.setUser(user);
+        vacationBusiness.updateVacation(vacation);
+    }
+
+    /**
+     * Delete the vacation with the id given.
+     * 
+     * @param id
+     *            the vacation id
+     */
+    @DELETE
+    @Path("{id}")
+    public void deleteVacation(@PathParam("id") final int id) {
+        vacationBusiness.deleteVacation(id);
+    }
+
+    /**
      * Create a vacation type for the user connected.
      * 
      * @param vacationType
@@ -100,15 +139,13 @@ public class VacationService extends AuthenticatedService {
      *            the vacationType id
      */
     @POST
-    @Path("{typeId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createVacation(final Vacation vacation,
-            @PathParam("typeId") final int vacationTypeId) {
-        LOG.debug("Creating vacation : from {} to {} with type : {}",
-                vacation.getFrom(), vacation.getTo(), vacationTypeId);
+    public void createVacation(final Vacation vacation) {
+        LOG.debug("Creating vacation : from {} to {} with type : {}", vacation
+                .getFrom(), vacation.getTo(), vacation.getType().getId());
         User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
         VacationType vacationType = vacationBusiness
-                .getVacationTypeById(vacationTypeId);
+                .getVacationTypeById(vacation.getType().getId());
         vacation.setType(vacationType);
         vacation.setUser(user);
         vacationBusiness.save(vacation);

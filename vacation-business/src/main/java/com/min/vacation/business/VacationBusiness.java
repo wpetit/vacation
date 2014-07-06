@@ -110,4 +110,29 @@ public interface VacationBusiness {
      *            the vacation type id
      */
     void deleteVacationType(int id);
+
+    /**
+     * Get the vacation with the given id.
+     * 
+     * @param id
+     *            the vacation id
+     * @return the vacation or null if not found
+     */
+    Vacation getVacation(int id);
+
+    /**
+     * Update the given vacation.
+     * 
+     * @param vacation
+     *            the vacation to update.
+     */
+    void updateVacation(Vacation vacation);
+
+    /**
+     * Delete the vacation with the id given.
+     * 
+     * @param id
+     *            the vacation id
+     */
+    void deleteVacation(int id);
 }
