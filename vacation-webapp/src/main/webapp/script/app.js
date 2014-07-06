@@ -1,5 +1,5 @@
 var app = angular.module('vacationApp', [ 'ngRoute', 'ui.bootstrap',
-		'vacationAppControllers', 'vacationAppFilters' ]);
+		'vacationAppControllers', 'vacationAppFilters', 'toaster' ]);
 
 var vacationAppControllers = angular.module('vacationAppControllers', []);
 

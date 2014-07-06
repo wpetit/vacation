@@ -11,9 +11,13 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.min.js"></script>
 <script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-animate.min.js"></script>
+<script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.0/ui-bootstrap-tpls.js"></script>
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.4/toaster.js"></script>
 
 <script src="script/app.js"></script>
 <script src="script/filters/filters.js"></script>
@@ -23,7 +27,9 @@
 <script src="script/vacation-type/controller.js"></script>
 
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.4/toaster.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 
@@ -34,7 +40,8 @@
 			<div class="container">
 				<nav>
 					<ul class="nav navbar-nav navbar-inner">
-						<li><a class="navbar-brand" href="#/list"><span class="glyphicon glyphicon-home"/></a></li>
+						<li><a class="navbar-brand" href="#/list"><span
+								class="glyphicon glyphicon-home" /></a></li>
 						<li><a href="#/list" role="button" class="navbar-brand">Vacations</a></li>
 						<li><a href="#/vacationTypes/list" role="button"
 							class="navbar-brand">Configuration</a></li>
@@ -53,6 +60,7 @@
 
 	<br>
 
+    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true}"></toaster-container>
 	<div ng-view></div>
 
 </body>

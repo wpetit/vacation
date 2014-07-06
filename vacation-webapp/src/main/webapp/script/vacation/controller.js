@@ -1,7 +1,7 @@
 // Create a controller with name VacationsCtrl to bind to the html page.
 vacationAppControllers
 		.controller('VacationsCtrl',
-				function($scope, $location, vacationService,
+				function($scope, $location, toaster, vacationService,
 						vacationTypeService) {
 
 					// Initialization
