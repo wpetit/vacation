@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.min.vacation.model.SortType;
 import com.min.vacation.model.User;
 import com.min.vacation.model.VacationType;
 
@@ -64,6 +65,13 @@ public class VacationTypeDaoImplTest {
     }
 
     @Test
+    public void testGetUserVacationTypeWithSortAndSortType() {
+        List<VacationType> vacationTypeList = vacationTypeDao
+                .getUserVacationType("wpetit1", "beginDate", SortType.DESC);
+        assertEquals(1, vacationTypeList.size());
+    }
+
+    @Test
     public void testDeleteVacationType() {
         VacationType vacationType = vacationTypeDao.getVacationTypeById(0);
         vacationTypeDao.delete(vacationType);
@@ -78,7 +86,6 @@ public class VacationTypeDaoImplTest {
         vacationType.setBeginDate(new Date(begin.getMillis()));
         vacationType.setEndDate(new Date(end.getMillis()));
         vacationTypeDao.update(vacationType);
-        vacationTypeDao.update(vacationType);
         VacationType vacationTypeUpdated = vacationTypeDao
                 .getVacationTypeById(0);
         assertEquals(
@@ -91,6 +98,24 @@ public class VacationTypeDaoImplTest {
                 0,
                 Days.daysBetween(end,
                         new Instant(vacationTypeUpdated.getEndDate().getTime()))
+                        .getDays());
+    }
+
+    @Test
+    public void testGetVacationTypeById() {
+        VacationType vacationType = vacationTypeDao.getVacationTypeById(0);
+
+        DateTime begin = new DateTime(2014, 6, 1, 0, 0);
+        DateTime end = new DateTime(2014, 5, 31, 0, 0);
+        assertEquals(
+                0,
+                Days.daysBetween(begin,
+                        new Instant(vacationType.getBeginDate().getTime()))
+                        .getDays());
+        assertEquals(
+                0,
+                Days.daysBetween(end,
+                        new Instant(vacationType.getEndDate().getTime()))
                         .getDays());
     }
 }
