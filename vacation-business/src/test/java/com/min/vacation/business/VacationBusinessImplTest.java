@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import mockit.Expectations;
 import mockit.Injectable;
@@ -18,7 +19,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 import com.min.vacation.business.impl.DayOffBusinessImpl;
 import com.min.vacation.business.impl.VacationBusinessImpl;
 import com.min.vacation.dao.VacationDao;
+import com.min.vacation.dao.VacationTypeDao;
 import com.min.vacation.model.Vacation;
+import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationBusinessImplTest} class.
@@ -34,6 +37,9 @@ public class VacationBusinessImplTest {
     @Injectable
     private VacationDao vacationDao;
 
+    @Injectable
+    private VacationTypeDao vacationTypeDao;
+
     @Test
     public void testSaveVacation() {
         final Vacation vacation = new Vacation();
@@ -44,6 +50,62 @@ public class VacationBusinessImplTest {
                 vacationDao.save(vacation);
             }
         };
+    }
+
+    @Test
+    public void testSaveVacationType() {
+        final VacationType vacationType = new VacationType();
+        vacationBusiness.save(vacationType);
+
+        new Verifications() {
+            {
+                vacationTypeDao.save(vacationType);
+            }
+        };
+    }
+
+    @Test
+    public void testGetVacation() {
+        final Vacation vacation = new Vacation();
+
+        new Expectations() {
+            {
+                vacationDao.getVacationById(2);
+                result = vacation;
+            }
+        };
+
+        assertEquals(vacation, vacationBusiness.getVacation(2));
+    }
+
+    @Test
+    public void testGetVacationByUsernameAndType() {
+        final Vacation vacation = new Vacation();
+        final List<Vacation> vacationList = Arrays.asList(vacation);
+
+        new Expectations() {
+            {
+                vacationDao.getVacationByUsernameAndType("wpetit", 2);
+                result = vacationList;
+            }
+        };
+
+        assertEquals(vacationList,
+                vacationBusiness.getVacationByUsernameAndType("wpetit", 2));
+    }
+
+    @Test
+    public void testVacationTypeById() {
+        final VacationType vacationType = new VacationType();
+
+        new Expectations() {
+            {
+                vacationTypeDao.getVacationTypeById(2);
+                result = vacationType;
+            }
+        };
+
+        assertEquals(vacationType, vacationBusiness.getVacationTypeById(2));
     }
 
     @Test
@@ -90,5 +152,53 @@ public class VacationBusinessImplTest {
 
         assertEquals(0,
                 vacationBusiness.getVacationWorkingDaysCount("wpetit", 0));
+    }
+
+    @Test
+    public void testDeleteVacation() {
+        vacationBusiness.deleteVacation(2);
+        new Verifications() {
+            {
+                vacationDao.delete((Vacation) any);
+            }
+        };
+    }
+
+    @Test
+    public void testDeleteVacationType() {
+        vacationBusiness.deleteVacationType(2);
+        new Verifications() {
+            {
+                vacationDao.deleteVacationByVacationType(2);
+                vacationTypeDao.delete((VacationType) any);
+            }
+        };
+    }
+
+    @Test
+    public void testUpdateVacation() {
+        final Vacation vacation = new Vacation();
+        VacationType vacationType = new VacationType();
+        vacationType.setId(3);
+        vacation.setType(vacationType);
+        vacationBusiness.updateVacation(vacation);
+        new Verifications() {
+            {
+                vacationTypeDao.getVacationTypeById(3);
+                vacationDao.update(vacation);
+            }
+        };
+    }
+
+    @Test
+    public void testUpdateVacationType() {
+        final VacationType vacationType = new VacationType();
+        vacationType.setId(3);
+        vacationBusiness.updateVacationType(vacationType);
+        new Verifications() {
+            {
+                vacationTypeDao.update(vacationType);
+            }
+        };
     }
 }
