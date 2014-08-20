@@ -25,4 +25,10 @@ public class UserBusinessImpl implements UserBusiness {
         return userDao.getUserByUsername(username);
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public void createUser(final User user) {
+        userDao.save(user);
+    }
+
 }

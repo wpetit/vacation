@@ -17,4 +17,12 @@ public interface UserBusiness {
      * @return the user
      */
     User getUserByUsername(String username);
+
+    /**
+     * Create a user.
+     * 
+     * @param user
+     *            the user to create.
+     */
+    void createUser(User user);
 }
