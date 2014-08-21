@@ -12,29 +12,29 @@ import org.springframework.stereotype.Component;
 import com.min.vacation.business.UserBusiness;
 
 /**
- * The {@link UserDetailsService} class. Retrieves the user from its username.
+ * The {@link UserDetailsServiceImpl} class. Retrieves the user from its username.
  * 
  * @author wpetit
  * 
  */
-@Component
-public class UserDetailsService implements
+@Component("userDetailsService")
+public class UserDetailsServiceImpl implements
         org.springframework.security.core.userdetails.UserDetailsService {
 
-    /** The userDao. */
+    /** The userBusiness. */
     @Autowired
     private UserBusiness userBusiness;
 
     /** {@inheritDoc} */
     @Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username) {
         com.min.vacation.model.User user = userBusiness.getUserByUsername(username);
         UserDetails userDetails = null;
-        if (user != null) {
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + username + " has not been found.");
+        } else {
             userDetails = new User(username, user.getPassword(),
                     Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
-        } else {
-            throw new UsernameNotFoundException("User " + username + " has not been found.");
         }
         return userDetails;
     }
