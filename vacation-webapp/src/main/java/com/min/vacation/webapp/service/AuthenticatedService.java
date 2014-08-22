@@ -16,7 +16,7 @@ public class AuthenticatedService {
      */
     public String getAuthenticatedUsername() {
         SecurityContext context = SecurityContextHolder.getContext();
-        return ((org.springframework.security.core.userdetails.User) context
-                .getAuthentication().getPrincipal()).getUsername();
+        return ((org.springframework.security.core.userdetails.User) context.getAuthentication()
+                .getPrincipal()).getUsername();
     }
 }

@@ -28,8 +28,7 @@ import com.min.vacation.model.VacationType;
 public class VacationTypeDaoImpl implements VacationTypeDao {
 
     /** The LOG. */
-    private static final Logger LOG = LoggerFactory
-            .getLogger(VacationTypeDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(VacationTypeDaoImpl.class);
 
     /** The entityManager. */
     @PersistenceContext
@@ -53,8 +52,8 @@ public class VacationTypeDaoImpl implements VacationTypeDao {
 
         TypedQuery<VacationType> query = entityManager.createQuery(
                 "select vt from VacationType vt join vt.user u "
-                        + "where u.username=:username order by vt." + sortField
-                        + " " + sort, VacationType.class);
+                        + "where u.username=:username order by vt." + sortField + " " + sort,
+                VacationType.class);
         query.setParameter("username", username);
         return query.getResultList();
     }
