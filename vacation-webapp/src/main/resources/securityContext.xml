@@ -12,13 +12,34 @@
 	<http pattern="/script/**" security="none" />
 	<http pattern="/images/**" security="none" />
 
-	<http auto-config="true">
+	<http auto-config="true" entry-point-ref="entryPoint">
 		<intercept-url pattern="/**" access="ROLE_USER" />
 		<form-login login-page="/login.html" default-target-url="/index.html"
 			authentication-failure-url="/login.html?error" username-parameter="username"
 			password-parameter="password" />
 		<logout logout-success-url="/login.html?logout" />
 	</http>
+
+	<beans:bean id="entryPoint"
+		class="org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint">
+		<beans:constructor-arg>
+			<beans:map>
+				<beans:entry>
+					<beans:key>
+						<beans:bean class="com.min.vacation.webapp.service.util.ServicesRequestMatcher" />
+					</beans:key>
+					<beans:bean
+						class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
+				</beans:entry>
+			</beans:map>
+		</beans:constructor-arg>
+		<beans:property name="defaultEntryPoint">
+			<beans:bean
+				class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+				<beans:property name="loginFormUrl" value="/login.html" />
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
 
 	<beans:bean id='passwordEncoder'
 		class='org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder' />
