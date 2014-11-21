@@ -1,4 +1,4 @@
-var app = angular.module('vacationApp', [ 'ngRoute', 'ui.bootstrap',
+var app = angular.module('vacationApp', [ 'ngRoute', 'ui.calendar', 'ui.bootstrap',
 		'vacationAppControllers', 'vacationAppFilters', 'toaster' ]);
 
 var vacationAppControllers = angular.module('vacationAppControllers', []);
@@ -24,6 +24,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/vacationTypes/list', {
 		templateUrl : 'partials/vacation-type-list.html',
 		controller : 'VacationTypeCtrl'
+	}).when('/vacation/calendar', {
+		templateUrl : 'partials/vacation-calendar.html',
+		controller : 'VacationCalendarCtrl'
 	}).otherwise({
 		redirectTo : '/vacation/list'
 	});
