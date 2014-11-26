@@ -13,6 +13,8 @@ import com.min.vacation.business.DayOffBusiness;
 import com.min.vacation.business.VacationBusiness;
 import com.min.vacation.dao.VacationDao;
 import com.min.vacation.dao.VacationTypeDao;
+import com.min.vacation.exception.ExceptionCode;
+import com.min.vacation.exception.FunctionalException;
 import com.min.vacation.model.PaginatedModel;
 import com.min.vacation.model.SortType;
 import com.min.vacation.model.Vacation;
@@ -39,11 +41,10 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /** {@inheritDoc} **/
     @Override
-    public int getVacationWorkingDaysCount(final String username,
-            final int vacationTypeId) {
-        List<Vacation> vacationList = vacationDao.getVacationByUsernameAndType(
-                username, vacationTypeId);
-        int nbWorkingDays = 0;
+    public double getVacationWorkingDaysCount(final String username, final int vacationTypeId) {
+        List<Vacation> vacationList = vacationDao.getVacationByUsernameAndType(username,
+                vacationTypeId);
+        double nbWorkingDays = 0;
         for (Vacation vacation : vacationList) {
             nbWorkingDays += getNumberOfWorkingDays(vacation);
         }
@@ -57,8 +58,8 @@ public class VacationBusinessImpl implements VacationBusiness {
      *            the vacation
      * @return the number of working days
      */
-    private int getNumberOfWorkingDays(final Vacation vacation) {
-        int nbWorkingDays = 0;
+    private double getNumberOfWorkingDays(final Vacation vacation) {
+        double nbWorkingDays = 0;
         Calendar startCalendar = Calendar.getInstance();
         startCalendar.setTime(vacation.getFrom());
         Calendar endCalendar = Calendar.getInstance();
@@ -72,6 +73,12 @@ public class VacationBusinessImpl implements VacationBusiness {
             Days daysWithDayOff = Days.daysBetween(start, end);
             nbWorkingDays += daysWithDayOff.getDays();
             nbWorkingDays -= getNumberOfDayOff(startCalendar, lastDay);
+            if (start.getHourOfDay() == 12) {
+                nbWorkingDays -= 0.5;
+            }
+            if (end.getHourOfDay() == 12) {
+                nbWorkingDays -= 0.5;
+            }
         }
         return nbWorkingDays;
     }
@@ -87,8 +94,8 @@ public class VacationBusinessImpl implements VacationBusiness {
      */
     private int getNumberOfDayOff(final Calendar start, final Calendar end) {
         int nbOfDayOff = 0;
-        for (Date date = start.getTime(); !start.after(end); start.add(
-                Calendar.DATE, 1), date = start.getTime()) {
+        for (Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start
+                .getTime()) {
             if (dayOffBusiness.isDayOff(date)) {
                 nbOfDayOff++;
             }
@@ -98,25 +105,40 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /** {@inheritDoc} */
     @Override
-    public PaginatedModel<Vacation> findUserVacations(final String username,
-            final int startIndex, final int pageSize,
-            final String sortAttribute, final SortType sortType) {
-        return vacationDao.findUserVacations(username, startIndex, pageSize,
-                sortAttribute, sortType);
+    public PaginatedModel<Vacation> findUserVacations(final String username, final int startIndex,
+            final int pageSize, final String sortAttribute, final SortType sortType) {
+        return vacationDao.findUserVacations(username, startIndex, pageSize, sortAttribute,
+                sortType);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void save(final Vacation vacation) {
-        vacationDao.save(vacation);
+    public void save(final Vacation vacation) throws FunctionalException {
+        // check vacation period against vacation type period
+        checkVacationPeriod(vacation);
+        // check if the number of days of the vacation + current balance does not exceed
+        // vacation type nb days
+        double nbDaysOfType = getVacationWorkingDaysCount(vacation.getUser().getUsername(),
+                vacation.getType().getId());
+        double nbDaysCurrentVacation = getNumberOfWorkingDays(vacation);
+        double nbDaysAllowed = vacation.getType().getNumberOfDays();
+        double newNbVacationOfType = nbDaysOfType + nbDaysCurrentVacation;
+        if (newNbVacationOfType <= nbDaysAllowed) {
+            vacationDao.save(vacation);
+        } else {
+            throw new FunctionalException(ExceptionCode.TOO_MANY_VACATION_FOR_TYPE.getCode());
+        }
+        // TODO gérer chevauchement avec autre vacation
+
     }
 
     /** {@inheritDoc} */
     @Override
     public List<Vacation> getVacationByUsernameAndType(final String username,
             final int vacationTypeId) {
-        return vacationDao.getVacationByUsernameAndType(username,
-                vacationTypeId);
+        return vacationDao.getVacationByUsernameAndType(username, vacationTypeId);
     }
 
     /** {@inheritDoc} */
@@ -129,8 +151,7 @@ public class VacationBusinessImpl implements VacationBusiness {
     @Override
     public List<VacationType> getUserVacationType(final String username,
             final String sortAttribute, final SortType sortType) {
-        return vacationTypeDao.getUserVacationType(username, sortAttribute,
-                sortType);
+        return vacationTypeDao.getUserVacationType(username, sortAttribute, sortType);
     }
 
     /** {@inheritDoc} */
@@ -160,10 +181,11 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /** {@inheritDoc} **/
     @Override
-    public void updateVacation(final Vacation vacation) {
-        VacationType vacationType = vacationTypeDao
-                .getVacationTypeById(vacation.getType().getId());
+    public void updateVacation(final Vacation vacation) throws FunctionalException {
+        VacationType vacationType = vacationTypeDao.getVacationTypeById(vacation.getType().getId());
         vacation.setType(vacationType);
+        checkVacationPeriod(vacation);
+        // TODO check vacation number before updating
         vacationDao.update(vacation);
     }
 
@@ -173,4 +195,22 @@ public class VacationBusinessImpl implements VacationBusiness {
         Vacation vacation = getVacation(id);
         vacationDao.delete(vacation);
     }
+
+    /**
+     * Check vacation period against vacation type period
+     * 
+     * @param vacation
+     *            the vacation to check
+     * @throws FunctionalException
+     *             if the period is not included in vacation type period
+     */
+    private void checkVacationPeriod(final Vacation vacation) throws FunctionalException {
+        if (vacation.getFrom().before(vacation.getType().getBeginDate())
+                || vacation.getTo().after(vacation.getType().getEndDate())) {
+            throw new FunctionalException(
+                    ExceptionCode.VACATION_PERIOD_NOT_IN_TYPE_PERIOD.getCode());
+
+        }
+    }
+
 }

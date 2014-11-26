@@ -17,8 +17,8 @@
 					<tbody>
 						<tr ng-repeat="model in modelList">
 							<td>{{model.type.type}}</td>
-							<td>{{model.from | date}}</td>
-							<td>{{model.to | date}}</td>
+							<td>{{model.from | date}}&nbsp;{{model.from | fromDateMorningAfternoon}}</td>
+							<td>{{model.to | date}}&nbsp;{{model.to | toDateMorningAfternoon}}</td>
 							<td class="col-xs-1"><button type="button" class="btn btn-default btn-xs">
                                 <span ng-click="goToUpdateVacation(model.id)" class="glyphicon glyphicon-pencil"></span>
                             </button>
@@ -45,7 +45,7 @@
 	</div>
 	<div class="col-md-3">
 		<fieldset>
-			<legend>Balances</legend>
+			<legend class="text-center">Balances</legend>
 			<div ng-repeat="numberOfVacation in numberOfVacations">
 				{{numberOfVacation.vacationTypeName}}:
 				<progressbar class="progress active" value="numberOfVacation.count"

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import com.min.vacation.business.UserBusiness;
 import com.min.vacation.business.VacationBusiness;
+import com.min.vacation.exception.FunctionalException;
 import com.min.vacation.model.PaginatedModel;
 import com.min.vacation.model.User;
 import com.min.vacation.model.Vacation;
@@ -90,10 +91,13 @@ public class VacationService extends AuthenticatedService {
      * 
      * @param vacation
      *            the vacation
+     * @throws FunctionalException
+     *             If the number of vacation exceeds the number for vacation type. If the vacation
+     *             period is not included in type period
      */
     @POST
     @Path("{id}")
-    public void updateVacation(final Vacation vacation) {
+    public void updateVacation(final Vacation vacation) throws FunctionalException {
         User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
         vacation.setUser(user);
         vacationBusiness.updateVacation(vacation);
@@ -134,10 +138,13 @@ public class VacationService extends AuthenticatedService {
      *            the vacation
      * @param vacationTypeId
      *            the vacationType id
+     * @throws FunctionalException
+     *             If the number of vacation exceeds the number for vacation type. If the vacation
+     *             period is not included in type period
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createVacation(final Vacation vacation) {
+    public void createVacation(final Vacation vacation) throws FunctionalException {
         LOG.debug("Creating vacation : from {} to {} with type : {}", vacation.getFrom(),
                 vacation.getTo(), vacation.getType().getId());
         User user = userBusiness.getUserByUsername(getAuthenticatedUsername());
@@ -178,7 +185,7 @@ public class VacationService extends AuthenticatedService {
     @GET
     @Path("count")
     @Produces(MediaType.APPLICATION_JSON)
-    public int getNumberOfVacationsByType(@QueryParam("typeId") final int typeId) {
+    public double getNumberOfVacationsByType(@QueryParam("typeId") final int typeId) {
         LOG.debug("Getting number of vacations for type id : {}", typeId);
         return vacationBusiness.getVacationWorkingDaysCount(getAuthenticatedUsername(), typeId);
     }

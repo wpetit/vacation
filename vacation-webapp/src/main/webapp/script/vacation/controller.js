@@ -10,6 +10,8 @@ vacationAppControllers
 					$scope.from = new Date();
 					$scope.to = new Date();
 					$scope.dateFormat = 'dd-MM-yyyy';
+					$scope.fromMorning=true;
+					$scope.toMorning=false;
 					// paging
 					$scope.pagingOptions = {
 						pageSize : 5,
@@ -79,14 +81,37 @@ vacationAppControllers
 						vacationService.get(id).success(function(data) {
 							$scope.id = data.id;
 							$scope.from = data.from;
+							$scope.fromMorning = (new Date(data.from).getHours() == 0);
 							$scope.to = data.to;
+							$scope.toMorning = (new Date(data.to).getHours() == 12);
 							$scope.typeId = data.type.id;
 						});
 					};
 
 					// Save the vacation.
 					$scope.save = function() {
-						vacationService.save($scope.from, $scope.to,
+						var fromWithTime = $scope.from;
+						if($scope.fromMorning) {
+							fromWithTime.setHours(0);
+							fromWithTime.setMinutes(0);
+							fromWithTime.setSeconds(1);
+						} else {
+							fromWithTime.setHours(12);
+							fromWithTime.setMinutes(0);
+							fromWithTime.setSeconds(0);
+						}
+						
+						var toWithTime = $scope.to;
+						if($scope.toMorning) {
+							toWithTime.setHours(12);
+							toWithTime.setMinutes(0);
+							toWithTime.setSeconds(0);
+						} else {
+							toWithTime.setHours(23);
+							toWithTime.setMinutes(59);
+							toWithTime.setSeconds(58);
+						}
+						vacationService.save(fromWithTime, toWithTime,
 								$scope.typeId).success(
 								function(data) {
 									$scope.from = null;
@@ -98,8 +123,30 @@ vacationAppControllers
 
 					// Update the vacation.
 					$scope.update = function() {
-						vacationService.update($scope.id, $scope.from,
-								$scope.to, $scope.typeId).success(
+						var fromWithTime = $scope.from;
+						if($scope.fromMorning) {
+							fromWithTime.setHours(0);
+							fromWithTime.setMinutes(0);
+							fromWithTime.setSeconds(1);
+						} else {
+							fromWithTime.setHours(12);
+							fromWithTime.setMinutes(0);
+							fromWithTime.setSeconds(0);
+						}
+						
+						var toWithTime = $scope.to;
+						if($scope.toMorning) {
+							toWithTime.setHours(12);
+							toWithTime.setMinutes(0);
+							toWithTime.setSeconds(0);
+						} else {
+							toWithTime.setHours(23);
+							toWithTime.setMinutes(59);
+							toWithTime.setSeconds(58);
+						}
+						
+						vacationService.update($scope.id, fromWithTime,
+								toWithTime, $scope.typeId).success(
 								function(data) {
 									$location.path('vacation/list');
 									toaster.pop('success',

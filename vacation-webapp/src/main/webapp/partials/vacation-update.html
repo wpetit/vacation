@@ -3,7 +3,7 @@
 		<legend>Modify vacation</legend>
 		<form name="updateVacationForm" class="form-horizontal">
 			<div class="form-group">
-				<label class="col-md-5 control-label" for="from">From:</label>
+				<label class="col-md-4 control-label" for="from">From:</label>
 				<div class="col-md-2">
 					<div class="input-group">
 						<input type="text" class="form-control"
@@ -19,9 +19,18 @@
 						</span>
 					</div>
 				</div>
+				<div class="col-md-3">
+					<label class="radio-inline"> <input type="radio"
+						name="fromTime" id="fromMorning" ng-model="fromMorning" ng-value="true">
+						Morning
+					</label> <label class="radio-inline"> <input type="radio"
+						name="fromTime" id="notFromMorning" ng-model="fromMorning" ng-value="false">
+						Afternoon
+					</label>
+				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-md-5 control-label" for="to">To:</label>
+				<label class="col-md-4 control-label" for="to">To:</label>
 				<div class="col-md-2">
 					<div class="input-group">
 						<input type="text" class="form-control"
@@ -36,6 +45,15 @@
 							</button>
 						</span>
 					</div>
+				</div>
+				<div class="col-md-3">
+					<label class="radio-inline"> <input type="radio"
+						name="toTime" id="toMorning" ng-model="toMorning" ng-value="true">
+						Midday
+					</label> <label class="radio-inline"> <input type="radio"
+						name="toTime" id="toMorning" ng-model="toMorning" ng-value="false">
+						Evening
+					</label>
 				</div>
 			</div>
 			<div class="form-group">

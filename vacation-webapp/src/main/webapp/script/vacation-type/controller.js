@@ -19,9 +19,18 @@ vacationAppControllers
 
 					// Save the vacation type.
 					$scope.save = function() {
+						var beginDateWithTime = $scope.beginDate;
+						beginDateWithTime.setHours(0);
+						beginDateWithTime.setMinutes(0);
+						beginDateWithTime.setSeconds(0);
+						var endDateWithTime = $scope.endDate;
+						endDateWithTime.setHours(23);
+						endDateWithTime.setMinutes(59);
+						endDateWithTime.setSeconds(59);
+							
 						vacationTypeService
 								.saveVacationType($scope.typeName,
-										$scope.beginDate, $scope.endDate,
+										beginDateWithTime, endDateWithTime,
 										$scope.numberOfDays)
 								.success(
 										function(data) {
@@ -64,9 +73,18 @@ vacationAppControllers
 
 					// Update vacation type.
 					$scope.update = function() {
+						var beginDateWithTime = $scope.beginDate;
+						beginDateWithTime.setHours(0);
+						beginDateWithTime.setMinutes(0);
+						beginDateWithTime.setSeconds(0);
+						var endDateWithTime = $scope.endDate;
+						endDateWithTime.setHours(23);
+						endDateWithTime.setMinutes(59);
+						endDateWithTime.setSeconds(59);
+						
 						vacationTypeService
 								.updateVacationType($scope.id, $scope.typeName,
-										$scope.beginDate, $scope.endDate,
+										beginDateWithTime, endDateWithTime,
 										$scope.numberOfDays)
 								.success(
 										function(data) {

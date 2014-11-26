@@ -14,3 +14,29 @@ vacationAppFilters.filter('sortIconFilter', function() {
 		return icon;
 	};
 });
+
+vacationAppFilters.filter('fromDateMorningAfternoon', function() {
+	return function(timestamp) {
+		var date = new Date(timestamp);
+		var result = "";
+		if (date.getHours() < 12) {
+			result = "Morning";
+		} else {
+			result = "Afternoon";
+		}
+		return result;
+	};
+});
+
+vacationAppFilters.filter('toDateMorningAfternoon', function() {
+	return function(timestamp) {
+		var date = new Date(timestamp);
+		var result = "";
+		if (date.getHours() < 13) {
+			result = "Midday";
+		} else {
+			result = "Evening";
+		}
+		return result;
+	};
+});

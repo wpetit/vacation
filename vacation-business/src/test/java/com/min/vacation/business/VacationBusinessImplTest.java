@@ -1,6 +1,7 @@
 package com.min.vacation.business;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -20,6 +21,7 @@ import com.min.vacation.business.impl.DayOffBusinessImpl;
 import com.min.vacation.business.impl.VacationBusinessImpl;
 import com.min.vacation.dao.VacationDao;
 import com.min.vacation.dao.VacationTypeDao;
+import com.min.vacation.exception.FunctionalException;
 import com.min.vacation.model.Vacation;
 import com.min.vacation.model.VacationType;
 
@@ -40,16 +42,22 @@ public class VacationBusinessImplTest {
     @Injectable
     private VacationTypeDao vacationTypeDao;
 
+    // TODO add test in case the nb days of the vacation exceeds the vacation type nb days
+    // TODO gérer en dehors des dates de vacation type
     @Test
     public void testSaveVacation() {
         final Vacation vacation = new Vacation();
-        vacationBusiness.save(vacation);
+        try {
+            vacationBusiness.save(vacation);
 
-        new Verifications() {
-            {
-                vacationDao.save(vacation);
-            }
-        };
+            new Verifications() {
+                {
+                    vacationDao.save(vacation);
+                }
+            };
+        } catch (FunctionalException e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -90,8 +98,7 @@ public class VacationBusinessImplTest {
             }
         };
 
-        assertEquals(vacationList,
-                vacationBusiness.getVacationByUsernameAndType("wpetit", 2));
+        assertEquals(vacationList, vacationBusiness.getVacationByUsernameAndType("wpetit", 2));
     }
 
     @Test
@@ -110,8 +117,7 @@ public class VacationBusinessImplTest {
 
     @Test
     public void testGetVacationWorkingDaysCount() {
-        ReflectionTestUtils.setField(vacationBusiness, "dayOffBusiness",
-                new DayOffBusinessImpl());
+        ReflectionTestUtils.setField(vacationBusiness, "dayOffBusiness", new DayOffBusinessImpl());
         final Vacation vacation = new Vacation();
         Calendar from = Calendar.getInstance();
         from.set(2014, 6, 13);
@@ -127,14 +133,12 @@ public class VacationBusinessImplTest {
             }
         };
 
-        assertEquals(19,
-                vacationBusiness.getVacationWorkingDaysCount("wpetit", 0));
+        assertEquals(19, vacationBusiness.getVacationWorkingDaysCount("wpetit", 0));
     }
 
     @Test
     public void testGetVacationWorkingDaysCountWithStartAfterEnd() {
-        ReflectionTestUtils.setField(vacationBusiness, "dayOffBusiness",
-                new DayOffBusinessImpl());
+        ReflectionTestUtils.setField(vacationBusiness, "dayOffBusiness", new DayOffBusinessImpl());
         final Vacation vacation = new Vacation();
         Calendar from = Calendar.getInstance();
         from.set(2014, 5, 25);
@@ -150,8 +154,7 @@ public class VacationBusinessImplTest {
             }
         };
 
-        assertEquals(0,
-                vacationBusiness.getVacationWorkingDaysCount("wpetit", 0));
+        assertEquals(0, vacationBusiness.getVacationWorkingDaysCount("wpetit", 0));
     }
 
     @Test
@@ -175,19 +178,25 @@ public class VacationBusinessImplTest {
         };
     }
 
+    // TODO add test in case the nb days of the vacation exceeds the vacation type nb days
+    // TODO gérer en dehors des dates de vacation type
     @Test
     public void testUpdateVacation() {
-        final Vacation vacation = new Vacation();
-        VacationType vacationType = new VacationType();
-        vacationType.setId(3);
-        vacation.setType(vacationType);
-        vacationBusiness.updateVacation(vacation);
-        new Verifications() {
-            {
-                vacationTypeDao.getVacationTypeById(3);
-                vacationDao.update(vacation);
-            }
-        };
+        try {
+            final Vacation vacation = new Vacation();
+            VacationType vacationType = new VacationType();
+            vacationType.setId(3);
+            vacation.setType(vacationType);
+            vacationBusiness.updateVacation(vacation);
+            new Verifications() {
+                {
+                    vacationTypeDao.getVacationTypeById(3);
+                    vacationDao.update(vacation);
+                }
+            };
+        } catch (FunctionalException e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test

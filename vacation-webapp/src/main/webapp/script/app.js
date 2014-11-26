@@ -1,5 +1,5 @@
 var app = angular.module('vacationApp', [ 'ngRoute', 'ui.calendar', 'ui.bootstrap',
-		'vacationAppControllers', 'vacationAppFilters', 'toaster' ]);
+		'vacationAppControllers', 'vacationAppFilters', 'toaster', 'pascalprecht.translate' ]);
 
 var vacationAppControllers = angular.module('vacationAppControllers', []);
 
@@ -31,3 +31,5 @@ app.config([ '$routeProvider', function($routeProvider) {
 		redirectTo : '/vacation/list'
 	});
 } ]);
+
+
