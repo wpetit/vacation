@@ -22,7 +22,7 @@ import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationBusinessImpl} class.
- * 
+ *
  * @author wpetit
  */
 @Component
@@ -53,7 +53,7 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /**
      * Return the number of working days during vacation.
-     * 
+     *
      * @param vacation
      *            the vacation
      * @return the number of working days
@@ -85,7 +85,7 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /**
      * Return the number of day off in the given period.
-     * 
+     *
      * @param start
      *            the period start
      * @param end
@@ -118,6 +118,8 @@ public class VacationBusinessImpl implements VacationBusiness {
     public void save(final Vacation vacation) throws FunctionalException {
         // check vacation period against vacation type period
         checkVacationPeriod(vacation);
+        // check vacation is not on another one
+        checkVacationNotOnAnother(vacation);
         // check if the number of days of the vacation + current balance does not exceed
         // vacation type nb days
         double nbDaysOfType = getVacationWorkingDaysCount(vacation.getUser().getUsername(),
@@ -130,8 +132,6 @@ public class VacationBusinessImpl implements VacationBusiness {
         } else {
             throw new FunctionalException(ExceptionCode.TOO_MANY_VACATION_FOR_TYPE.getCode());
         }
-        // TODO gérer chevauchement avec autre vacation
-
     }
 
     /** {@inheritDoc} */
@@ -181,12 +181,34 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /** {@inheritDoc} **/
     @Override
-    public void updateVacation(final Vacation vacation) throws FunctionalException {
-        VacationType vacationType = vacationTypeDao.getVacationTypeById(vacation.getType().getId());
-        vacation.setType(vacationType);
-        checkVacationPeriod(vacation);
+    public void updateVacation(final Vacation vacationToUpdate) throws FunctionalException {
+        VacationType vacationType = vacationTypeDao.getVacationTypeById(vacationToUpdate.getType()
+                .getId());
+        vacationToUpdate.setType(vacationType);
+        checkVacationPeriod(vacationToUpdate);
+
+        // check vacation not on another one
+        checkVacationNotOnAnother(vacationToUpdate);
+
+        List<Vacation> vacationList = vacationDao.getVacationByUsernameAndType(vacationToUpdate
+                .getUser().getUsername(), vacationToUpdate.getType().getId());
+        double nbWorkingDaysInVacationType = 0;
+        for (Vacation vacation : vacationList) {
+            if (vacation.getId() != vacationToUpdate.getId()) {
+                nbWorkingDaysInVacationType += getNumberOfWorkingDays(vacation);
+            }
+        }
+
+        double nbWorkingDaysInVacationToUpdate = getNumberOfWorkingDays(vacationToUpdate);
+
         // TODO check vacation number before updating
-        vacationDao.update(vacation);
+        if (nbWorkingDaysInVacationType + nbWorkingDaysInVacationToUpdate > vacationType
+                .getNumberOfDays()) {
+            throw new FunctionalException(ExceptionCode.TOO_MANY_VACATION_FOR_TYPE.getCode());
+        } else {
+            vacationDao.update(vacationToUpdate);
+        }
+
     }
 
     /** {@inheritDoc} **/
@@ -198,7 +220,7 @@ public class VacationBusinessImpl implements VacationBusiness {
 
     /**
      * Check vacation period against vacation type period
-     * 
+     *
      * @param vacation
      *            the vacation to check
      * @throws FunctionalException
@@ -211,6 +233,36 @@ public class VacationBusinessImpl implements VacationBusiness {
                     ExceptionCode.VACATION_PERIOD_NOT_IN_TYPE_PERIOD.getCode());
 
         }
+    }
+
+    /**
+     * Check the given vacation is not on another vacation of the same type.
+     * 
+     * @param vacation
+     *            the vacation to check
+     */
+    private void checkVacationNotOnAnother(final Vacation vacation) throws FunctionalException {
+        boolean isOnAnother = false;
+        List<Vacation> vacationsOfType = getVacationByUsernameAndType(vacation.getUser()
+                .getUsername(), vacation.getType().getId());
+        for (Vacation vacationsSaved : vacationsOfType) {
+
+            if (vacationsSaved.getId() != vacation.getId()
+                    && (between(vacation.getFrom(), vacationsSaved.getFrom(),
+                            vacationsSaved.getTo()) || between(vacation.getTo(),
+                            vacationsSaved.getFrom(), vacationsSaved.getTo()))) {
+                isOnAnother = true;
+                break;
+            }
+        }
+        if (isOnAnother) {
+            throw new FunctionalException(
+                    ExceptionCode.VACATION_ALREADY_EXISTS_IN_THIS_PERIOD_FOR_THIS_TYPE.getCode());
+        }
+    }
+
+    private boolean between(final Date date, final Date from, final Date to) {
+        return date.after(from) && date.before(to);
     }
 
 }

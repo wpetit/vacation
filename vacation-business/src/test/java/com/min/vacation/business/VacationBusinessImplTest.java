@@ -27,7 +27,7 @@ import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationBusinessImplTest} class.
- * 
+ *
  * @author wpetit
  */
 @RunWith(JMockit.class)

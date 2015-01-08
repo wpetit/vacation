@@ -10,13 +10,13 @@ import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationBusiness} interface.
- * 
+ *
  * @author wpetit
  */
 public interface VacationBusiness {
     /**
      * Return the number of vacation days not worked.
-     * 
+     *
      * @param username
      *            the username
      * @param vacationTypeId
@@ -28,7 +28,7 @@ public interface VacationBusiness {
     /**
      * Return <pageSize> vacation from the startIndex with the number of results and sort specified
      * for the given user.
-     * 
+     *
      * @param username
      *            user the vacations belongs to.
      * @param startIndex
@@ -46,7 +46,7 @@ public interface VacationBusiness {
 
     /**
      * Save the given vacation.
-     * 
+     *
      * @param vacation
      *            the vacation to save
      * @throws FunctionalException
@@ -57,7 +57,7 @@ public interface VacationBusiness {
 
     /**
      * Return the vacations with the given user and the given vacation type.
-     * 
+     *
      * @param username
      *            the username
      * @param vacationTypeId
@@ -68,7 +68,7 @@ public interface VacationBusiness {
 
     /**
      * Save the given {@link VacationType}.
-     * 
+     *
      * @param vacationType
      *            the vacationType to save
      */
@@ -76,7 +76,7 @@ public interface VacationBusiness {
 
     /**
      * Retrieve the user vacation types.
-     * 
+     *
      * @param username
      *            the user username
      * @param sortAttribute
@@ -89,7 +89,7 @@ public interface VacationBusiness {
 
     /**
      * Retrieve a vacationType by its id.
-     * 
+     *
      * @param id
      *            the id
      * @return the vacationType
@@ -98,7 +98,7 @@ public interface VacationBusiness {
 
     /**
      * Update the given vacationType.
-     * 
+     *
      * @param vacationType
      *            the vacationType to update
      */
@@ -106,7 +106,7 @@ public interface VacationBusiness {
 
     /**
      * Delete the vacationType with the given id. Delete all vacation of the type.
-     * 
+     *
      * @param id
      *            the vacation type id
      */
@@ -114,7 +114,7 @@ public interface VacationBusiness {
 
     /**
      * Get the vacation with the given id.
-     * 
+     *
      * @param id
      *            the vacation id
      * @return the vacation or null if not found
@@ -123,7 +123,7 @@ public interface VacationBusiness {
 
     /**
      * Update the given vacation.
-     * 
+     *
      * @param vacation
      *            the vacation to update.
      * @throws FunctionalException
@@ -134,7 +134,7 @@ public interface VacationBusiness {
 
     /**
      * Delete the vacation with the id given.
-     * 
+     *
      * @param id
      *            the vacation id
      */

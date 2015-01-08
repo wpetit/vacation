@@ -28,7 +28,7 @@ import com.min.vacation.model.VacationType;
 
 /**
  * The {@link VacationService} class.
- * 
+ *
  * @author wpetit
  */
 @Component
@@ -48,7 +48,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Return user connected vacations.
-     * 
+     *
      * @param startIndex
      *            the first vacation index to retrieve.
      * @param pageSize
@@ -75,7 +75,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Find the vacation with the given id.
-     * 
+     *
      * @param id
      *            the vacation id
      * @return the vacation found
@@ -88,7 +88,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Update the given vacation.
-     * 
+     *
      * @param vacation
      *            the vacation
      * @throws FunctionalException
@@ -105,7 +105,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Delete the vacation with the id given.
-     * 
+     *
      * @param id
      *            the vacation id
      */
@@ -117,7 +117,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Create a vacation type for the user connected.
-     * 
+     *
      * @param vacationType
      *            the vacation type
      */
@@ -133,7 +133,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Create a vacation for the user connected.
-     * 
+     *
      * @param vacation
      *            the vacation
      * @param vacationTypeId
@@ -157,7 +157,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Return users vacation types.
-     * 
+     *
      * @param sortAttribute
      *            the attribute to sort on.
      * @param sortType
@@ -177,7 +177,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Returns the number of vacations for the given type.
-     * 
+     *
      * @param typeId
      *            the type id
      * @return the number of vacations
@@ -192,7 +192,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Get the vacation type with the given id.
-     * 
+     *
      * @param id
      *            the vacation type id.
      * @return the vacation type found or null if not found.
@@ -207,7 +207,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Update the given vacationType.
-     * 
+     *
      * @param vacationType
      *            the vacation type to update
      */
@@ -222,7 +222,7 @@ public class VacationService extends AuthenticatedService {
 
     /**
      * Delete the vacationType with the given id.
-     * 
+     *
      * @param id
      *            the id
      */
