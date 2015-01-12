@@ -1,13 +1,13 @@
 <div>
 	<div class="col-md-9">
 		<fieldset>
-			<legend class="text-center">Calendar</legend>
+			<legend>Calendar</legend>
 			<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
 		</fieldset>
 	</div>
 	<div class="col-md-3">
 		<fieldset>
-			<legend class="text-center">Balances</legend>
+			<legend>Balances</legend>
 			<div ng-repeat="numberOfVacation in numberOfVacations">
 				{{numberOfVacation.vacationTypeName}}:
 				<progressbar class="progress active" value="numberOfVacation.count"

@@ -1,7 +1,7 @@
 <div>
 	<div class="col-md-9">
 		<fieldset>
-			<legend class="text-center">Vacation types</legend>
+			<legend>Vacation types</legend>
 			<!-- Specify a JavaScript controller script that binds Javascript variables to the HTML.-->
 			<table class="table table-striped table-condensed table-hover">
 				<thead>
@@ -47,7 +47,7 @@
 	</div>
 	<div class="col-md-3">
 		<fieldset>
-			<legend class="text-center">Balances</legend>
+			<legend>Balances</legend>
 			<div ng-repeat="numberOfVacation in numberOfVacations">
 				{{numberOfVacation.vacationTypeName}}:
 				<progressbar class="progress active" value="numberOfVacation.count"

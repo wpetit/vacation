@@ -1,16 +1,18 @@
 <div>
 	<fieldset>
-		<legend class="text-center">Create vacation type</legend>
+		<legend>Create vacation type</legend>
 		<form name="createVacationTypeForm" class="form-horizontal">
 			<div class="form-group">
 				<label class="col-md-5 control-label" for="name">Name:</label>
-				<div class="col-md-3 has-feedback" ng-class="{'has-error': createVacationTypeForm.typeName.$invalid && createVacationTypeForm.typeName.$dirty}" >
+				<div class="col-md-3 has-feedback"
+					ng-class="{'has-error': createVacationTypeForm.typeName.$invalid && createVacationTypeForm.typeName.$dirty}">
 					<!-- use $parent because popover create a child scope  -->
-					<input id="name" name="typeName" ng-model="$parent.typeName" type="text"
-						class="form-control" required
+					<input id="name" name="typeName" ng-model="$parent.typeName"
+						type="text" class="form-control" required
 						popover="Enter a name for the vacation type."
-						popover-placement="right" popover-trigger="focus">
-						<span class="glyphicon glyphicon-ban-circle form-control-feedback" ng-show="createVacationTypeForm.typeName.$error.required && createVacationTypeForm.typeName.$dirty"></span>
+						popover-placement="right" popover-trigger="focus"> <span
+						class="glyphicon glyphicon-ban-circle form-control-feedback"
+						ng-show="createVacationTypeForm.typeName.$error.required && createVacationTypeForm.typeName.$dirty"></span>
 				</div>
 			</div>
 
@@ -54,22 +56,23 @@
 			<div class="form-group">
 				<label class="col-md-5 control-label" for="numberOfDays">Number
 					of days:</label>
-				<div class="col-md-3 has-feedback" ng-class="{'has-error': createVacationTypeForm.numberOfDays.$invalid && createVacationTypeForm.numberOfDays.$dirty}">
+				<div class="col-md-3 has-feedback"
+					ng-class="{'has-error': createVacationTypeForm.numberOfDays.$invalid && createVacationTypeForm.numberOfDays.$dirty}">
 					<!-- use $parent because popover create a child scope -->
-					<input id="numberOfDays" name="numberOfDays" ng-model="$parent.numberOfDays"
-						type="number" class="form-control input-md" min="1" max="366"
-						required popover="Enter the number of days for the vacation type."
-						popover-placement="right" popover-trigger="focus">
-					<span class="glyphicon glyphicon-ban-circle form-control-feedback" ng-show="createVacationTypeForm.numberOfDays.$invalid && createVacationTypeForm.numberOfDays.$dirty"></span>
+					<input id="numberOfDays" name="numberOfDays"
+						ng-model="$parent.numberOfDays" type="number"
+						class="form-control input-md" min="1" max="366" required
+						popover="Enter the number of days for the vacation type."
+						popover-placement="right" popover-trigger="focus"> <span
+						class="glyphicon glyphicon-ban-circle form-control-feedback"
+						ng-show="createVacationTypeForm.numberOfDays.$invalid && createVacationTypeForm.numberOfDays.$dirty"></span>
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="text-center">
-					<button id="create" name="create" class="btn btn-primary"
-						ng-click="save()" ng-disabled="createVacationTypeForm.$invalid">Create</button>
-					<button id="cancel" name="cancel" class="btn btn-default"
-						ng-click="cancel()">Cancel</button>
-				</div>
+			<div class="form-group text-center">
+				<button id="create" name="create" class="btn btn-primary"
+					ng-click="save()" ng-disabled="createVacationTypeForm.$invalid">Create</button>
+				<button id="cancel" name="cancel" class="btn btn-default"
+					ng-click="cancel()">Cancel</button>
 			</div>
 		</form>
 	</fieldset>
