@@ -3,8 +3,10 @@ package com.min.vacation.business;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import mockit.Expectations;
@@ -22,6 +24,7 @@ import com.min.vacation.business.impl.VacationBusinessImpl;
 import com.min.vacation.dao.VacationDao;
 import com.min.vacation.dao.VacationTypeDao;
 import com.min.vacation.exception.FunctionalException;
+import com.min.vacation.model.User;
 import com.min.vacation.model.Vacation;
 import com.min.vacation.model.VacationType;
 
@@ -42,11 +45,25 @@ public class VacationBusinessImplTest {
     @Injectable
     private VacationTypeDao vacationTypeDao;
 
+    @Injectable
+    private DayOffBusiness dayOffBusiness;
+
     // TODO add test in case the nb days of the vacation exceeds the vacation type nb days
     // TODO gérer en dehors des dates de vacation type
     @Test
     public void testSaveVacation() {
         final Vacation vacation = new Vacation();
+        final VacationType vacationType = new VacationType();
+        vacationType.setBeginDate(new Date());
+        vacationType.setEndDate(new Date());
+        vacationType.setId(3);
+        vacationType.setNumberOfDays(3);
+        vacation.setType(vacationType);
+        vacation.setFrom(new Date());
+        vacation.setTo(new Date());
+        User user = new User();
+        user.setUsername("wpetit");
+        vacation.setUser(user);
         try {
             vacationBusiness.save(vacation);
 
@@ -133,7 +150,7 @@ public class VacationBusinessImplTest {
             }
         };
 
-        assertEquals(19, vacationBusiness.getVacationWorkingDaysCount("wpetit", 0));
+        assertEquals(19, vacationBusiness.getVacationWorkingDaysCount("wpetit", 0), 0);
     }
 
     @Test
@@ -154,7 +171,7 @@ public class VacationBusinessImplTest {
             }
         };
 
-        assertEquals(0, vacationBusiness.getVacationWorkingDaysCount("wpetit", 0));
+        assertEquals(0, vacationBusiness.getVacationWorkingDaysCount("wpetit", 0), 0);
     }
 
     @Test
@@ -184,16 +201,30 @@ public class VacationBusinessImplTest {
     public void testUpdateVacation() {
         try {
             final Vacation vacation = new Vacation();
-            VacationType vacationType = new VacationType();
+            final VacationType vacationType = new VacationType();
+            vacationType.setBeginDate(new Date());
+            vacationType.setEndDate(new Date());
             vacationType.setId(3);
+            vacationType.setNumberOfDays(3);
             vacation.setType(vacationType);
-            vacationBusiness.updateVacation(vacation);
-            new Verifications() {
+            vacation.setFrom(new Date());
+            vacation.setTo(new Date());
+            User user = new User();
+            user.setUsername("wpetit");
+            vacation.setUser(user);
+
+            new Expectations() {
                 {
                     vacationTypeDao.getVacationTypeById(3);
+                    result = vacationType;
+                    vacationDao.getVacationByUsernameAndType("wpetit", 3);
+                    result = new ArrayList<Vacation>();
+                    times = 2;
                     vacationDao.update(vacation);
                 }
             };
+
+            vacationBusiness.updateVacation(vacation);
         } catch (FunctionalException e) {
             fail(e.getMessage());
         }
