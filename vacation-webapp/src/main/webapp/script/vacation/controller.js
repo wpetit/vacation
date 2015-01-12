@@ -79,6 +79,7 @@ vacationAppControllers
 					// Get the vacation given.
 					$scope.getVacation = function(id) {
 						vacationService.get(id).success(function(data) {
+							$scope.minDate = data.from;
 							$scope.id = data.id;
 							$scope.from = data.from;
 							$scope.fromMorning = (new Date(data.from).getHours() == 0);
