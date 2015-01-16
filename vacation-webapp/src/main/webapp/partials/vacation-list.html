@@ -1,5 +1,5 @@
 <div>
-	<div class="col-md-9">
+	<div class="col-md-8 box">
 		<fieldset>
 			<legend>Vacations confirmed</legend>
 			<div>
@@ -19,7 +19,7 @@
 							<td>{{model.type.type}}</td>
 							<td>{{model.from | date}}&nbsp;{{model.from | fromDateMorningAfternoon}}</td>
 							<td>{{model.to | date}}&nbsp;{{model.to | toDateMorningAfternoon}}</td>
-							<td class="col-xs-1"><button type="button" class="btn btn-default btn-xs">
+							<td style="text-align: right"><button type="button" class="btn btn-default btn-xs">
                                 <span ng-click="goToUpdateVacation(model.id)" class="glyphicon glyphicon-pencil"></span>
                             </button>
                             <button type="button" class="btn btn-default btn-xs">
@@ -43,7 +43,7 @@
 			</div>
 		</fieldset>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-3 col-md-offset-1 box">
 		<fieldset>
 			<legend>Balances</legend>
 			<div ng-repeat="numberOfVacation in numberOfVacations">

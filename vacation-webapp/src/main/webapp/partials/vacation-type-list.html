@@ -1,5 +1,5 @@
 <div>
-	<div class="col-md-9">
+	<div class="col-md-8 box">
 		<fieldset>
 			<legend>Vacation types</legend>
 			<!-- Specify a JavaScript controller script that binds Javascript variables to the HTML.-->
@@ -30,7 +30,7 @@
 						<td>{{model.beginDate | date}}</td>
 						<td>{{model.endDate | date}}</td>
 						<td>{{model.numberOfDays}}</td>
-						<td class="col-xs-1"><button type="button" class="btn btn-default btn-xs">
+						<td style="text-align: right"><button type="button" class="btn btn-default btn-xs">
 								<span ng-click="goToUpdateVacationType(model.id)" class="glyphicon glyphicon-pencil"></span>
 							</button>
 							<button type="button" class="btn btn-default btn-xs">
@@ -45,7 +45,7 @@
 			</div>
 		</fieldset>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-3 col-md-offset-1 box">
 		<fieldset>
 			<legend>Balances</legend>
 			<div ng-repeat="numberOfVacation in numberOfVacations">
